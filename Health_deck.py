@@ -5,78 +5,69 @@ import numpy as np
 
 st.title('HealthAura: Pro Sports Tracker')
 
-# Define options for the selectbox with sports leagues
-sports_options = ['NFL', 'NBA', 'NHL', 'MLB']
-
-# Add a selectbox to the sidebar with a title
-sport_choice = st.sidebar.selectbox('Sports', sports_options)
-
-# Display the selected sport
-st.write(f'You selected: {sport_choice}')
-
-# Conditional content based on sport choice
-if sport_choice == 'NFL':
-    st.write('Displaying NFL data...')
-    # Add your code here to display NFL specific data or analysis
-elif sport_choice == 'NBA':
-    st.write('Displaying NBA data...')
-    # Add your code here to display NBA specific data or analysis
-elif sport_choice == 'NHL':
-    st.write('Displaying NHL data...')
-    # Add your code here to display NHL specific data or analysis
-elif sport_choice == 'MLB':
-    st.write('Displaying MLB data...')
-    # Add your code here to display MLB specific data or analysis
-
-# Sample DataFrame creation for demonstration
-# In real-life applications, load this data from a more dynamic source like a database or API
-data = {
-    'Name': ['Player 1', 'Player 2', 'Player 3'],
-    'Position': ['Position A', 'Position B', 'Position C'],
-    'Seasonal Health': [90, 80, 85],
-    'Career Health': [95, 89, 92],
-    'Percent of Reinjury': [5, 10, 15],
-    'Injury Date': pd.to_datetime(['2023-01-01', '2023-02-01', '2023-03-01']),
-    'Agent': ['Agent X', 'Agent Y', 'Agent Z']
+# Dictionaries for teams by sport
+teams_by_sport = {
+    'NFL': [
+        'Arizona Cardinals', 'Atlanta Falcons', 'Baltimore Ravens', 'Buffalo Bills',
+        'Carolina Panthers', 'Chicago Bears', 'Cincinnati Bengals', 'Cleveland Browns',
+        'Dallas Cowboys', 'Denver Broncos', 'Detroit Lions', 'Green Bay Packers',
+        'Houston Texans', 'Indianapolis Colts', 'Jacksonville Jaguars', 'Kansas City Chiefs',
+        'Las Vegas Raiders', 'Los Angeles Chargers', 'Los Angeles Rams', 'Miami Dolphins',
+        'Minnesota Vikings', 'New England Patriots', 'New Orleans Saints', 'New York Giants',
+        'New York Jets', 'Philadelphia Eagles', 'Pittsburgh Steelers', 'San Francisco 49ers',
+        'Seattle Seahawks', 'Tampa Bay Buccaneers', 'Tennessee Titans', 'Washington Commanders'
+    ],
+    'NBA': [
+        'Atlanta Hawks', 'Boston Celtics', 'Brooklyn Nets', 'Charlotte Hornets',
+        'Chicago Bulls', 'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets',
+        'Detroit Pistons', 'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers',
+        'Los Angeles Clippers', 'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat',
+        'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Orleans Pelicans', 'New York Knicks',
+        'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns',
+        'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors',
+        'Utah Jazz', 'Washington Wizards'
+    ],
+    'NHL': [
+        'Anaheim Ducks', 'Arizona Coyotes', 'Boston Bruins', 'Buffalo Sabres',
+        'Calgary Flames', 'Carolina Hurricanes', 'Chicago Blackhawks', 'Colorado Avalanche',
+        'Columbus Blue Jackets', 'Dallas Stars', 'Detroit Red Wings', 'Edmonton Oilers',
+        'Florida Panthers', 'Los Angeles Kings', 'Minnesota Wild', 'Montreal Canadiens',
+        'Nashville Predators', 'New Jersey Devils', 'New York Islanders', 'New York Rangers',
+        'Ottawa Senators', 'Philadelphia Flyers', 'Pittsburgh Penguins', 'San Jose Sharks',
+        'Seattle Kraken', 'St. Louis Blues', 'Tampa Bay Lightning', 'Toronto Maple Leafs',
+        'Vancouver Canucks', 'Vegas Golden Knights', 'Washington Capitals', 'Winnipeg Jets'
+    ],
+    'MLB': [
+        'Arizona Diamondbacks', 'Atlanta Braves', 'Baltimore Orioles', 'Boston Red Sox',
+        'Chicago Cubs', 'Chicago White Sox', 'Cincinnati Reds', 'Cleveland Guardians',
+        'Colorado Rockies', 'Detroit Tigers', 'Houston Astros', 'Kansas City Royals',
+        'Los Angeles Angels', 'Los Angeles Dodgers', 'Miami Marlins', 'Milwaukee Brewers',
+        'Minnesota Twins', 'New York Mets', 'New York Yankees', 'Oakland Athletics',
+        'Philadelphia Phillies', 'Pittsburgh Pirates', 'San Diego Padres', 'San Francisco Giants',
+        'Seattle Mariners', 'St. Louis Cardinals', 'Tampa Bay Rays', 'Texas Rangers',
+        'Toronto Blue Jays', 'Washington Nationals'
+    ]
 }
-df = pd.DataFrame(data)
 
-# Sidebar for sport selection
+# Selectbox for sports
 sports_options = ['Select a sport', 'NFL', 'NBA', 'NHL', 'MLB']
 sport_choice = st.sidebar.selectbox('Sports', sports_options)
 
-# Conditional sidebar for organizing data based on sport choice
 if sport_choice != 'Select a sport':
-    # Define generic organization options, you can customize this per sport as needed
-    organization_options = {
-        'NFL': ['Alphabetical', 'By Position', 'By Seasonal Health', 'By Career Health', 'By Percent of Reinjury', 'By Injury Date', 'By Agent'],
-        'NBA': ['Alphabetical', 'By Position', 'By Seasonal Health', 'By Career Health', 'By Percent of Reinjury', 'By Injury Date', 'By Agent'],
-        'NHL': ['Alphabetical', 'By Position', 'By Seasonal Health', 'By Career Health', 'By Percent of Reinjury', 'By Injury Date', 'By Agent'],
-        'MLB': ['Alphabetical', 'By Position', 'By Seasonal Health', 'By Career Health', 'By Percent of Reinjury', 'By Injury Date', 'By Agent']
-    }
-
-    # Update organization choice based on sport
-    organization_choice = st.sidebar.selectbox('Organize Data By', organization_options[sport_choice])
-
-    # Organizing data based on the choice
-    if organization_choice == 'Alphabetical':
-        sorted_df = df.sort_values(by='Name')
-    elif organization_choice == 'By Position':
-        sorted_df = df.sort_values(by='Position')
-    elif organization_choice == 'By Seasonal Health':
-        sorted_df = df.sort_values(by='Seasonal Health', ascending=False)
-    elif organization_choice == 'By Career Health':
-        sorted_df = df.sort_values(by='Career Health', ascending=False)
-    elif organization_choice == 'By Percent of Reinjury':
-        sorted_df = df.sort_values(by='Percent of Reinjury', ascending=False)
-    elif organization_choice == 'By Injury Date':
-        sorted_df = df.sort_values(by='Injury Date')
-    elif organization_choice == 'By Agent':
-        sorted_df = df.sort_values(by='Agent')
-
-    # Display the sorted DataFrame
-    st.write(f'You selected: {sport_choice}')
-    st.write('Data organized by:', organization_choice)
-    st.dataframe(sorted_df)
+    # Teams dropdown based on sport selected
+    teams_options = ['All teams'] + teams_by_sport[sport_choice]
+    team_choice = st.sidebar.selectbox('Teams', teams_options)
+    
+    # Organization dropdown placeholder, you will need to populate it similar to the previous example
+    organization_options = ['Select organization', 'Alphabetical', 'By Position', 'By Seasonal Health', 'By Career Health', 'By Percent of Reinjury', 'By Injury Date', 'By Agent']
+    organization_choice = st.sidebar.selectbox('Organize Data By', organization_options)
+    
+    # Display selections
+    st.write(f'Sport selected: {sport_choice}')
+    st.write(f'Team selected: {team_choice}')
+    st.write(f'Organization selected: {organization_choice}')
+    
+    # Here, you would include your logic to filter and display the data based on the selections
 else:
     st.write("Please select a sport to view and organize data.")
+
