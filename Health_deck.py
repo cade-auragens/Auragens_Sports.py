@@ -3,6 +3,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# Path to the logo image (assuming it's in the same directory as your script)
+logo_path = ''
+
+# Display the logo at the top using st.image
+st.image(logo_path, width=100)  # Adjust the width as needed
+
 st.title('HealthAura: Pro Sports Tracker')
 
 # Define options for the selectbox with sports leagues
