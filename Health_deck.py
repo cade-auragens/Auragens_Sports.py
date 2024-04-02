@@ -94,7 +94,6 @@ data = {
 
 df = pd.DataFrame(data)
 
-st.title('HealthAura: Pro Sports Tracker')
 
 # Step 1: Select a Team
 team_choice = st.sidebar.selectbox('Select a Team', df['Team Name'].unique())
