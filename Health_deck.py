@@ -5,7 +5,7 @@ import numpy as np
 
 st.title('HealthAura: Pro Sports Tracker')
 
-from st_option_menu import option_menu
+from streamlit_option_menu import option_menu
 
 with st.sidebar:
   menu_title= "Sports"
