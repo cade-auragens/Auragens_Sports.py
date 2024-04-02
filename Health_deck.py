@@ -41,8 +41,6 @@ data = {
 }
 df = pd.DataFrame(data)
 
-st.title('HealthAura: Pro Sports Tracker')
-
 # Sidebar for sport selection
 sports_options = ['Select a sport', 'NFL', 'NBA', 'NHL', 'MLB']
 sport_choice = st.sidebar.selectbox('Sports', sports_options)
