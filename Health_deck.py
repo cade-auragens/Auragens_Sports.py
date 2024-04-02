@@ -5,12 +5,6 @@ import numpy as np
 
 st.title('HealthAura: Pro Sports Tracker')
 
-# Define options for the selectbox with sports leagues
-sports_options = ['NFL', 'NBA', 'NHL', 'MLB']
-
-# Add a selectbox to the sidebar with a title
-sport_choice = st.sidebar.selectbox('Sports', sports_options)
-
 # Display the selected sport
 st.write(f'You selected: {sport_choice}')
 
