@@ -6,4 +6,3 @@ import numpy as np
 
 st.title('HealthAura: Pro Sports Tracker')
 
-st.sidebar('NFL', 'NBA', 'MLB')
