@@ -71,3 +71,61 @@ if sport_choice != 'Select a sport':
 else:
     st.write("Please select a sport to view and organize data.")
 
+
+# Assuming `df` is your main DataFrame containing all the player, team, and injury data
+
+# Sample structure for df
+data = {
+    'Team Name': [],
+    'Player Name': [],
+    'Career Health': [],
+    'Seasonal Health': [],
+    'Percent of Injury': [],
+    'Position': [],
+    'Height': [],
+    'Weight': [],
+    'Age': [],
+    'Years of Experience': [],
+    'Agent': [],
+    'Agent Email': [],
+    'Agency': [],
+    # Assume there's also injury history data in this DataFrame
+}
+
+df = pd.DataFrame(data)
+
+st.title('HealthAura: Pro Sports Tracker')
+
+# Step 1: Select a Team
+team_choice = st.sidebar.selectbox('Select a Team', df['Team Name'].unique())
+
+# Step 2: Display Team Roster
+if team_choice:
+    team_df = df[df['Team Name'] == team_choice]
+    # Display basic team roster information
+    for _, row in team_df.iterrows():
+        st.text(f"{row['Player Name']} - Career Health: {row['Career Health']}%, Seasonal Health: {row['Seasonal Health']}%, Injury Risk: {row['Percent of Injury']}%")
+    
+    # Step 3: Select a Player to view more details
+    player_choice = st.sidebar.selectbox('Select a Player', team_df['Player Name'].unique())
+    
+    if player_choice:
+        player_df = team_df[team_df['Player Name'] == player_choice].iloc[0]
+        
+        # Display detailed player information
+        st.subheader(f"Details for {player_choice}")
+        st.text(f"Position: {player_df['Position']}")
+        st.text(f"Height: {player_df['Height']}")
+        st.text(f"Weight: {player_df['Weight']}")
+        st.text(f"Age: {player_df['Age']}")
+        st.text(f"Years of Experience: {player_df['Years of Experience']}")
+        st.text(f"Agent: {player_df['Agent']} ({player_df['Agent Email']}, {player_df['Agency']})")
+        
+        # Display player's injury history
+        # Assuming you have a method to fetch injury history for the player
+        injury_history = get_injury_history(player_choice)  # Placeholder for actual injury history retrieval function
+        st.text("Injury History:")
+        for injury in injury_history:
+            st.text(injury)
+
+
