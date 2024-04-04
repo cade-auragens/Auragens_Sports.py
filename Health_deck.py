@@ -49,6 +49,35 @@ teams_by_sport = {
     ]
 }
 
+# Function to load roster data from the CSV file of the selected league
+def load_roster_data(league):
+    file_path = f"{league.lower()}_rosters.csv"  # Assumes files are named like 'nfl_rosters.csv'
+    try:
+        df = pd.read_csv(file_path)
+        return df
+    except FileNotFoundError:
+        st.error(f"File not found: {file_path}")
+        return pd.DataFrame()
+
+# UI to select the league
+league = st.sidebar.selectbox('Select a League', ['Select a league', 'NFL', 'NBA', 'NHL', 'MLB'])
+
+if league != 'Select a league':
+    roster_df = load_roster_data(league)
+    
+    if not roster_df.empty:
+        # UI to select a team within the selected league
+        team = st.sidebar.selectbox('Select a Team', ['Select a team'] + sorted(roster_df['Team'].unique()))
+        
+        if team != 'Select a team':
+            # Filter the DataFrame for the selected team
+            team_df = roster_df[roster_df['Team'] == team]
+            
+            # Display the roster for the selected team
+            st.write(f'Roster for {team}:')
+            st.dataframe(team_df[['Name', 'Pos', 'Ht', 'WT', 'Age', 'Yrs of EXP']], width=800)
+
+
 # Selectbox for sports
 sports_options = ['Select a sport', 'NFL', 'NBA', 'NHL', 'MLB']
 sport_choice = st.sidebar.selectbox('Sports', sports_options)
