@@ -1,10 +1,12 @@
 
+
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 st.title('HealthAura: Pro Sports Tracker')
 
-# Provided dictionary for teams by sport
+# Dictionaries for teams by sport
 teams_by_sport = {
     'NFL': [
         'Arizona Cardinals', 'Atlanta Falcons', 'Baltimore Ravens', 'Buffalo Bills',
@@ -48,56 +50,75 @@ teams_by_sport = {
     ]
 }
 
-# Mapping of leagues to their respective GitHub raw CSV file URLs
-roster_urls = {
-    'NFL': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Roster.csv',
-    'NBA': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20Roster.csv',
-    'NHL': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Roster.csv',
-    'MLB': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Roster.csv',
-}
-
-def load_roster_data(league, team):
-    """Load roster data from a GitHub-hosted CSV file for a selected team."""
-    url = roster_urls.get(league)
-    if url:
-        df = pd.read_csv(url)
-        return df[df['Team'] == team]
-    else:
-        st.error(f"No data found for the league: {league}")
+# Function to load roster data from the CSV file of the selected league
+def load_roster_data(league):
+    file_path = f"{league.lower()}_rosters.csv"  # Assumes files are named like 'nfl_rosters.csv'
+    try:
+        df = pd.read_csv(file_path)
+        return df
+    except FileNotFoundError:
+        st.error(f"File not found: {file_path}")
         return pd.DataFrame()
 
-# League selection
-league_selection = st.sidebar.selectbox('Pick a League', ['Select a league'] + list(teams_by_sport.keys()))
+# UI to select the league
+league = st.sidebar.selectbox('Select a League', ['Select a league', 'NFL', 'NBA', 'NHL', 'MLB'])
 
-if league_selection != 'Select a league':
-    # Team selection based on the chosen league
-    team_selection = st.sidebar.selectbox('Pick a Team', ['Select a team'] + teams_by_sport[league_selection])
+if league != 'Select a league':
+    roster_df = load_roster_data(league)
     
-    if team_selection != 'Select a team':
-        # Load and display the roster for the selected team
-        team_df = load_roster_data(league_selection, team_selection)
+    if not roster_df.empty:
+        # UI to select a team within the selected league
+        team = st.sidebar.selectbox('Select a Team', ['Select a team'] + sorted(roster_df['Team'].unique()))
         
-        # Display options to organize the roster data
-        organization_options = [
-            'Select organization',
-            'Alphabetical',
-            'By Position',
-            'By Seasonal Health',
-            'By Career Health',
-            'By Percent of Reinjury',
-            'By Injury Date',
-            'By Agent'
-        ]
-        organization_choice = st.sidebar.selectbox('Organize Data By', organization_options)
-        
-        # Apply organization choice to the DataFrame
-        if organization_choice != 'Select organization':
-            if organization_choice == 'Alphabetical':
-                team_df = team_df.sort_values(by='Name')
-            elif organization_choice == 'By Position':
-                team_df = team_df.sort_values(by='Position')
-            # Additional sorting options here...
+        if team != 'Select a team':
+            # Filter the DataFrame for the selected team
+            team_df = roster_df[roster_df['Team'] == team]
+            
+            # Display the roster for the selected team
+            st.write(f'Roster for {team}:')
+            st.dataframe(team_df[['Name', 'Pos', 'Ht', 'WT', 'Age', 'Yrs of EXP']], width=800)
 
-        st.write(f"Roster for {team_selection}:")
-        st.dataframe(team_df[['Name', 'Pos', 'Ht', 'WT', 'Age', 'Yrs of EXP']], width=800)
+
+# Selectbox for sports
+sports_options = ['Select a sport', 'NFL', 'NBA', 'NHL', 'MLB']
+sport_choice = st.sidebar.selectbox('Sports', sports_options)
+
+if sport_choice != 'Select a sport':
+    # Teams dropdown based on sport selected
+    teams_options = ['All teams'] + teams_by_sport[sport_choice]
+    team_choice = st.sidebar.selectbox('Teams', teams_options)
+    
+    # Organization dropdown placeholder, you will need to populate it similar to the previous example
+    organization_options = ['Select organization', 'Alphabetical', 'By Position', 'By Seasonal Health', 'By Career Health', 'By Percent of Reinjury', 'By Injury Date', 'By Agent']
+    organization_choice = st.sidebar.selectbox('Organize Data By', organization_options)
+    
+    # Display selections
+    st.write(f'Sport selected: {sport_choice}')
+    st.write(f'Team selected: {team_choice}')
+    st.write(f'Organization selected: {organization_choice}')
+    
+    # Here, you would include your logic to filter and display the data based on the selections
+else:
+    st.write("Please select a sport to view and organize data.")
+
+
+# Assuming `df` is your main DataFrame containing all the player, team, and injury data
+
+# Sample structure for df
+data = {
+    'Team Name': [],
+    'Player Name': [],
+    'Career Health': [],
+    'Seasonal Health': [],
+    'Percent of Injury': [],
+    'Position': [],
+    'Height': [],
+    'Weight': [],
+    'Age': [],
+    'Years of Experience': [],
+    'Agent': [],
+    'Agent Email': [],
+    'Agency': [],
+    # Assume there's also injury history data in this DataFrame
+}
 
