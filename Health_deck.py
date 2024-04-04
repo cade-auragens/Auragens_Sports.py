@@ -67,8 +67,6 @@ def load_roster_data(league):
         st.error(f"No URL found for the league: {league}")
         return pd.DataFrame()
 
-st.title('Sports Rosters')
-
 # User selects a league
 league_selection = st.sidebar.selectbox('Select a League', ['Select a league'] + list(roster_urls.keys()))
 
