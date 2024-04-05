@@ -5,7 +5,7 @@ import numpy as np
 st.title('HealthAura: Pro Sports Tracker')
 
 # Updated dictionary for NFL teams with their respective GitHub raw CSV file URLs
-team_roster_urls = {
+team_roster_urls = 
     'NFL': {
         'Arizona Cardinals': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Arizona%20Cardinals%20Roster.csv',
         'Atlanta Falcons': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Atlanta%20Falcons.csv',
