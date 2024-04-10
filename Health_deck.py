@@ -172,7 +172,6 @@ sport_choice = st.sidebar.selectbox('Sports', sports_options)
 
 if sport_choice != 'Select a sport':
     # Teams dropdown based on sport selected
-    teams_options = ['All teams'] + teams_by_sport[sport_choice]
     team_choice = st.sidebar.selectbox('Teams', teams_options)
     
     # Organization dropdown placeholder, you will need to populate it similar to the previous example
