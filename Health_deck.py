@@ -146,5 +146,3 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-
-    st.write("Please select a league to begin.")
