@@ -103,6 +103,40 @@ nfl_team_roster_urls = {
     'Washington Commanders': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Washington%20Commanders.csv',
 }
 nhl_team_roster_urls = {
+    "Anaheim Ducks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Anaheim%20Ducks.csv",
+    "Arizona Coyotes": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Arizona%20Coyotes.csv",
+    "Boston Bruins": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Boston%20Bruins.csv",
+    "Buffalo Sabres": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Buffalo%20Sabres.csv",
+    "Calgary Flames": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Calgary%20Flames.csv",
+    "Carolina Hurricanes": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Carolina%20Hurricanes.csv",
+    "Chicago Blackhawks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Chicago%20Blackhawks.csv",
+    "Colorado Avalanche": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Colorado%20Avalanche.csv",
+    "Columbus Blue Jackets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Columbus%20Blue%20Jackets.csv",
+    "Dallas Stars": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Dallas%20Stars.csv",
+    "Detroit Red Wings": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Detroit%20Red%20Wings.csv",
+    "Edmonton Oilers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Edmonton%20Oilers.csv",
+    "Florida Panthers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Florida%20Panthers.csv",
+    "Los Angeles Kings": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Los%20Angeles%20Kings.csv",
+    "Minnesota Wild": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Minnesota%20Wild.csv",
+    "Montreal Canadiens": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Montreal%20Canadiens.csv",
+    "Nashville Predators": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Nashville%20Predators.csv",
+    "New Jersey Devils": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20New%20Jersey%20Devils.csv",
+    "New York Islanders": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20New%20York%20Islanders.csv",
+    "New York Rangers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20New%20York%20Rangers.csv",
+    "Ottawa Senators": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Ottawa%20Senators.csv",
+    "Philadelphia Flyers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Philadelphia%20Flyers.csv",
+    "Pittsburgh Penguins": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Pittsburgh%20Penguins.csv",
+    "San Jose Sharks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20San%20Jose%20Sharks.csv",
+    "Seattle Kraken": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Seattle%20Kraken.csv",
+    "St. Louis Blues": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20St.%20Louis%20Blues.csv",
+    "Tampa Bay Lightning": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Tampa%20Bay%20Lightning.csv",
+    "Toronto Maple Leafs": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Toronto%20Maple%20Leafs.csv",
+    "Vancouver Canucks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Vancouver%20Canucks.csv",
+    "Vegas Golden Knights": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Vegas%20Golden%20Knights.csv",
+    "Washington Capitals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Washington%20Capitals.csv",
+    "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
+}
+
 
 # Function to load roster data from the CSV file of the selected league
 def load_roster_data(league):
