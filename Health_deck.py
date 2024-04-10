@@ -3,6 +3,15 @@ import pandas as pd
 
 st.title('HealthAura: Pro Sports Tracker')
 
+# Title of the main page
+st.title('League Selection')
+
+# Sidebar for league selection
+league = st.sidebar.selectbox('Select a League', ['MLB', 'NBA', 'NFL', 'NHL'])
+
+# Display the selected league on the main page
+st.write(f'You selected: {league}')
+
 # Mapping NFL teams to their roster CSV URLs
 mlb_team_roster_urls = {
     "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
@@ -137,43 +146,5 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load roster data from the CSV URL of the selected team
-def load_roster_data(url):
-    try:
-        df = pd.read_csv(url)
-        return df
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-        return pd.DataFrame()
 
-# UI to select the league
-league_choice = st.sidebar.selectbox('Select a League', ['Select a league'] + list(team_roster_urls.keys()))
-
-if league_choice != 'Select a league':
-    teams = list(team_roster_urls[league_choice].keys())
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a team'] + sorted(teams))
-    
-    if team_choice != 'Select a team':
-        # Load the roster data
-        roster_df = load_roster_data(team_roster_urls[league_choice][team_choice])
-        
-        if not roster_df.empty:
-            organize_options_map = {
-                'MLB': ['Team Name', 'First Name', 'Last Name', 'Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'],
-                'NBA': ['PLAYER', 'TEAM', 'NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
-                'NFL': ['Team Name', 'Player Number', 'Player Name', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
-                'NHL': ['Team', 'Player Name', 'Position', 'Years of Experience', 'Career Health', 'Season Health', 'Percent of Reinjury', 'Puckpedia Agent', 'Puckpedia Agency']
-            }
-            
-            # Select how to organize the roster data
-            organize_by = st.sidebar.selectbox('Organize Data By', ['Select an option'] + organize_options_map[league_choice])
-            
-            if organize_by != 'Select an option':
-                roster_df = roster_df.sort_values(by=[organize_by])
-            
-            st.write(f'Roster for {team_choice}:')
-            st.dataframe(roster_df)
-        else:
-            st.write("No roster data available.")
-else:
     st.write("Please select a league to begin.")
