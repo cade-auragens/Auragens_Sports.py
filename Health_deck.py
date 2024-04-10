@@ -3,15 +3,6 @@ import pandas as pd
 
 st.title('HealthAura: Pro Sports Tracker')
 
-# Title of the main page
-st.title('League Selection')
-
-# Sidebar for league selection
-league = st.sidebar.selectbox('Select a League', ['MLB', 'NBA', 'NFL', 'NHL'])
-
-# Display the selected league on the main page
-st.write(f'You selected: {league}')
-
 # Mapping NFL teams to their roster CSV URLs
 mlb_team_roster_urls = {
     "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
@@ -146,24 +137,23 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load and display team roster
-def display_team_roster(league, team):
-    if team and team in team_roster_urls[league]:
-        url = team_roster_urls[league][team]
-        try:
-            roster_df = pd.read_csv(url)
-            st.write(f"Roster for {team}:")
-            st.dataframe(roster_df)
-        except Exception as e:
-            st.error(f"Failed to load roster: {e}")
+# Function to load and display the team roster from CSV URLs
+def display_team_roster(league, team_url):
+    try:
+        roster_df = pd.read_csv(team_url)
+        st.write(f"Roster for selected team:")
+        st.dataframe(roster_df)
+    except Exception as e:
+        st.error(f"Failed to load roster: {str(e)}")
 
 # Sidebar for league selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a league'] + list(team_roster_urls.keys()))
+league = st.sidebar.selectbox('Select a League', ['Select a league'] + list(team_roster_urls.keys()))
 
-if league_choice != 'Select a league':
+if league != 'Select a league':
     # Sidebar for team selection based on the chosen league
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a team'] + sorted(team_roster_urls[league_choice].keys()))
+    teams = team_roster_urls[league]
+    team = st.sidebar.selectbox('Select a Team', ['Select a team'] + sorted(teams.keys()))
     
-    if team_choice != 'Select a team':
-        display_team_roster(league_choice, team_choice)
-
+    if team != 'Select a team':
+        # Display the team roster
+        display_team_roster(league, teams[team])
