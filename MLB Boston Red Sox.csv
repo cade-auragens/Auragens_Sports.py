@@ -1,1 +1,48 @@
-
+Team Name,First Name,Last Name,Player Number,Position,B/T,Ht,Wt,DOB,Career Health ,Seasonal Health,Percent of Reinjury,Status,Base Salary,Spotrac Agent,Spotrac Agency
+Red Sox,Chris,Sale,41,Rotation,L/L,"6' 6""",180,03/30/1989,,,,-,"27,500,000",B.B. Abbott,Jet Sports Management
+Red Sox,Brayan,Bello,66,Rotation,R/R,"6' 1""",195,05/17/1999,,,,Pre-Arb,-,-,-
+Red Sox,Kutter,Crawford,50,Rotation,R/R,"6' 1""",195,04/01/1996,,,,Pre-Arb,-,-,-
+Red Sox,Tanner,Houck,89,Rotation,R/R,"6' 5""",226,06/29/1996,,,,Pre-Arb,-,-,CAA Sports)
+Red Sox,Kenley,Jansen,74,Bullpen,S/R,"6' 5""",265,09/30/1987,,,,-,"16,000,000",-,Wasserman
+Red Sox,Chris,Martin,55,Bullpen,R/R,"6' 8""",224,06/02/1986,,,,-,"7,500,000",-,ISE Baseball
+Red Sox,John,Schreiber,46,Bullpen,R/R,"6' 2""",224,03/05/1994,,,,Arb 1,"1,300,000",-,ACES
+Red Sox,Zack,Kelly,76,Bullpen,R/R,"6' 3""",231,03/03/1995,,,,Pre-Arb,-,John Carcione,-
+Red Sox,Josh,Winckowski,25,Bullpen,R/R,"6' 4""",215,06/28/1998,,,,Pre-Arb,-,-,-
+Red Sox,Garrett,Whitlock,22,Bullpen,R/R,"6' 5""",222,06/11/1996,,,,-,"3,250,000",Kent Matthes,-
+Red Sox,Nick,Pivetta,37,Bullpen,R/R,"6' 5""",210,02/14/1993,,,,Arb 3,"7,500,000",-,CAA Sports
+Red Sox,Wyatt,Mills,40,Bullpen,R/R,"6' 4""",220,01/25/1995,,,,-,-,-,-
+Red Sox,Brennan,Bernardino,83,Bullpen,L/L,"6' 4""",180,01/15/1992,,,,Pre-Arb,-,-,-
+Red Sox,Mauricio,Llovera,68,Bullpen,R/R,"5' 11""",224,04/17/1996,,,,Pre-Arb,-,-,-
+Red Sox,Nick,Robertson,73,Bullpen,R/R,"6' 6""",265,07/16/1998,,,,Pre-Arb,-,-,-
+Red Sox,Chris,Murphy,72,Bullpen,L/L,"6' 1""",186,06/05/1998,,,,Pre-Arb,-,-,-
+Red Sox,Connor,Wong,12,Catcher,R/R,"6' 1""",190,05/19/1996,,,,Pre-Arb,-,-,-
+Red Sox,Reese,McGuire,3,Catcher,L/R,"6' 0""",233,03/02/1995,,,,Arb 2,"1,600,000",-,Apex Baseball
+Red Sox,Triston,Casas,36,First Base,L/R,"6' 5""",244,01/15/2000,,,,Pre-Arb,-,-,MVP Sports Group
+Red Sox,Bobby,Dalbec,29,First Base,R/R,"6' 4""",225,06/29/1995,,,,Pre-Arb,-,-,CAA Sports
+Red Sox,Pablo,Reyes,19,First Base,R/R,"5' 8""",175,09/05/1993,,,,Pre-Arb,-,-,-
+Red Sox,Luis,Urías,17,Second Base,R/R,"5' 10""",202,06/03/1997,,,,-,-,-,-
+Red Sox,Pablo,Reyes,19,Second Base,R/R,"5' 8""",175,09/05/1993,,,,Pre-Arb,-,-,-
+Red Sox,Enmanuel,Valdez,47,Second Base,L/R,"5' 8""",191,12/28/1998,,,,Pre-Arb,-,-,-
+Red Sox,Ceddanne,Rafaela,43,Second Base,R/R,"5' 9""",165,09/18/2000,,,,Pre-Arb,-,-,MVP Sports Group
+Red Sox,Rafael,Devers,11,Third Base,L/R,"6' 0""",235,10/24/1996,,,,-,"27,500,000",-,Rep 1 Sports
+Red Sox,Bobby,Dalbec,29,Third Base,R/R,"6' 4""",225,06/29/1995,,,,Pre-Arb,-,-,CAA Sports
+Red Sox,Pablo,Reyes,19,Third Base,R/R,"5' 8""",175,09/05/1993,,,,Pre-Arb,-,-,-
+Red Sox,Luis,Urías,17,Third Base,R/R,"5' 10""",202,06/03/1997,,,,-,-,-,-
+Red Sox,Trevor,Story,10,Shortstop,R/R,"6' 2""",209,11/15/1992,,,,-,"22,500,000",-,Excel Sports Management
+Red Sox,Pablo,Reyes,19,Shortstop,R/R,"5' 8""",175,09/05/1993,,,,Pre-Arb,-,-,-
+Red Sox,Luis,Urías,17,Shortstop,R/R,"5' 10""",202,06/03/1997,,,,-,-,-,-
+Red Sox,Ceddanne,Rafaela,43,Shortstop,R/R,"5' 9""",165,09/18/2000,,,,Pre-Arb,-,-,MVP Sports Group
+Red Sox,Masataka,Yoshida,7,Left Field,L/R,"5' 8""",192,07/15/1993,,,,-,"18,000,000",-,-
+Red Sox,Jarren,Duran,16,Left Field,L/R,"6' 2""",205,09/05/1996,,,,Pre-Arb,-,-,-
+Red Sox,Rob,Refsnyder,30,Left Field,R/R,"6' 0""",203,03/26/1991,,,,Arb 3,"1,850,000",-,PSI Sports Management
+Red Sox,Wilyer,Abreu,52,Left Field,L/L,"5' 10""",215,06/24/1999,,,,Pre-Arb,-,-,-
+Red Sox,Wilyer,Abreu,52,Center Field,L/L,"5' 10""",215,06/24/1999,,,,Pre-Arb,-,-,-
+Red Sox,Jarren,Duran,16,Center Field,L/R,"6' 2""",205,09/05/1996,,,,Pre-Arb,-,-,-
+Red Sox,Rob,Refsnyder,30,Center Field,R/R,"6' 0""",203,03/26/1991,,,,Arb 3,"1,850,000",-,PSI Sports Management
+Red Sox,Ceddanne,Rafaela,43,Center Field,R/R,"5' 9""",165,09/18/2000,,,,Pre-Arb,-,-,MVP Sports Group
+Red Sox,Alex,Verdugo,99,Right Field,L/L,"6' 0""",209,05/15/1996,,,,Arb 3,"9,216,016",-,MVP Sports Group
+Red Sox,Rob,Refsnyder,30,Right Field,R/R,"6' 0""",203,03/26/1991,,,,Arb 3,"1,850,000",-,PSI Sports Management
+Red Sox,Jarren,Duran,16,Right Field,L/R,"6' 2""",205,09/05/1996,,,,Pre-Arb,-,-,-
+Red Sox,Wilyer,Abreu,52,Right Field,L/L,"5' 10""",215,06/24/1999,,,,Pre-Arb,-,-,-
+Red Sox,Bobby,Dalbec,29,Right Field,R/R,"6' 4""",225,06/29/1995,,,,Pre-Arb,-,-,CAA Sports
+Red Sox,Trevor,Story,10,Designated Hitter,R/R,"6' 2""",209,11/15/1992,,,,-,"22,500,000",-,Excel Sports Management
