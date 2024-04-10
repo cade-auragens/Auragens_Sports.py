@@ -102,7 +102,7 @@ nfl_team_roster_urls = {
     'Tennessee Titans': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Tennessee%20Titans.csv',
     'Washington Commanders': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Washington%20Commanders.csv',
 }
-
+nhl_team_roster_urls = {
 
 # Function to load roster data from the CSV file of the selected league
 def load_roster_data(league):
