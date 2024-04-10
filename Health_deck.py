@@ -147,7 +147,7 @@ def load_roster_data(url):
         return pd.DataFrame()
 
 # UI to select the league
-league_choice = st.sidebar.selectbox('Select a League', ['Select a league', 'MLB', 'NBA', 'NFL', 'NHL'])
+league_choice = st.sidebar.selectbox('Select a League', ['Select a league'] + list(team_roster_urls.keys()))
 
 if league_choice != 'Select a league':
     teams = list(team_roster_urls[league_choice].keys())
@@ -157,26 +157,21 @@ if league_choice != 'Select a league':
         # Load the roster data
         roster_df = load_roster_data(team_roster_urls[league_choice][team_choice])
         
-        # Define organization options based on the selected league
-        if league_choice == 'MLB':
-            organize_options = ['Team Name', 'First Name', 'Last Name', 'Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
-        elif league_choice == 'NBA':
-            organize_options = ['PLAYER', 'TEAM', 'NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
-        elif league_choice == 'NFL':
-            organize_options = ['Team Name', 'Player Number', 'Player Name', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
-        elif league_choice == 'NHL':
-            organize_options = ['Team', 'Player Name', 'Position', 'Years of Experience', 'Career Health', 'Season Health', 'Percent of Reinjury', 'Puckpedia Agent', 'Puckpedia Agency']
-        
-        # UI to select how to organize the roster data
-        organize_by = st.sidebar.selectbox('Organize Data By', ['Select an option'] + organize_options)
-        
         if not roster_df.empty:
+            organize_options_map = {
+                'MLB': ['Team Name', 'First Name', 'Last Name', 'Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'],
+                'NBA': ['PLAYER', 'TEAM', 'NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
+                'NFL': ['Team Name', 'Player Number', 'Player Name', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
+                'NHL': ['Team', 'Player Name', 'Position', 'Years of Experience', 'Career Health', 'Season Health', 'Percent of Reinjury', 'Puckpedia Agent', 'Puckpedia Agency']
+            }
+            
+            # Select how to organize the roster data
+            organize_by = st.sidebar.selectbox('Organize Data By', ['Select an option'] + organize_options_map[league_choice])
+            
+            if organize_by != 'Select an option':
+                roster_df = roster_df.sort_values(by=[organize_by])
+            
             st.write(f'Roster for {team_choice}:')
-            
-            # If an organization option is selected, sort the data accordingly
-            if organize_by in roster_df.columns:
-                roster_df.sort_values(by=[organize_by], inplace=True)
-            
             st.dataframe(roster_df)
         else:
             st.write("No roster data available.")
