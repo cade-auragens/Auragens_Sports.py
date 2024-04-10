@@ -1,80 +1,80 @@
-Team Name,Player Number,Player Name,Position,Height,Weight,Age,Years of Experience, Fanspo Agent,Fanspo Agency, Spotrac Agent,Spotrac Agency
-Denver Broncos,45,Nate Adkins,TE,6-3,252,--,1,-,-,-,-
-Denver Broncos,99,Zach Allen,DE,6-5,285,26,4,-,-,"Tom Condon, Ben Renzin, Tom Condon",CAA Sports
-Denver Broncos,75,Quinn Bailey,OT,6-6,323,28,1,William Heck,"SPORTSTARS, INC.",-,SportStars
-Denver Broncos,72,Garett Bolles,OT,6-5,300,31,6,Jeffrey Sperbeck,Rep 1 Sports Group,-,Rep 1 Sports
-Denver Broncos,42,Nik Bonitto,LB,6-3,240,24,1,-,-,-,CAA Sports
-Denver Broncos,56,Baron Browning,LB,6-3,240,24,2,Eugene Lee,3 Strand Sports & Entertainment,Eugene Lee,Vanguard Sports Group
-Denver Broncos,20,Michael Burton,RB,6-0,247,31,8,-,-,-,Lunar Sports
-Denver Broncos,94,Keondre Coburn,DT,6-2,332,--,1,-,-,-,-
-Denver Broncos,0,Jonathon Cooper,LB,6-4,257,--,2,Christian Carter,Shark Sports Management,-,Shark Sports Management
-Denver Broncos,79,Lloyd Cushenberry,C,6-4,315,25,3,-,-,-,CAA Sports
-Denver Broncos,9,Riley Dixon,P,6-4,221,30,7,William Heck,"SPORTSTARS, INC.",-,SportStars
-Denver Broncos,73,Cameron Fleming,OT,6-5,320,31,9,Kyle Strongin,Range Sports,Kyle Strongin,-
-Denver Broncos,76,Alex Forsyth,C,6-4,312,--,1,-,-,-,-
-Denver Broncos,48,MItchell Fraboni,LS,6-2,223,--,1,-,-,-,-
-Denver Broncos,95,Elijah Garcia,DT,6-5,302,25,1,-,-,-,-
-Denver Broncos,92,Jonathan Harris,DL,6-5,295,27,2,Alan Bullington,MGC Sports,-,MGC Sports
-Denver Broncos,91,Matt Henningsen,DE,6-3,291,24,2,Alan Bullington,MGC Sports,-,MGC Sports
-Denver Broncos,17,Lil'Jordan Humphrey,WR,6-4,225,25,3,James Gould,Management One,-,Management One
-Denver Broncos,59,Thomas Incoom,LB,6-2,265,--,1,-,-,-,-
-Denver Broncos,10,Jerry Jeudy,WR,6-1,193,24,3,Christopher Cabott,Equity Sports,Chris Cabott,Equity Sports
-Denver Broncos,47,Josey Jewell,LB,6-2,236,28,5,Jack Bechta,JB Sports Inc.,Jack Bechta,JB Sports Inc.
-Denver Broncos,93,D.J. Jones,DT,6-0,305,29,6,Brian Ayrault,WME Football,Brian Ayrault ,CAA Sports
-Denver Broncos,6,P.J. Locke,DB,5-10,202,26,3,Corey Williams,"Overtime Sports Management Group, LLC",Corey Williams,Overtime Sports Management Group
-Denver Broncos,16,Wil Lutz,K,5-11,184,29,7,-,-,-,-
-Denver Broncos,84,Chris Manhertz,TE,6-6,235,31,7,Sean Stellato,"SES, LLC",Sean Stellato,SES LLC
-Denver Broncos,27,Damarri Mathis,DB,5-11,195,24,1,William Heck,"SPORTSTARS, INC.",-,SportStars
-Denver Broncos,69,Mike McGlinchey,OT,6-8,315,29,5,Tommy Condon,CAA Football,"Tom Condon, Tommy Condon, Jimmy Sexton",CAA Football
-Denver Broncos,38,Jaleel McLaughlin,RB,5-7,187,--,1,-,-,-,-
-Denver Broncos,29,Ja'Quan McMillian,DB,5-10,183,--,1,-,-,-,-
-Denver Broncos,77,Quinn Meinerz,OG,6-3,320,24,2,William Heck,"SPORTSTARS, INC.",Ron Slavin,"SPORTSTARS, INC."
-Denver Broncos,19,Marvin Mims,WR,5-11,182,--,1,Martin Fischman,Ballengee Group,-,Ballengee Group
-Denver Broncos,23,Fabian Moreau,DB,6-0,198,29,6,William Heck,"SPORTSTARS, INC.",-,"SPORTSTARS, INC."
-Denver Broncos,37,Riley Moss,DB,6-0,193,--,1,Kyle Strongin,Range Sports,yle Strongin,-
-Denver Broncos,57,Ben Niemann,LB,6-2,235,28,5,-,-,-,-
-Denver Broncos,25,Samaje Perine,RB,5-10,236,28,6,Travis Allen,Athletes First,-,Athletes First
-Denver Broncos,51,Ronnie Perkins,DE,6-3,253,24,2,David Mulugheta,Athletes First,David Mulugheta,Athletes First
-Denver Broncos,74,Ben Powers,OG,6-4,310,27,4,Thomas Mills,"Capital Sports Advisors
+Team Name,Player Number,Player Name,Position,Height,Weight,Age,Years of Experience,Career Health,Seasonal Health,Percent of Reinjury, Fanspo Agent,Fanspo Agency, Spotrac Agent,Spotrac Agency
+Denver Broncos,45,Nate Adkins,TE,6-3,252,--,1,,,,-,-,-,-
+Denver Broncos,99,Zach Allen,DE,6-5,285,26,4,,,,-,-,"Tom Condon, Ben Renzin, Tom Condon",CAA Sports
+Denver Broncos,75,Quinn Bailey,OT,6-6,323,28,1,,,,William Heck,"SPORTSTARS, INC.",-,SportStars
+Denver Broncos,72,Garett Bolles,OT,6-5,300,31,6,,,,Jeffrey Sperbeck,Rep 1 Sports Group,-,Rep 1 Sports
+Denver Broncos,42,Nik Bonitto,LB,6-3,240,24,1,,,,-,-,-,CAA Sports
+Denver Broncos,56,Baron Browning,LB,6-3,240,24,2,,,,Eugene Lee,3 Strand Sports & Entertainment,Eugene Lee,Vanguard Sports Group
+Denver Broncos,20,Michael Burton,RB,6-0,247,31,8,,,,-,-,-,Lunar Sports
+Denver Broncos,94,Keondre Coburn,DT,6-2,332,--,1,,,,-,-,-,-
+Denver Broncos,0,Jonathon Cooper,LB,6-4,257,--,2,,,,Christian Carter,Shark Sports Management,-,Shark Sports Management
+Denver Broncos,79,Lloyd Cushenberry,C,6-4,315,25,3,,,,-,-,-,CAA Sports
+Denver Broncos,9,Riley Dixon,P,6-4,221,30,7,,,,William Heck,"SPORTSTARS, INC.",-,SportStars
+Denver Broncos,73,Cameron Fleming,OT,6-5,320,31,9,,,,Kyle Strongin,Range Sports,Kyle Strongin,-
+Denver Broncos,76,Alex Forsyth,C,6-4,312,--,1,,,,-,-,-,-
+Denver Broncos,48,MItchell Fraboni,LS,6-2,223,--,1,,,,-,-,-,-
+Denver Broncos,95,Elijah Garcia,DT,6-5,302,25,1,,,,-,-,-,-
+Denver Broncos,92,Jonathan Harris,DL,6-5,295,27,2,,,,Alan Bullington,MGC Sports,-,MGC Sports
+Denver Broncos,91,Matt Henningsen,DE,6-3,291,24,2,,,,Alan Bullington,MGC Sports,-,MGC Sports
+Denver Broncos,17,Lil'Jordan Humphrey,WR,6-4,225,25,3,,,,James Gould,Management One,-,Management One
+Denver Broncos,59,Thomas Incoom,LB,6-2,265,--,1,,,,-,-,-,-
+Denver Broncos,10,Jerry Jeudy,WR,6-1,193,24,3,,,,Christopher Cabott,Equity Sports,Chris Cabott,Equity Sports
+Denver Broncos,47,Josey Jewell,LB,6-2,236,28,5,,,,Jack Bechta,JB Sports Inc.,Jack Bechta,JB Sports Inc.
+Denver Broncos,93,D.J. Jones,DT,6-0,305,29,6,,,,Brian Ayrault,WME Football,Brian Ayrault ,CAA Sports
+Denver Broncos,6,P.J. Locke,DB,5-10,202,26,3,,,,Corey Williams,"Overtime Sports Management Group, LLC",Corey Williams,Overtime Sports Management Group
+Denver Broncos,16,Wil Lutz,K,5-11,184,29,7,,,,-,-,-,-
+Denver Broncos,84,Chris Manhertz,TE,6-6,235,31,7,,,,Sean Stellato,"SES, LLC",Sean Stellato,SES LLC
+Denver Broncos,27,Damarri Mathis,DB,5-11,195,24,1,,,,William Heck,"SPORTSTARS, INC.",-,SportStars
+Denver Broncos,69,Mike McGlinchey,OT,6-8,315,29,5,,,,Tommy Condon,CAA Football,"Tom Condon, Tommy Condon, Jimmy Sexton",CAA Football
+Denver Broncos,38,Jaleel McLaughlin,RB,5-7,187,--,1,,,,-,-,-,-
+Denver Broncos,29,Ja'Quan McMillian,DB,5-10,183,--,1,,,,-,-,-,-
+Denver Broncos,77,Quinn Meinerz,OG,6-3,320,24,2,,,,William Heck,"SPORTSTARS, INC.",Ron Slavin,"SPORTSTARS, INC."
+Denver Broncos,19,Marvin Mims,WR,5-11,182,--,1,,,,Martin Fischman,Ballengee Group,-,Ballengee Group
+Denver Broncos,23,Fabian Moreau,DB,6-0,198,29,6,,,,William Heck,"SPORTSTARS, INC.",-,"SPORTSTARS, INC."
+Denver Broncos,37,Riley Moss,DB,6-0,193,--,1,,,,Kyle Strongin,Range Sports,yle Strongin,-
+Denver Broncos,57,Ben Niemann,LB,6-2,235,28,5,,,,-,-,-,-
+Denver Broncos,25,Samaje Perine,RB,5-10,236,28,6,,,,Travis Allen,Athletes First,-,Athletes First
+Denver Broncos,51,Ronnie Perkins,DE,6-3,253,24,2,,,,David Mulugheta,Athletes First,David Mulugheta,Athletes First
+Denver Broncos,74,Ben Powers,OG,6-4,310,27,4,,,,Thomas Mills,"Capital Sports Advisors
 ",Thomas Mills,Capital Sports Advisors
-Denver Broncos,98,Mike Purcell,DT,6-3,328,32,7,Cameron Foster,Steinberg Sports & Entertainment,Cameron Foster,Equity Sports
-Denver Broncos,41,Drew Sanders,LB,6-5,233,--,1,Travis Allen,Athletes First,-,Athletes First
-Denver Broncos,31,Justin Simmons,DB,6-2,202,29,7,Todd France,Athletes First,Todd France,CAA Sports
-Denver Broncos,49,Alex Singleton,LB,6-2,240,29,4,Jon Baker,ProStar Sports Agency,-,ProStar Sports Agency
-Denver Broncos,34,JL Skinner,DB,6-4,220,--,1,-,-,-,-
-Denver Broncos,1,Tremon Smith,DB,6-0,190,27,5,James Krenis,Accel Sports Management,James Krenis,Accel Sports
-Denver Broncos,4,Jarrett Stidham,QB,6-3,215,27,3,Brian Murphy/Camron Hahn,Athletes First,"Camron Hahn, Brian Murphy",Athletes First
-Denver Broncos,40,Justin Strnad,LB,6-3,235,27,3,William Heck,"SPORTSTARS, INC.",-,SportStars
-Denver Broncos,2,Patrick Surtain,DB,6-2,202,23,2,-,-,Tory Dandy,CAA Sports
-Denver Broncos,14,Courtland Sutton,WR,6-4,216,28,5,Jacob Presser,Milk & Honey Sports,-,Milk & Honey Sports
-Denver Broncos,82,Adam Trautman,TE,6-5,253,26,3,Jeffrey Sperbeck,Rep 1 Sports Group,-,Rep 1 Sports
-Denver Broncos,32,Delarrin Turner-Yell,DB,5-11,200,23,1,-,-,-,Element Sports Group
-Denver Broncos,39,Dwayne Washington,RB,6-1,223,29,7,Stephen Dubin,"Yee & Dubin Sports, LLC",-,Yee & Dubin Sports
-Denver Broncos,60,Luke Wattenberg,C,6-5,300,26,1,Cameron Weiss,Dynamic Sports Group,-,Dynamic Sports Group
-Denver Broncos,33,Javonte Williams,RB,5-10,220,23,2,Cody Recchion,1 of 1 Agency,"Andy Simms, Cody Recchion",1 of 1 Agency
-Denver Broncos,3,Russell Wilson,QB,5-11,215,34,1,Mark Rodgers,"Law Office of Mark Rodgers, P.A.",Mark Rodgers,-
-Denver Broncos,80,Greg Dulcich,TE,6-4,245,23,1,-,-,-,Caric Sports Management
-Denver Broncos,50,Jonas Griffith,LB,6-4,250,--,2,-,-,-,-
-Denver Broncos,89,Brandon Johnson,WR,6-2,195,25,1,-,-,-,-
-Denver Broncos,63,Alex Palczewski,OT,6-6,314,--,1,-,-,-,-
-Denver Broncos,81,Tim Patrick,WR,6-4,212,29,5,-,-,-,-
-Denver Broncos,30,Caden Sterns,DB,6-1,207,--,2,Barry Gardne,Be Great Sports,-,Be Great Sports
-Denver Broncos,15,Jalen Virgil,WR,6-1,210,25,1,Harold Lewis/Chad Berger/Ezra Thompson,National Sports Agency,"Chad Berger, Harold Lewis, Ezra Thompson",National Sports Agency
-Denver Broncos,8,K'Waun Williams,DB,5-9,185,32,8,-,-,-,-
-Denver Broncos,22,Kareem Jackson,DB,5-10,183,35,13,Jason Chayut,"SPORTSTARS, INC.",Jason Chayut,"SPORTSTARS, INC."
-Denver Broncos,96,Eyioma Uwazurike,DT,6-6,320,25,1,William Heck,"SPORTSTARS, INC.",-,SportStars
-Denver Broncos,36,Tyler Badie,RB,5-8,197,24,1,-,-,-,Element Sports Group
-Denver Broncos,46,Michael Bandy,WR,5-10,190,25,1,-,-,-,-
-Denver Broncos,6,Ben DiNucci,QB,6-2,215,26,2,Jeremy Cohen,JL Sports,Joe Linta,JL Sports
-Denver Broncos,13,Phillip Dorsett,WR,5-10,185,30,8,"Mitchell Frankel
+Denver Broncos,98,Mike Purcell,DT,6-3,328,32,7,,,,Cameron Foster,Steinberg Sports & Entertainment,Cameron Foster,Equity Sports
+Denver Broncos,41,Drew Sanders,LB,6-5,233,--,1,,,,Travis Allen,Athletes First,-,Athletes First
+Denver Broncos,31,Justin Simmons,DB,6-2,202,29,7,,,,Todd France,Athletes First,Todd France,CAA Sports
+Denver Broncos,49,Alex Singleton,LB,6-2,240,29,4,,,,Jon Baker,ProStar Sports Agency,-,ProStar Sports Agency
+Denver Broncos,34,JL Skinner,DB,6-4,220,--,1,,,,-,-,-,-
+Denver Broncos,1,Tremon Smith,DB,6-0,190,27,5,,,,James Krenis,Accel Sports Management,James Krenis,Accel Sports
+Denver Broncos,4,Jarrett Stidham,QB,6-3,215,27,3,,,,Brian Murphy/Camron Hahn,Athletes First,"Camron Hahn, Brian Murphy",Athletes First
+Denver Broncos,40,Justin Strnad,LB,6-3,235,27,3,,,,William Heck,"SPORTSTARS, INC.",-,SportStars
+Denver Broncos,2,Patrick Surtain,DB,6-2,202,23,2,,,,-,-,Tory Dandy,CAA Sports
+Denver Broncos,14,Courtland Sutton,WR,6-4,216,28,5,,,,Jacob Presser,Milk & Honey Sports,-,Milk & Honey Sports
+Denver Broncos,82,Adam Trautman,TE,6-5,253,26,3,,,,Jeffrey Sperbeck,Rep 1 Sports Group,-,Rep 1 Sports
+Denver Broncos,32,Delarrin Turner-Yell,DB,5-11,200,23,1,,,,-,-,-,Element Sports Group
+Denver Broncos,39,Dwayne Washington,RB,6-1,223,29,7,,,,Stephen Dubin,"Yee & Dubin Sports, LLC",-,Yee & Dubin Sports
+Denver Broncos,60,Luke Wattenberg,C,6-5,300,26,1,,,,Cameron Weiss,Dynamic Sports Group,-,Dynamic Sports Group
+Denver Broncos,33,Javonte Williams,RB,5-10,220,23,2,,,,Cody Recchion,1 of 1 Agency,"Andy Simms, Cody Recchion",1 of 1 Agency
+Denver Broncos,3,Russell Wilson,QB,5-11,215,34,1,,,,Mark Rodgers,"Law Office of Mark Rodgers, P.A.",Mark Rodgers,-
+Denver Broncos,80,Greg Dulcich,TE,6-4,245,23,1,,,,-,-,-,Caric Sports Management
+Denver Broncos,50,Jonas Griffith,LB,6-4,250,--,2,,,,-,-,-,-
+Denver Broncos,89,Brandon Johnson,WR,6-2,195,25,1,,,,-,-,-,-
+Denver Broncos,63,Alex Palczewski,OT,6-6,314,--,1,,,,-,-,-,-
+Denver Broncos,81,Tim Patrick,WR,6-4,212,29,5,,,,-,-,-,-
+Denver Broncos,30,Caden Sterns,DB,6-1,207,--,2,,,,Barry Gardne,Be Great Sports,-,Be Great Sports
+Denver Broncos,15,Jalen Virgil,WR,6-1,210,25,1,,,,Harold Lewis/Chad Berger/Ezra Thompson,National Sports Agency,"Chad Berger, Harold Lewis, Ezra Thompson",National Sports Agency
+Denver Broncos,8,K'Waun Williams,DB,5-9,185,32,8,,,,-,-,-,-
+Denver Broncos,22,Kareem Jackson,DB,5-10,183,35,13,,,,Jason Chayut,"SPORTSTARS, INC.",Jason Chayut,"SPORTSTARS, INC."
+Denver Broncos,96,Eyioma Uwazurike,DT,6-6,320,25,1,,,,William Heck,"SPORTSTARS, INC.",-,SportStars
+Denver Broncos,36,Tyler Badie,RB,5-8,197,24,1,,,,-,-,-,Element Sports Group
+Denver Broncos,46,Michael Bandy,WR,5-10,190,25,1,,,,-,-,-,-
+Denver Broncos,6,Ben DiNucci,QB,6-2,215,26,2,,,,Jeremy Cohen,JL Sports,Joe Linta,JL Sports
+Denver Broncos,13,Phillip Dorsett,WR,5-10,185,30,8,,,,"Mitchell Frankel
 ","Impact Sports Management
 ",Tony Fleming,Impact Sports
-Denver Broncos,28,Art Green,DB,6-1,201,--,1,Chad Berger/Ezra Thompson/ Harold Thompson,National Sports Agency,"Harold Lewis, Ezra Thompson, Chad Berger",National Sports Agency
-Denver Broncos,52,Marcus Haynes,LB,6-4,240,--,1,-,-,-,-
-Denver Broncos,90,Jordan Jackson,DT,6-4,294,25,1,William Heck,"SPORTSTARS, INC.",-,SportStars
-Denver Broncos,71,Demontrey Jacobs,OT,6-6,315,--,1,-,-,-,-
-Denver Broncos,38,Devon Key,DB,6-0,208,--,1,-,-,-,-
-Denver Broncos,85,Lucas Krull,TE,6-6,260,25,1,-,-,-,-
-Denver Broncos,96,Tyler Lancaster,DE,6-3,313,29,5,-,-,-,-
-Denver Broncos,97,PJ Mustipher,DT,6-4,315,--,1,-,-,-,-
-Denver Broncos,64,Haggai Chisom Ndubuisi,,,,,1,-,-,-,-
+Denver Broncos,28,Art Green,DB,6-1,201,--,1,,,,Chad Berger/Ezra Thompson/ Harold Thompson,National Sports Agency,"Harold Lewis, Ezra Thompson, Chad Berger",National Sports Agency
+Denver Broncos,52,Marcus Haynes,LB,6-4,240,--,1,,,,-,-,-,-
+Denver Broncos,90,Jordan Jackson,DT,6-4,294,25,1,,,,William Heck,"SPORTSTARS, INC.",-,SportStars
+Denver Broncos,71,Demontrey Jacobs,OT,6-6,315,--,1,,,,-,-,-,-
+Denver Broncos,38,Devon Key,DB,6-0,208,--,1,,,,-,-,-,-
+Denver Broncos,85,Lucas Krull,TE,6-6,260,25,1,,,,-,-,-,-
+Denver Broncos,96,Tyler Lancaster,DE,6-3,313,29,5,,,,-,-,-,-
+Denver Broncos,97,PJ Mustipher,DT,6-4,315,--,1,,,,-,-,-,-
+Denver Broncos,64,Haggai Chisom Ndubuisi,,,,,1,,,,-,-,-,-
