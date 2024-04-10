@@ -1,1 +1,45 @@
-
+Team Name,First Name,Last Name,Player Number,Position,B/T,Ht,Wt,DOB,Career Health ,Seasonal Health,Percent of Reinjury,Status,Base Salary,Spotrac Agent,Spotrac Agency
+Yankees,Gerrit,Cole,45,Rotation,R/R,"6' 4""",220,09/08/1990,,,,-,"36,000,000",Scott Boras,Boras Corporation
+Yankees,Clarke,Schmidt,36,Rotation,R/R,"6' 1""",200,02/20/1996,,,,Arb 1,"3,000,000",-,Excel Sports Management
+Yankees,Carlos,Rodón,55,Rotation,L/L,"6' 2""",255,12/10/1992,,,,-,-,-,-
+Yankees,Nestor,Cortes,65,Rotation,R/L,"5' 11""",210,12/10/1994,,,,Arb 2,"4,600,000",-,-
+Yankees,Michael,King,34,Rotation,R/R,"6' 3""",210,05/25/1995,,,,Arb 2,"3,100,000",-,-
+Yankees,Clay,Holmes,35,Bullpen,R/R,"6' 5""",245,03/27/1993,,,,Arb 3,"6,600,000",-,Jet Sports Management
+Yankees,Jonathan,Loáisiga,43,Bullpen,R/R,"5' 11""",165,11/02/1994,,,,-,-,-,-
+Yankees,Lou,Trivino,56,Bullpen,R/R,"6' 5""",235,10/01/1991,,,,-,-,Steve Canter,-
+Yankees,Tommy,Kahnle,41,Bullpen,R/R,"6' 1""",230,08/07/1989,,,,-,"5,750,000",-,Ballengee Group
+Yankees,Albert,Abreu,84,Bullpen,R/R,"6' 2""",190,09/26/1995,,,,-,"738,700",-,Vayner Sports
+Yankees,Ian,Hamilton,71,Bullpen,R/R,"6' 1""",200,06/16/1995,,,,Pre-Arb,-,-,-
+Yankees,Jhony,Brito,76,Bullpen,R/R,"6' 2""",210,02/17/1998,,,,Pre-Arb,-,-,-
+Yankees,Greg,Weissert,85,Bullpen,R/R,"6' 2""",235,02/04/1995,,,,Pre-Arb,-,-,-
+Yankees,Nick,Ramirez,63,Bullpen,L/L,"6' 4""",232,08/01/1989,,,,Pre-Arb,-,-,-
+Yankees,Anthony,Misiewicz,54,Bullpen,R/L,"6' 1""",196,11/01/1994,,,,Pre-Arb,-,-,-
+Yankees,Jose,Trevino,39,Catcher,R/R,"5' 10""",215,11/28/1992,,,,Arb 2,"2,500,000",-,Paragon Sports International
+Yankees,Austin,Wells,88,Catcher,L/R,"6' 2""",220,07/12/1999,,,,Pre-Arb,-,-,-
+Yankees,Kyle,Higashioka,66,Catcher,R/R,"6' 1""",202,04/20/1990,,,,Arb 3,"2,200,000",-,Beverly Hills Sports Council
+Yankees,Ben,Rortvedt,38,Catcher,L/R,"5' 9""",191,09/25/1997,,,,Pre-Arb,-,-,Wasserman
+Yankees,Anthony,Rizzo,48,First Base,L/L,"6' 3""",240,08/08/1989,,,,FA,"17,000,000",-,Sports One Athlete Management
+Yankees,DJ,LeMahieu,26,First Base,R/R,"6' 4""",220,07/13/1988,,,,-,"15,000,000",-,Wasserman
+Yankees,Jake,Bauers,61,First Base,L/L,"5' 11""",195,10/06/1995,,,,Arb 1,"1,500,000",-,VC Sports Group
+Yankees,Gleyber,Torres,25,Second Base,R/R,"6' 1""",205,12/13/1996,,,,Arb 4,"14,600,000",-,Octagon
+Yankees,DJ,LeMahieu,26,Second Base,R/R,"6' 4""",220,07/13/1988,,,,FA,"15,000,000",-,Wasserman
+Yankees,Oswaldo,Cabrera,95,Second Base,S/R,"5' 11""",200,03/01/1999,,,,Pre-Arb,-,-,-
+Yankees,Oswald,Peraza,91,Second Base,R/R,"6' 0""",200,06/15/2000,,,,Pre-Arb,-,-,-
+Yankees,Oswald,Peraza,91,Third Base,R/R,"6' 0""",200,06/15/2000,,,,Pre-Arb,-,-,-
+Yankees,DJ,LeMahieu,26,Third Base,R/R,"6' 4""",220,07/13/1988,,,,FA,"15,000,000",-,Wasserman
+Yankees,Oswaldo,Cabrera,95,Third Base,S/R,"5' 11""",200,03/01/1999,,,,Pre-Arb,-,-,-
+Yankees,Anthony,Volpe,11,Shortstop,R/R,"5' 9""",180,04/28/2001,,,,Pre-Arb,-,-,-
+Yankees,Gleyber,Torres,25,Shortstop,R/R,"6' 1""",205,12/13/1996,,,,Arb 4,"14,600,000",-,Octagon
+Yankees,Oswald,Peraza,91,Shortstop,R/R,"6' 0""",200,06/15/2000,,,,Pre-Arb,-,-,-
+Yankees,Everson,Pereira,80,Left Field,R/R,"5' 11""",191,04/10/2001,,,,Pre-Arb,-,-,-
+Yankees,Jake,Bauers,61,Left Field,L/L,"5' 11""",195,10/06/1995,,,,Arb 1,"1,500,000",-,VC Sports Group
+Yankees,Giancarlo,Stanton,27,Left Field,R/R,"6' 6""",245,11/08/1989,,,,-,"32,000,000",-,Wasserman
+Yankees,Oswaldo,Cabrera,95,Left Field,S/R,"5' 11""",200,03/01/1999,,,,Pre-Arb,-,-,-
+Yankees,Jasson,Domínguez,89,Center Field,S/R,"5' 9""",190,02/07/2003,,,,-,-,-,-
+Yankees,Everson,Pereira,80,Center Field,R/R,"5' 11""",191,04/10/2001,,,,Pre-Arb,-,-,-
+Yankees,Estevan,Florial,90,Center Field,L/R,"6' 1""",195,11/25/1997,,,,Pre-Arb,-,-,-
+Yankees,Aaron,Judge,99,Right Field,R/R,"6' 7""",282,04/26/1992,,,,-,"40,000,000",-,PSI Sports Management)
+Yankees,Jake,Bauers,61,Right Field,L/L,"5' 11""",195,10/06/1995,,,,Arb 1,"1,500,000",-,VC Sports Group
+Yankees,Giancarlo,Stanton,27,Right Field,R/R,"6' 6""",245,11/08/1989,,,,-,"32,000,000",-,Wasserman
+Yankees,Oswaldo,Cabrera,95,Right Field,S/R,"5' 11""",200,03/01/1999,,,,Pre-Arb,-,-,-
+Yankees,Giancarlo,Stanton,27,Designated Hitter,R/R,"6' 6""",245,11/08/1989,,,,-,"32,000,000",-,Wasserman
