@@ -146,3 +146,24 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
+# Function to load and display team roster
+def display_team_roster(league, team):
+    if team and team in team_roster_urls[league]:
+        url = team_roster_urls[league][team]
+        try:
+            roster_df = pd.read_csv(url)
+            st.write(f"Roster for {team}:")
+            st.dataframe(roster_df)
+        except Exception as e:
+            st.error(f"Failed to load roster: {e}")
+
+# Sidebar for league selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a league'] + list(team_roster_urls.keys()))
+
+if league_choice != 'Select a league':
+    # Sidebar for team selection based on the chosen league
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a team'] + sorted(team_roster_urls[league_choice].keys()))
+    
+    if team_choice != 'Select a team':
+        display_team_roster(league_choice, team_choice)
+
