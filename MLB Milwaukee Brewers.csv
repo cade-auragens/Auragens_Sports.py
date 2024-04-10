@@ -1,1 +1,40 @@
-
+Team Name,First Name,Last Name,Player Number,Position,B/T,Ht,Wt,DOB,Career Health ,Seasonal Health,Percent of Reinjury,Status,Base Salary,Spotrac Agent,Spotrac Agency
+Brewers,Corbin,Burnes,39,Rotation,R/R,"6' 3""",246,10/22/1994,,,,Arb 3,"14,100,000",-,CAA Sports
+Brewers,Brandon,Woodruff,53,Rotation,L/R,"6' 4""",244,02/10/1993,,,,-,-,Bo McKinnis,McKinnis Sports Management
+Brewers,Freddy,Peralta,51,Rotation,R/R,"6' 0""",196,06/04/1996,,,,Pre-Arb,"5,500,000",-,Rep 1 Sports
+Brewers,Adrian,Houser,37,Rotation,R/R,"6' 3""",242,02/02/1993,,,,Arb 3,"5,000,000",-,BBI Sports Group
+Brewers,Colin,Rea,48,Rotation,R/R,"6' 5""",218,07/01/1990,,,,-,"3,500,000",Joe Speed,Sterling Sports Management
+Brewers,Devin,Williams,38,Bullpen,R/R,"6' 2""",192,09/21/1994,,,,Arb 2,"6,100,000",-,Beverly Hills Sports Council
+Brewers,Joel,Payamps,31,Bullpen,R/R,"6' 2""",217,04/07/1994,,,,Arb 1,"1,000,000",-,-
+Brewers,Abner,Uribe,45,Bullpen,R/R,"6' 3""",225,06/20/2000,,,,Pre-Arb,-,-,-
+Brewers,Hoby,Milner,55,Bullpen,L/L,"6' 3""",184,01/13/1991,,,,Arb 2,"2,000,000",-,MVP Sports Group
+Brewers,Elvis,Peguero,59,Bullpen,R/R,"6' 5""",237,03/20/1997,,,,Pre-Arb,-,-,-
+Brewers,Trevor,Megill,29,Bullpen,L/R,"6' 8""",250,12/05/1993,,,,Pre-Arb,-,-,-
+Brewers,Bryse,Wilson,46,Bullpen,R/R,"6' 2""",267,12/20/1997,,,,Arb 1,"1,000,000",Steve Canter,Pro Edge Sports Management
+Brewers,J.B.,Bukauskas,50,Bullpen,R/R,"6' 0""",208,10/11/1996,,,,Pre-Arb,-,-,-
+Brewers,Thyago,Vieira,54,Bullpen,R/R,"6' 3""",265,01/07/1993,,,,Pre-Arb,-,-,-
+Brewers,Clayton,Andrews,47,Bullpen,L/L,"5' 6""",160,01/04/1997,,,,Pre-Arb,-,-,-
+Brewers,Janson,Junk,56,Bullpen,R/R,"6' 2""",202,01/15/1996,,,,Pre-Arb,-,-,-
+Brewers,William,Contreras,24,Catcher,R/R,"5' 11""",216,12/24/1997,,,,Pre-Arb,-,-,Octagon Sports
+Brewers,Rowdy,Tellez,11,First Base,L/L,"6' 4""",270,03/16/1995,,,,-,"3,200,000",-,Primo Sports Group
+Brewers,Brice,Turang,0,Second Base,L/R,"6' 0""",176,11/21/1999,,,,Pre-Arb,-,-,-
+Brewers,Andruw,Monasterio,14,Second Base,R/R,"5' 11""",186,05/30/1997,,,,Pre-Arb,-,-,-
+Brewers,Andruw,Monasterio,14,Third Base,R/R,"5' 11""",186,05/30/1997,,,,Pre-Arb,-,-,-
+Brewers,Willy,Adames,27,Shortstop,R/R,"6' 1""",214,09/02/1995,,,,Arb 3,"13,400,000",-,CAA Sports
+Brewers,Brice,Turang,0,Shortstop,L/R,"6' 0""",176,11/21/1999,,,,Pre-Arb,-,-,-
+Brewers,Andruw,Monasterio,14,Shortstop,R/R,"5' 11""",186,05/30/1997,,,,Pre-Arb,-,-,-
+Brewers,Christian,Yelich,22,Left Field,L/R,"6' 3""",207,12/05/1991,,,,-,"26,000,000",-,"Paragon Sports International, AMG Sports"
+Brewers,Tyrone,Taylor,15,Left Field,R/R,"6' 1""",218,01/22/1994,,,,Arb 1,"1,300,000",-,Wasserman
+Brewers,Chris,Roller,,Left Field,R/R,"5' 11""",190,10/08/1996,,,,Pre-Arb,-,-,-
+Brewers,Sal,Frelick,10,Center Field,L/R,"5' 10""",182,04/19/2000,,,,Pre-Arb,-,-,-
+Brewers,Blake,Perkins,16,Center Field,S/R,"5' 11""",197,09/10/1996,,,,Pre-Arb,-,-,-
+Brewers,Tyrone,Taylor,15,Center Field,R/R,"6' 1""",218,01/22/1994,,,,Arb 1,"1,300,000",-,Wasserman
+Brewers,Garrett,Mitchell,5,Center Field,L/R,"6' 3""",224,09/04/1998,,,,Pre-Arb,-,-,-
+Brewers,Chris,Roller,,Center Field,R/R,"5' 11""",190,10/08/1996,,,,Pre-Arb,-,-,-
+Brewers,Tyrone,Taylor,15,Right Field,R/R,"6' 1""",218,01/22/1994,,,,Arb 1,"1,300,000",-,Wasserman
+Brewers,Sal,Frelick,10,Right Field,L/R,"5' 10""",182,04/19/2000,,,,Pre-Arb,-,-,-
+Brewers,Blake,Perkins,16,Right Field,S/R,"5' 11""",197,09/10/1996,,,,Pre-Arb,-,-,-
+Brewers,Chris,Roller,,Right Field,R/R,"5' 11""",190,10/08/1996,,,,Pre-Arb,-,-,-
+Brewers,William,Contreras,24,Designated Hitter,R/R,"5' 11""",216,12/24/1997,,,,Pre-Arb,-,-,Octagon Sports
+Brewers,Rowdy,Tellez,11,Designated Hitter,L/L,"6' 4""",270,03/16/1995,,,,-,"3,200,000",-,Primo Sports Group
+Brewers,Christian,Yelich,22,Designated Hitter,L/R,"6' 3""",207,12/05/1991,,,,-,"26,000,000",-,"Paragon Sports International, AMG Sports"
