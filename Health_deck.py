@@ -4,6 +4,38 @@ import pandas as pd
 st.title('HealthAura: Pro Sports Tracker')
 
 # Mapping NFL teams to their roster CSV URLs
+mlb_team-roster_urls = {
+    "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
+    "Atlanta Braves": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Atlanta%20Braves.csv",
+    "Baltimore Orioles": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Baltimore%20Orioles.csv",
+    "Boston Red Sox": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Boston%20Red%20Sox.csv",
+    "Chicago Cubs": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Chicago%20Cubs.csv",
+    "Chicago White Sox": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Chicago%20White%20Sox.csv",
+    "Cincinnati Reds": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Cincinnati%20Reds.csv",
+    "Cleveland Guardians": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Cleveland%20Guardians.csv",
+    "Colorado Rockies": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Colorado%20Rockies.csv",
+    "Detroit Tigers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Detroit%20Tigers.csv",
+    "Houston Astros": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Houston%20Astros.csv",
+    "Kansas City Royals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Kansas%20City%20Royals.csv",
+    "Los Angeles Angels": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Los%20Angeles%20Angels.csv",
+    "Los Angeles Dodgers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Los%20Angeles%20Dodgers.csv",
+    "Miami Marlins": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Miami%20Marlins.csv",
+    "Milwaukee Brewers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Milwaukee%20Brewers.csv",
+    "Minnesota Twins": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Minnesota%20Twins.csv",
+    "New York Mets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20New%20York%20Mets.csv",
+    "New York Yankees": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20New%20York%20Yankees.csv",
+    "Oakland Athletics": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Oakland%20Athletics.csv",
+    "Philadelphia Phillies": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Philadelphia%20Phillies.csv",
+    "Pittsburgh Pirates": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Pittsburgh%20Pirates.csv",
+    "San Diego Padres": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20San%20Diego%20Padres.csv",
+    "San Francisco Giants": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20San%20Francisco%20Giants.csv",
+    "Seattle Mariners": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Seattle%20Mariners.csv",
+    "St. Louis Cardinals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20St.%20Louis%20Cardinals.csv",
+    "Tampa Bay Rays": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Tampa%20Bay%20Rays.csv",
+    "Texas Rangers": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Texas%20Rangers.csv",
+    "Toronto Blue Jays": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Toronto%20Blue%20Jays.csv",
+    "Washington Nationals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Washington%20Nationals.csv",
+}
 nfl_team_roster_urls = {
     'Arizona Cardinals': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Arizona%20Cardinals%20Roster.csv',
     'Atlanta Falcons': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Atlanta%20Falcons.csv',
@@ -38,6 +70,7 @@ nfl_team_roster_urls = {
     'Tennessee Titans': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Tennessee%20Titans.csv',
     'Washington Commanders': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Washington%20Commanders.csv',
 }
+
 
 # Function to load roster data from the CSV file of the selected league
 def load_roster_data(league):
