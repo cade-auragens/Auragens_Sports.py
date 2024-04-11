@@ -41,7 +41,7 @@ def display_team_roster(league, team):
             st.error(f"Failed to load roster: {e}")
 
 # Sidebar for league selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+league_choice = st.sidebar.selectbox('Select a League', ['Select a Team'] + list(team_roster_urls.keys()))
 
 if league_choice != 'Select a League':
     # Prepare team list based on selected league
