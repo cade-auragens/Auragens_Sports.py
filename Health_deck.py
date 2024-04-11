@@ -6,26 +6,25 @@ st.title('HealthAura: Pro Sports Tracker')
 # Define a dictionary that maps each league to its corresponding team roster URLs
 team_roster_urls = {
     'MLB': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "Angels", "Astros", "Athletics", "Blue Jays", "Braves", "Brewers", "Cardinals", "Cubs", "Diamondbacks", "Dodgers",
-        "Giants", "Guardians", "Mariners", "Marlins", "Mets", "Nationals", "Orioles", "Padres", "Phillies", "Pirates",
-        "Rangers", "Rays", "Red Sox", "Reds", "Rockies", "Royals", "Tigers", "Twins", "White Sox", "Yankees"
+         "San Francisco Giants", "Cleveland Guardians", "Seattle Mariners", "Miami Marlins", "New York Mets", "Washington Nationals", "Baltimore Orioles", "San Diego Padres", "Philadelphia Phillies", "Pittsburgh Pirates",
+        "Texas Rangers", "Tampa Bay Rays", "Boston Red Sox", "Cincinnati Reds", "Colorado Rockies", "Kansas City Royals", "Detroit Tigers", "Minnesota Twins", "Chicago White Sox", "New York Yankees"
     ]},
     'NBA': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers", "Grizzlies", "Hawks", "Heat", "Hornets",
-        "Jazz", "Kings", "Knicks", "Lakers", "Magic", "Mavericks", "Nets", "Nuggets", "Pacers", "Pelicans",
-        "Pistons", "Raptors", "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves", "Trail Blazers", "Warriors", "Wizards"
+           "Philadelphia 76ers", "Milwaukee Bucks", "Chicago Bulls", "Cleveland Cavaliers", "Boston Celtics", "Los Angeles Clippers", "Memphis Grizzlies", "Atlanta Hawks", "Miami Heat", "Charlotte Hornets",
+        "Utah Jazz", "Sacramento Kings", "New York Knicks", "Los Angeles Lakers", "Orlando Magic", "Dallas Mavericks", "Brooklyn Nets", "Denver Nuggets", "Indiana Pacers", "New Orleans Pelicans",
+        "Detroit Pistons", "Toronto Raptors", "Houston Rockets", "San Antonio Spurs", "Phoenix Suns", "Oklahoma City Thunder", "Minnesota Timberwolves", "Portland Trail Blazers", "Golden State Warriors", "Washington Wizards"
     ]},
     'NFL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "49ers", "Bears", "Bengals", "Bills", "Broncos", "Browns", "Buccaneers", "Cardinals", "Chargers", "Chiefs",
-        "Colts", "Commanders", "Cowboys", "Dolphins", "Eagles", "Falcons", "Giants", "Jaguars", "Jets", "Lions",
-        "Packers", "Panthers", "Patriots", "Raiders", "Rams", "Ravens", "Saints", "Seahawks", "Steelers", "Texans",
-        "Titans", "Vikings"
+        "San Francisco 49ers", "Chicago Bears", "Cincinnati Bengals", "Buffalo Bills", "Denver Broncos", "Cleveland Browns", "Tampa Bay Buccaneers", "Arizona Cardinals", "Los Angeles Chargers", "Kansas City Chiefs",
+        "Indianapolis Colts", "Washington Commanders", "Dallas Cowboys", "Miami Dolphins", "Philadelphia Eagles", "Atlanta Falcons", "New York Giants", "Jacksonville Jaguars", "New York Jets", "Detroit Lions",
+        "Green Bay Packers", "Carolina Panthers", "New England Patriots", "Las Vegas Raiders", "Los Angeles Rams", "Baltimore Ravens", "New Orleans Saints", "Seattle Seahawks", "Pittsburgh Steelers", "Houston Texans",
+        "Tennessee Titans", "Minnesota Vikings"
     ]},
     'NHL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "Avalanche", "Blackhawks", "Blue Jackets", "Blues", "Bruins", "Canadiens", "Canucks", "Capitals", "Coyotes", "Devils",
-        "Ducks", "Flames", "Flyers", "Golden Knights", "Hurricanes", "Islanders", "Jets", "Kings", "Kraken", "Lightning",
-        "Maple Leafs", "Oilers", "Panthers", "Penguins", "Predators", "Rangers", "Red Wings", "Sabres", "Senators", "Sharks",
-        "Stars", "Wild"
+         "Colorado Avalanche", "Chicago Blackhawks", "Columbus Blue Jackets", "St. Louis Blues", "Boston Bruins", "Montreal Canadiens", "Vancouver Canucks", "Washington Capitals", "Arizona Coyotes", "New Jersey Devils",
+        "Anaheim Ducks", "Calgary Flames", "Philadelphia Flyers", "Vegas Golden Knights", "Carolina Hurricanes", "New York Islanders", "Winnipeg Jets", "Los Angeles Kings", "Seattle Kraken", "Tampa Bay Lightning",
+        "Toronto Maple Leafs", "Edmonton Oilers", "Florida Panthers", "Pittsburgh Penguins", "Nashville Predators", "New York Rangers", "Detroit Red Wings", "Buffalo Sabres", "Ottawa Senators", "San Jose Sharks",
+        "Dallas Stars", "Minnesota Wild"
     ]}
 }
 
