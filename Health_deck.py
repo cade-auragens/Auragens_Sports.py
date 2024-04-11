@@ -167,41 +167,22 @@ def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
         roster_df = pd.read_csv(url)
-        
-        # Check if the organize_by option is set and reorder columns accordingly
+
+        # Define the sorting logic based on the league and organization option
         if organize_by != 'Default':
-            # Mapping of organize options to column orders
-            column_orders = {
-                'MLB': {
-                    "Organize by Player Number": ["Player Number"] + [col for col in roster_df.columns if col != "Player Number"],
-                    # Add more MLB-specific organization options here
-                },
-                'NBA': {
-                    "Organize by Position": ["POSITION"] + [col for col in roster_df.columns if col != "POSITION"],
-                    # Add more NBA-specific organization options here
-                },
-                'NFL': {
-                    "Organize by Age": ["Age"] + [col for col in roster_df.columns if col != "Age"],
-                    # Add more NFL-specific organization options here
-                },
-                'NHL': {
-                    "Organize by Team": ["Team"] + [col for col in roster_df.columns if col != "Team"],
-                    # Add more NHL-specific organization options here
-                }
-            }
-
-            # Reorder columns based on the selected organization
-            if organize_by in column_orders[league]:
-                columns_order = column_orders[league][organize_by]
-                roster_df = roster_df.reindex(columns=columns_order)
-
+            sort_ascending = False  # Change to True if you want ascending order
+            
+            # If organize_by matches a column name directly, use it to sort
+            if organize_by in roster_df.columns:
+                roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
+        
         st.write(f"Roster for {team}:")
         st.dataframe(roster_df)
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
 
-# Example usage in Streamlit app
+# Streamlit app interface
 # Sidebar for league selection
 league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
 
@@ -212,18 +193,19 @@ if league_choice != 'Select a League':
     # Sidebar for team selection based on the chosen league
     team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
 
+    # Define organization options for each league
+    organize_options = {
+        'MLB': ["Default", "Team Name", "Player Number", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"],
+        'NBA': ["Default", "PLAYER", "TEAM", "NUMBER", "POSITION", "HEIGHT", "WEIGHT", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'NFL': ["Default", "Team Name", "Player Number", "Player Name", "Position", "Age", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'NHL': ["Default", "Team", "Player Name", "Position", "Years of Experience", "Career Health", "Season Health", "Percent of Reinjury"]
+    }
+
     # Additional dropdown for organizing the data based on the league
-    organize_options = ['Default']  # Default option
-    if league_choice == 'MLB':
-        organize_options += ['Organize by Player Number']  # Add more MLB-specific options
-    elif league_choice == 'NBA':
-        organize_options += ['Organize by Position']  # Add more NBA-specific options
-    elif league_choice == 'NFL':
-        organize_options += ['Organize by Age']  # Add more NFL-specific options
-    elif league_choice == 'NHL':
-        organize_options += ['Organize by Team']  # Add more NHL-specific options
-    
-    organize_by = st.sidebar.selectbox('Organize Data', organize_options)
+    if league_choice in organize_options:
+        organize_by = st.sidebar.selectbox('Organize Data', organize_options[league_choice])
+    else:
+        organize_by = 'Default'
     
     if team_choice != 'Select a Team':
         # Display the roster for the selected team, organized as per the selection
