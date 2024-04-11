@@ -186,5 +186,3 @@ nhl_team_roster_urls = {
     "Washington Capitals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Washington%20Capitals.csv",
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
-
-
