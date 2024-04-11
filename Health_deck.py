@@ -5,56 +5,7 @@ st.title('HealthAura: Pro Sports Tracker')
 
 # Define a dictionary that maps each league to its corresponding team roster URLs
 team_roster_urls = {
-    'MLB': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "Angels", "Astros", "Athletics", "Blue Jays", "Braves", "Brewers", "Cardinals", "Cubs", "Diamondbacks", "Dodgers",
-        "Giants", "Guardians", "Mariners", "Marlins", "Mets", "Nationals", "Orioles", "Padres", "Phillies", "Pirates",
-        "Rangers", "Rays", "Red Sox", "Reds", "Rockies", "Royals", "Tigers", "Twins", "White Sox", "Yankees"
-    ]},
-    'NBA': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers", "Grizzlies", "Hawks", "Heat", "Hornets",
-        "Jazz", "Kings", "Knicks", "Lakers", "Magic", "Mavericks", "Nets", "Nuggets", "Pacers", "Pelicans",
-        "Pistons", "Raptors", "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves", "Trail Blazers", "Warriors", "Wizards"
-    ]},
-    'NFL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "49ers", "Bears", "Bengals", "Bills", "Broncos", "Browns", "Buccaneers", "Cardinals", "Chargers", "Chiefs",
-        "Colts", "Commanders", "Cowboys", "Dolphins", "Eagles", "Falcons", "Giants", "Jaguars", "Jets", "Lions",
-        "Packers", "Panthers", "Patriots", "Raiders", "Rams", "Ravens", "Saints", "Seahawks", "Steelers", "Texans",
-        "Titans", "Vikings"
-    ]},
-    'NHL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "Avalanche", "Blackhawks", "Blue Jackets", "Blues", "Bruins", "Canadiens", "Canucks", "Capitals", "Coyotes", "Devils",
-        "Ducks", "Flames", "Flyers", "Golden Knights", "Hurricanes", "Islanders", "Jets", "Kings", "Kraken", "Lightning",
-        "Maple Leafs", "Oilers", "Panthers", "Penguins", "Predators", "Rangers", "Red Wings", "Sabres", "Senators", "Sharks",
-        "Stars", "Wild"
-    ]}
-}
-
-# Function to load and display team roster
-def display_team_roster(league, team):
-    url = team_roster_urls[league][team]
-    try:
-        roster_df = pd.read_csv(url)
-        st.write(f"Roster for {team}:")
-        st.dataframe(roster_df)
-    except Exception as e:
-        st.error(f"Failed to load roster: {e}")
-
-# Sidebar for league selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
-
-if league_choice != 'Select a League':
-    # Prepare team list based on selected league
-    teams_list = list(team_roster_urls[league_choice].keys())
-    # Sidebar for team selection based on the chosen league
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
-    
-    if team_choice != 'Select a Team':
-        # Display the roster for the selected team
-        display_team_roster(league_choice, team_choice)
-
-
-# Mapping NFL teams to their roster CSV URLs
-mlb_team_roster_urls = {
+ mlb_team_roster_urls = {
     "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
     "Atlanta Braves": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Atlanta%20Braves.csv",
     "Baltimore Orioles": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Baltimore%20Orioles.csv",
@@ -186,3 +137,27 @@ nhl_team_roster_urls = {
     "Washington Capitals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Washington%20Capitals.csv",
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
+
+# Function to load and display team roster
+def display_team_roster(league, team):
+    url = team_roster_urls[league][team]
+    try:
+        roster_df = pd.read_csv(url)
+        st.write(f"Roster for {team}:")
+        st.dataframe(roster_df)
+    except Exception as e:
+        st.error(f"Failed to load roster: {e}")
+
+# Sidebar for league selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+
+if league_choice != 'Select a League':
+    # Prepare team list based on selected league
+    teams_list = list(team_roster_urls[league_choice].keys())
+    # Sidebar for team selection based on the chosen league
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+    
+    if team_choice != 'Select a Team':
+        # Display the roster for the selected team
+        display_team_roster(league_choice, team_choice)
+
