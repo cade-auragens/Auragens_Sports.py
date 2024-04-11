@@ -137,7 +137,7 @@ nhl_team_roster_urls = {
     "Washington Capitals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Washington%20Capitals.csv",
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
-
+}
 # Function to load and display team roster
 def display_team_roster(league, team):
     url = team_roster_urls[league][team]
