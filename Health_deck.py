@@ -10,18 +10,18 @@ team_roster_urls = {
         "Texas Rangers", "Tampa Bay Rays", "Boston Red Sox", "Cincinnati Reds", "Colorado Rockies", "Kansas City Royals", "Detroit Tigers", "Minnesota Twins", "Chicago White Sox", "New York Yankees"
     ]},
     'NBA': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-           "Philadelphia 76ers", "Milwaukee Bucks", "Chicago Bulls", "Cleveland Cavaliers", "Boston Celtics", "Los Angeles Clippers", "Memphis Grizzlies", "Atlanta Hawks", "Miami Heat", "Charlotte Hornets",
+          "All", "Philadelphia 76ers", "Milwaukee Bucks", "Chicago Bulls", "Cleveland Cavaliers", "Boston Celtics", "Los Angeles Clippers", "Memphis Grizzlies", "Atlanta Hawks", "Miami Heat", "Charlotte Hornets",
         "Utah Jazz", "Sacramento Kings", "New York Knicks", "Los Angeles Lakers", "Orlando Magic", "Dallas Mavericks", "Brooklyn Nets", "Denver Nuggets", "Indiana Pacers", "New Orleans Pelicans",
         "Detroit Pistons", "Toronto Raptors", "Houston Rockets", "San Antonio Spurs", "Phoenix Suns", "Oklahoma City Thunder", "Minnesota Timberwolves", "Portland Trail Blazers", "Golden State Warriors", "Washington Wizards"
     ]},
     'NFL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "San Francisco 49ers", "Chicago Bears", "Cincinnati Bengals", "Buffalo Bills", "Denver Broncos", "Cleveland Browns", "Tampa Bay Buccaneers", "Arizona Cardinals", "Los Angeles Chargers", "Kansas City Chiefs",
+        "All", "San Francisco 49ers", "Chicago Bears", "Cincinnati Bengals", "Buffalo Bills", "Denver Broncos", "Cleveland Browns", "Tampa Bay Buccaneers", "Arizona Cardinals", "Los Angeles Chargers", "Kansas City Chiefs",
         "Indianapolis Colts", "Washington Commanders", "Dallas Cowboys", "Miami Dolphins", "Philadelphia Eagles", "Atlanta Falcons", "New York Giants", "Jacksonville Jaguars", "New York Jets", "Detroit Lions",
         "Green Bay Packers", "Carolina Panthers", "New England Patriots", "Las Vegas Raiders", "Los Angeles Rams", "Baltimore Ravens", "New Orleans Saints", "Seattle Seahawks", "Pittsburgh Steelers", "Houston Texans",
         "Tennessee Titans", "Minnesota Vikings"
     ]},
     'NHL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-         "Colorado Avalanche", "Chicago Blackhawks", "Columbus Blue Jackets", "St. Louis Blues", "Boston Bruins", "Montreal Canadiens", "Vancouver Canucks", "Washington Capitals", "Arizona Coyotes", "New Jersey Devils",
+         "All", "Colorado Avalanche", "Chicago Blackhawks", "Columbus Blue Jackets", "St. Louis Blues", "Boston Bruins", "Montreal Canadiens", "Vancouver Canucks", "Washington Capitals", "Arizona Coyotes", "New Jersey Devils",
         "Anaheim Ducks", "Calgary Flames", "Philadelphia Flyers", "Vegas Golden Knights", "Carolina Hurricanes", "New York Islanders", "Winnipeg Jets", "Los Angeles Kings", "Seattle Kraken", "Tampa Bay Lightning",
         "Toronto Maple Leafs", "Edmonton Oilers", "Florida Panthers", "Pittsburgh Penguins", "Nashville Predators", "New York Rangers", "Detroit Red Wings", "Buffalo Sabres", "Ottawa Senators", "San Jose Sharks",
         "Dallas Stars", "Minnesota Wild"
