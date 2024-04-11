@@ -29,16 +29,28 @@ league_teams = {
     ]
 }
 
+# Function to load and display team roster
+def display_team_roster(league, team):
+    if team and team in team_roster_urls[league]:
+        url = team_roster_urls[league][team]
+        try:
+            roster_df = pd.read_csv(url)
+            st.write(f"Roster for {team}:")
+            st.dataframe(roster_df)
+        except Exception as e:
+            st.error(f"Failed to load roster: {e}")
+
 # Sidebar for league selection
-selected_league = st.sidebar.selectbox('Select a League', ['Select a League'] + list(league_teams.keys()))
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
 
-if selected_league != 'Select a League':
+if league_choice != 'Select a League':
+    # Prepare team list based on selected league
+    teams_list = list(team_roster_urls[league_choice].keys())
     # Sidebar for team selection based on the chosen league
-    selected_team = st.sidebar.selectbox('Select a Team', ['Select a Team'] + league_teams[selected_league])
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
     
-    if selected_team != 'Select a Team':
-        st.write(f'You selected the {selected_team} from {selected_league}.')
-
+    if team_choice != 'Select a Team':
+        display_team_roster(league_choice, team_choice)
 
 # Mapping NFL teams to their roster CSV URLs
 mlb_team_roster_urls = {
