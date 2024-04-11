@@ -167,11 +167,29 @@ def display_team_roster(league, team):
     url = team_roster_urls[league][team]
     try:
         roster_df = pd.read_csv(url)
+        
+        # Organize columns based on the league
+        if league == 'MLB':
+            columns_order = ["Team Name", "First Name", "Last Name", "Player Number", "Position", "B/T", "Ht", "Wt", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary", "Spotrac Agent", "Spotrac Agency"]
+        elif league == 'NBA':
+            columns_order = ["PLAYER", "TEAM", "NUMBER", "POSITION", "HEIGHT", "WEIGHT", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury", "Fanspo Agent", "Fanspo Agency", "Spotrac Agent", "Spotrac Agency"]
+        elif league == 'NFL':
+            columns_order = ["Team Name", "Player Number", "Player Name", "Position", "Height", "Weight", "Age", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury", "Fanspo Agent", "Fanspo Agency", "Spotrac Agent", "Spotrac Agency"]
+        elif league == 'NHL':
+            columns_order = ["Team", "Player Name", "Position", "Years of Experience", "Career Health", "Season Health", "Percent of Reinjury", "Puckpedia Agent", "Puckpedia Agency"]
+        else:
+            columns_order = roster_df.columns  # Default to original order if league is not recognized
+
+        # Reindex DataFrame columns based on the selected order
+        roster_df = roster_df.reindex(columns=columns_order)
+
         st.write(f"Roster for {team}:")
         st.dataframe(roster_df)
+
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
 
+# Example usage in Streamlit app
 # Sidebar for league selection
 league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
 
