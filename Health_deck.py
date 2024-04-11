@@ -3,6 +3,43 @@ import pandas as pd
 
 st.title('HealthAura: Pro Sports Tracker')
 
+# League teams mapping
+league_teams = {
+    'MLB': [
+        "Angels", "Astros", "Athletics", "Blue Jays", "Braves", "Brewers", "Cardinals", "Cubs", "Diamondbacks", "Dodgers",
+        "Giants", "Guardians", "Mariners", "Marlins", "Mets", "Nationals", "Orioles", "Padres", "Phillies", "Pirates",
+        "Rangers", "Rays", "Red Sox", "Reds", "Rockies", "Royals", "Tigers", "Twins", "White Sox", "Yankees"
+    ],
+    'NBA': [
+        "76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers", "Grizzlies", "Hawks", "Heat", "Hornets",
+        "Jazz", "Kings", "Knicks", "Lakers", "Magic", "Mavericks", "Nets", "Nuggets", "Pacers", "Pelicans",
+        "Pistons", "Raptors", "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves", "Trail Blazers", "Warriors", "Wizards"
+    ],
+    'NFL': [
+        "49ers", "Bears", "Bengals", "Bills", "Broncos", "Browns", "Buccaneers", "Cardinals", "Chargers", "Chiefs",
+        "Colts", "Commanders", "Cowboys", "Dolphins", "Eagles", "Falcons", "Giants", "Jaguars", "Jets", "Lions",
+        "Packers", "Panthers", "Patriots", "Raiders", "Rams", "Ravens", "Saints", "Seahawks", "Steelers", "Texans",
+        "Titans", "Vikings"
+    ],
+    'NHL': [
+        "Avalanche", "Blackhawks", "Blue Jackets", "Blues", "Bruins", "Canadiens", "Canucks", "Capitals", "Coyotes", "Devils",
+        "Ducks", "Flames", "Flyers", "Golden Knights", "Hurricanes", "Islanders", "Jets", "Kings", "Kraken", "Lightning",
+        "Maple Leafs", "Oilers", "Panthers", "Penguins", "Predators", "Rangers", "Red Wings", "Sabres", "Senators", "Sharks",
+        "Stars", "Wild"
+    ]
+}
+
+# Sidebar for league selection
+selected_league = st.sidebar.selectbox('Select a League', ['Select a League'] + list(league_teams.keys()))
+
+if selected_league != 'Select a League':
+    # Sidebar for team selection based on the chosen league
+    selected_team = st.sidebar.selectbox('Select a Team', ['Select a Team'] + league_teams[selected_league])
+    
+    if selected_team != 'Select a Team':
+        st.write(f'You selected the {selected_team} from {selected_league}.')
+
+
 # Mapping NFL teams to their roster CSV URLs
 mlb_team_roster_urls = {
     "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
