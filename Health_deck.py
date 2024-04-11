@@ -5,7 +5,7 @@ st.title('HealthAura: Pro Sports Tracker')
 
 # Define a dictionary that maps each league to its corresponding team roster URLs
 team_roster_urls = {
- mlb_team_roster_urls = {
+ mlb_team_roster_urls : {
     "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
     "Atlanta Braves": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Atlanta%20Braves.csv",
     "Baltimore Orioles": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Baltimore%20Orioles.csv",
