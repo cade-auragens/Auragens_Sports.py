@@ -29,30 +29,6 @@ team_roster_urls = {
     ]}
 }
 
-# Function to load and display team roster
-def display_team_roster(league, team):
-    url = team_roster_urls[league][team]
-    try:
-        roster_df = pd.read_csv(url)
-        st.write(f"Roster for {team}:")
-        st.dataframe(roster_df)
-    except Exception as e:
-        st.error(f"Failed to load roster: {e}")
-
-# Sidebar for league selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
-
-if league_choice != 'Select a League':
-    # Prepare team list based on selected league
-    teams_list = list(team_roster_urls[league_choice].keys())
-    # Sidebar for team selection based on the chosen league
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
-    
-    if team_choice != 'Select a Team':
-        # Display the roster for the selected team
-        display_team_roster(league_choice, team_choice)
-
-
 # Mapping NFL teams to their roster CSV URLs
 mlb_team_roster_urls = {
     "Arizona Diamondbacks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Arizona%20Diamondbacks.csv",
@@ -187,3 +163,25 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
+# Function to load and display team roster
+def display_team_roster(league, team):
+    url = team_roster_urls[league][team]
+    try:
+        roster_df = pd.read_csv(url)
+        st.write(f"Roster for {team}:")
+        st.dataframe(roster_df)
+    except Exception as e:
+        st.error(f"Failed to load roster: {e}")
+
+# Sidebar for league selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+
+if league_choice != 'Select a League':
+    # Prepare team list based on selected league
+    teams_list = list(team_roster_urls[league_choice].keys())
+    # Sidebar for team selection based on the chosen league
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+    
+    if team_choice != 'Select a Team':
+        # Display the roster for the selected team
+        display_team_roster(league_choice, team_choice)
