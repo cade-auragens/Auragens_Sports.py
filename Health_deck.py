@@ -37,7 +37,7 @@ team_roster_urls = {
     "Toronto Blue Jays": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Toronto%20Blue%20Jays.csv",
     "Washington Nationals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Washington%20Nationals.csv",
 }
-nba_team_roster_urls = {
+nba_team_roster_urls : {
     "Atlanta Hawks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20Atlanta%20Hawks.csv",
     "Boston Celtics": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20Boston%20Celtics.csv",
     "Brooklyn Nets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20Brooklyn%20Nets.csv",
@@ -69,7 +69,7 @@ nba_team_roster_urls = {
     "Utah Jazz": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20Utah%20Jazz.csv",
     "Washington Wizards": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20Washington%20Wizards.csv"
 }
-nfl_team_roster_urls = {
+nfl_team_roster_urls : {
     'Arizona Cardinals': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Arizona%20Cardinals%20Roster.csv',
     'Atlanta Falcons': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Atlanta%20Falcons.csv',
     'Baltimore Ravens': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Baltimore%20Ravens.csv',
@@ -103,7 +103,7 @@ nfl_team_roster_urls = {
     'Tennessee Titans': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Tennessee%20Titans.csv',
     'Washington Commanders': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20Washington%20Commanders.csv',
 }
-nhl_team_roster_urls = {
+nhl_team_roster_urls : {
     "Anaheim Ducks": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Anaheim%20Ducks.csv",
     "Arizona Coyotes": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Arizona%20Coyotes.csv",
     "Boston Bruins": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Boston%20Bruins.csv",
@@ -137,7 +137,7 @@ nhl_team_roster_urls = {
     "Washington Capitals": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Washington%20Capitals.csv",
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
-}
+
 # Function to load and display team roster
 def display_team_roster(league, team):
     url = team_roster_urls[league][team]
