@@ -141,7 +141,7 @@ team_roster_urls = {
 #
 # Function to load and display team roster
  display_team_roster(league, team):
-    url = team_roster_urls[league][team]
+    url : team_roster_urls[league][team]
     try:
         roster_df = pd.read_csv(url)
         st.write(f"Roster for {team}:")
