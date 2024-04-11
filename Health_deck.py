@@ -138,6 +138,7 @@ team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 },
 
+#
 # Function to load and display team roster
 def display_team_roster(league, team):
     url = team_roster_urls[league][team]
@@ -159,5 +160,3 @@ if league_choice != 'Select a League':
     
     if team_choice != 'Select a Team':
         # Display the roster for the selected team
-        display_team_roster(league_choice, team_choice)
-
