@@ -164,66 +164,51 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-def get_data(url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        return pd.read_csv(StringIO(response.text))
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
+# Function to load and display team roster
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
-    roster_df = get_data(url)
-    if not roster_df.empty:
-        # Debug: Print available columns in the DataFrame
-        st.write("Available columns:", roster_df.columns.tolist())
+    try:
+        roster_df = pd.read_csv(url)
 
-        # Check if 'Player Name' column exists, otherwise create it
-        if 'Player Name' not in roster_df.columns:
-            if 'First Name' in roster_df.columns and 'Last Name' in roster_df.columns:
-                roster_df['Player Name'] = roster_df['First Name'] + " " + roster_df['Last Name']
-            else:
-                st.error("Required columns to generate 'Player Name' are missing.")
-                return
-
+        # Define the sorting logic based on the league and organization option
         if organize_by != 'Default':
-            sort_ascending = False
+            sort_ascending = False  # Change to True if you want ascending order
+            
+            # If organize_by matches a column name directly, use it to sort
             if organize_by in roster_df.columns:
                 roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
-
+        
         st.write(f"Roster for {team}:")
-        player_choice = st.selectbox("Select a Player", roster_df['Player Name'].tolist())
-        selected_player = roster_df[roster_df['Player Name'] == player_choice].iloc[0]
+        st.dataframe(roster_df)
 
-        # Display basic and detailed information
-        st.write("### Basic Information")
-        basic_info_columns = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        for col in basic_info_columns:
-            st.write(f"**{col}:** {selected_player.get(col, 'N/A')}")
+    except Exception as e:
+        st.error(f"Failed to load roster: {e}")
 
-        with st.expander("See more details"):
-            detail_columns = ['Player Number', 'Position', 'B/T', 'Height', 'Weight', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
-            for col in detail_columns:
-                st.write(f"**{col}:** {selected_player.get(col, 'N/A')}")
-
-# Example placeholder for `team_roster_urls`
-team_roster_urls = {
-    'MLB': {
-        'Washington Nationals': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20Washington%20Nationals.csv',
-    }
-}
-
-# Streamlit UI for selecting leagues and teams
+# Streamlit app interface
+# Sidebar for league selection
 league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
-if league_choice != 'Select a League':
-    teams_list = list(team_roster_urls[league_choice].keys())
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
-    organize_options = {
-        'MLB': ["Default", "Player Name", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"]
-    }
-    organize_by = st.sidebar.selectbox('Organize Data', organize_options.get(league_choice, ['Default']))
 
+if league_choice != 'Select a League':
+    # Prepare team list based on selected league
+    teams_list = list(team_roster_urls[league_choice].keys())
+    
+    # Sidebar for team selection based on the chosen league
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+
+    # Define organization options for each league
+    organize_options = {
+        'MLB': ["Default", "Team Name", "Player Number", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"],
+        'NBA': ["Default", "PLAYER", "TEAM", "NUMBER", "POSITION", "HEIGHT", "WEIGHT", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'NFL': ["Default", "Team Name", "Player Number", "Player Name", "Position", "Age", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'NHL': ["Default", "Team", "Player Name", "Position", "Years of Experience", "Career Health", "Season Health", "Percent of Reinjury"]
+    }
+
+    # Additional dropdown for organizing the data based on the league
+    if league_choice in organize_options:
+        organize_by = st.sidebar.selectbox('Organize Data', organize_options[league_choice])
+    else:
+        organize_by = 'Default'
+    
     if team_choice != 'Select a Team':
+        # Display the roster for the selected team, organized as per the selection
         display_team_roster(league_choice, team_choice, organize_by)
