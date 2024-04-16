@@ -166,25 +166,27 @@ nhl_team_roster_urls = {
 
 def display_team_roster(url):
     try:
+        # Attempt to fetch the data from the URL
         response = requests.get(url)
         response.raise_for_status()  # This will raise an HTTPError if the response was an error
         df = pd.read_csv(StringIO(response.text))
 
+        # Check if the dataframe is empty
         if df.empty:
             st.error("The data frame is empty. Please check the CSV file at the URL.")
             return
+        
+        # Debug output: print the first few rows of the dataframe to ensure data is loaded correctly
+        st.write("First few rows of the dataframe:", df.head())
 
-        # Ensure the DataFrame has 'Player Name' or create it
+        # Check for the presence of the 'Player Name' column or create it
         if 'Player Name' not in df.columns:
             if 'First Name' in df.columns and 'Last Name' in df.columns:
                 df['Player Name'] = df['First Name'] + ' ' + df['Last Name']
             else:
                 st.error("No 'Player Name' or 'First Name' and 'Last Name' columns found.")
                 return
-
-        # Show available columns (for debugging)
-        st.write("Available columns:", df.columns.tolist())
-
+        
         # Selection box for players
         player_choice = st.selectbox("Select a Player", df['Player Name'].tolist())
         selected_player = df[df['Player Name'] == player_choice].iloc[0]
@@ -205,8 +207,9 @@ def display_team_roster(url):
 
     except requests.exceptions.RequestException as e:
         st.error(f"Failed to load data from URL: {e}")
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
 
-# Main app logic
 if __name__ == "__main__":
     st.title("Player Information Display")
     display_team_roster(url)
