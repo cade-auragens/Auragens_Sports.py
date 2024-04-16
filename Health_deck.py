@@ -216,8 +216,10 @@ if league_choice != 'Select a League':
 def get_data(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # This will raise an HTTPError for bad responses
-        return pd.read_csv(StringIO(response.text))
+        response.raise_for_status()  # Raises an HTTPError for bad responses
+        df = pd.read_csv(StringIO(response.text))
+        st.write("DataFrame Loaded:", df.head())  # Debug print to check data
+        return df
     except requests.exceptions.RequestException as e:
         st.error(f"Failed to load data from URL: {str(e)}")
         return pd.DataFrame()
@@ -231,12 +233,17 @@ def get_data(url):
 def display_player_data():
     df = get_data(url)
     if not df.empty:
+        # Check for 'First Name' and 'Last Name' and create 'Player Name' if not present
         if 'Player Name' not in df.columns:
-            df['Player Name'] = df['First Name'] + " " + df['Last Name']  # Assuming columns for first and last names
-        
+            if 'First Name' in df.columns and 'Last Name' in df.columns:
+                df['Player Name'] = df['First Name'] + " " + df['Last Name']
+            else:
+                st.error("Required columns 'First Name' or 'Last Name' are missing")
+                return
+
         player_choice = st.selectbox("Select a Player", df['Player Name'].tolist())
         selected_player = df[df['Player Name'] == player_choice].iloc[0]
-        
+
         st.write(f"**Team Name:** {selected_player.get('Team Name', 'N/A')}")
         st.write(f"**Player Name:** {selected_player['Player Name']}")
         st.write(f"**Career Health:** {selected_player.get('Career Health', 'N/A')}")
@@ -248,3 +255,8 @@ def display_player_data():
             details_columns = ['Player Number', 'Position', 'B/T', 'Height', 'Weight', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
             for col in details_columns:
                 st.write(f"**{col}:** {selected_player.get(col, 'N/A')}")
+
+# Main app function
+if __name__ == "__main__":
+    st.title("MLB Player Information - Washington Nationals")
+    display_player_data()
