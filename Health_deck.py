@@ -213,6 +213,7 @@ if league_choice != 'Select a League':
         # Display the roster for the selected team, organized as per the selection
         display_team_roster(league_choice, team_choice, organize_by)
 
+
 def get_data(url):
     try:
         response = requests.get(url)
