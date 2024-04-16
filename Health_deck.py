@@ -216,31 +216,29 @@ if league_choice != 'Select a League':
 def get_data(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raises an HTTPError for bad responses
-        df = pd.read_csv(StringIO(response.text))
-        st.write("DataFrame Loaded:", df.head())  # Debug print to check data
-        return df
+        if response.status_code == 200:
+            df = pd.read_csv(StringIO(response.text))
+            st.write("DataFrame Loaded:", df.head())  # Debug print to check data
+            return df
+        else:
+            st.error(f"Failed to fetch data, HTTP Status: {response.status_code}")
+            return pd.DataFrame()
     except requests.exceptions.RequestException as e:
-        st.error(f"Failed to load data from URL: {str(e)}")
+        st.error(f"Request failed: {e}")
         return pd.DataFrame()
     except pd.errors.ParserError as e:
-        st.error(f"Error parsing CSV data: {str(e)}")
+        st.error(f"CSV parsing error: {e}")
         return pd.DataFrame()
     except Exception as e:
-        st.error(f"An unexpected error occurred: {str(e)}")
+        st.error(f"An unexpected error occurred: {e}")
         return pd.DataFrame()
 
 def display_player_data():
     df = get_data(url)
     if not df.empty:
-        # Check for 'First Name' and 'Last Name' and create 'Player Name' if not present
         if 'Player Name' not in df.columns:
-            if 'First Name' in df.columns and 'Last Name' in df.columns:
-                df['Player Name'] = df['First Name'] + " " + df['Last Name']
-            else:
-                st.error("Required columns 'First Name' or 'Last Name' are missing")
-                return
-
+            df['Player Name'] = df.get('First Name', '') + " " + df.get('Last Name', '')
+        
         player_choice = st.selectbox("Select a Player", df['Player Name'].tolist())
         selected_player = df[df['Player Name'] == player_choice].iloc[0]
 
@@ -250,13 +248,10 @@ def display_player_data():
         st.write(f"**Seasonal Health:** {selected_player.get('Seasonal Health', 'N/A')}")
         st.write(f"**Percent of Reinjury:** {selected_player.get('Percent of Reinjury', 'N/A')}")
 
-        # Dropdown for more details
         with st.expander("See more details"):
-            details_columns = ['Player Number', 'Position', 'B/T', 'Height', 'Weight', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
+            details_columns = [
+                'Player Number', 'Position', 'B/T', 'Height', 'Weight', 'DOB', 'Status', 
+                'Base Salary', 'Spotrac Agent', 'Spotrac Agency'
+            ]
             for col in details_columns:
                 st.write(f"**{col}:** {selected_player.get(col, 'N/A')}")
-
-# Main app function
-if __name__ == "__main__":
-    st.title("MLB Player Information - Washington Nationals")
-    display_player_data()
