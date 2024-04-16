@@ -210,3 +210,56 @@ if league_choice != 'Select a League':
     if team_choice != 'Select a Team':
         # Display the roster for the selected team, organized as per the selection
         display_team_roster(league_choice, team_choice, organize_by)
+
+def standardize_columns(df):
+    # Define mappings for common variations
+    column_mappings = {
+        'First Name': ['First', 'FirstName', 'first_name'],
+        'Last Name': ['Last', 'LastName', 'last_name'],
+        'Career Health': ['CareerHealth', 'career_health'],
+        'Seasonal Health': ['SeasonalHealth', 'seasonal_health'],
+        'Percent of Reinjury': ['Reinjury Rate', 'reinjury_percent', 'ReinjuryPercent'],
+    }
+
+    # Apply mappings
+    for standard, variations in column_mappings.items():
+        for variation in variations:
+            if variation in df.columns:
+                df.rename(columns={variation: standard}, inplace=True)
+                break
+
+    return df
+
+def get_dataframe_from_csv(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        df = pd.read_csv(StringIO(response.text))
+        return standardize_columns(df)
+    else:
+        st.error("Failed to fetch data")
+        return pd.DataFrame()
+
+# UI setup in Streamlit
+for team, url in mlb_team_roster_urls.items():
+    st.write(f"### {team}")
+    df = get_dataframe_from_csv(url)
+    if not df.empty:
+        df['Display Name'] = df['First Name'] + " " + df['Last Name']
+        option = st.selectbox(
+            'Select a player', 
+            df['Display Name'].tolist()
+        )
+        
+        # When a player is selected, display more details
+        if option:
+            player_details = df[df['Display Name'] == option].iloc[0]
+            with st.expander("See more details"):
+                st.text(f"Career Health: {player_details.get('Career Health', 'N/A')}")
+                st.text(f"Seasonal Health: {player_details.get('Seasonal Health', 'N/A')}")
+                st.text(f"Percent of Reinjury: {player_details.get('Percent of Reinjury', 'N/A')}")
+                # Display all other data
+                for col in df.columns:
+                    if col not in ['First Name', 'Last Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Display Name']:
+                        st.text(f"{col}: {player_details[col]}")
+
+
