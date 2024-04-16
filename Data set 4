@@ -6,52 +6,27 @@ st.title('HealthAura: Pro Sports Tracker')
 # Define a dictionary that maps each league to its corresponding team roster URLs
 team_roster_urls = {
     'MLB': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/MLB%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "Angels", "Astros", "Athletics", "Blue Jays", "Braves", "Brewers", "Cardinals", "Cubs", "Diamondbacks", "Dodgers",
-        "Giants", "Guardians", "Mariners", "Marlins", "Mets", "Nationals", "Orioles", "Padres", "Phillies", "Pirates",
-        "Rangers", "Rays", "Red Sox", "Reds", "Rockies", "Royals", "Tigers", "Twins", "White Sox", "Yankees"
+         "San Francisco Giants", "Cleveland Guardians", "Seattle Mariners", "Miami Marlins", "New York Mets", "Washington Nationals", "Baltimore Orioles", "San Diego Padres", "Philadelphia Phillies", "Pittsburgh Pirates",
+        "Texas Rangers", "Tampa Bay Rays", "Boston Red Sox", "Cincinnati Reds", "Colorado Rockies", "Kansas City Royals", "Detroit Tigers", "Minnesota Twins", "Chicago White Sox", "New York Yankees"
     ]},
     'NBA': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NBA%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers", "Grizzlies", "Hawks", "Heat", "Hornets",
-        "Jazz", "Kings", "Knicks", "Lakers", "Magic", "Mavericks", "Nets", "Nuggets", "Pacers", "Pelicans",
-        "Pistons", "Raptors", "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves", "Trail Blazers", "Warriors", "Wizards"
+          "Philadelphia 76ers", "Milwaukee Bucks", "Chicago Bulls", "Cleveland Cavaliers", "Boston Celtics", "Los Angeles Clippers", "Memphis Grizzlies", "Atlanta Hawks", "Miami Heat", "Charlotte Hornets",
+        "Utah Jazz", "Sacramento Kings", "New York Knicks", "Los Angeles Lakers", "Orlando Magic", "Dallas Mavericks", "Brooklyn Nets", "Denver Nuggets", "Indiana Pacers", "New Orleans Pelicans",
+        "Detroit Pistons", "Toronto Raptors", "Houston Rockets", "San Antonio Spurs", "Phoenix Suns", "Oklahoma City Thunder", "Minnesota Timberwolves", "Portland Trail Blazers", "Golden State Warriors", "Washington Wizards"
     ]},
     'NFL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "49ers", "Bears", "Bengals", "Bills", "Broncos", "Browns", "Buccaneers", "Cardinals", "Chargers", "Chiefs",
-        "Colts", "Commanders", "Cowboys", "Dolphins", "Eagles", "Falcons", "Giants", "Jaguars", "Jets", "Lions",
-        "Packers", "Panthers", "Patriots", "Raiders", "Rams", "Ravens", "Saints", "Seahawks", "Steelers", "Texans",
-        "Titans", "Vikings"
+         "San Francisco 49ers", "Chicago Bears", "Cincinnati Bengals", "Buffalo Bills", "Denver Broncos", "Cleveland Browns", "Tampa Bay Buccaneers", "Arizona Cardinals", "Los Angeles Chargers", "Kansas City Chiefs",
+        "Indianapolis Colts", "Washington Commanders", "Dallas Cowboys", "Miami Dolphins", "Philadelphia Eagles", "Atlanta Falcons", "New York Giants", "Jacksonville Jaguars", "New York Jets", "Detroit Lions",
+        "Green Bay Packers", "Carolina Panthers", "New England Patriots", "Las Vegas Raiders", "Los Angeles Rams", "Baltimore Ravens", "New Orleans Saints", "Seattle Seahawks", "Pittsburgh Steelers", "Houston Texans",
+        "Tennessee Titans", "Minnesota Vikings"
     ]},
     'NHL': {team_name: f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20{team_name.replace(' ', '%20')}.csv" for team_name in [
-        "Avalanche", "Blackhawks", "Blue Jackets", "Blues", "Bruins", "Canadiens", "Canucks", "Capitals", "Coyotes", "Devils",
-        "Ducks", "Flames", "Flyers", "Golden Knights", "Hurricanes", "Islanders", "Jets", "Kings", "Kraken", "Lightning",
-        "Maple Leafs", "Oilers", "Panthers", "Penguins", "Predators", "Rangers", "Red Wings", "Sabres", "Senators", "Sharks",
-        "Stars", "Wild"
+         "Colorado Avalanche", "Chicago Blackhawks", "Columbus Blue Jackets", "St. Louis Blues", "Boston Bruins", "Montreal Canadiens", "Vancouver Canucks", "Washington Capitals", "Arizona Coyotes", "New Jersey Devils",
+        "Anaheim Ducks", "Calgary Flames", "Philadelphia Flyers", "Vegas Golden Knights", "Carolina Hurricanes", "New York Islanders", "Winnipeg Jets", "Los Angeles Kings", "Seattle Kraken", "Tampa Bay Lightning",
+        "Toronto Maple Leafs", "Edmonton Oilers", "Florida Panthers", "Pittsburgh Penguins", "Nashville Predators", "New York Rangers", "Detroit Red Wings", "Buffalo Sabres", "Ottawa Senators", "San Jose Sharks",
+        "Dallas Stars", "Minnesota Wild"
     ]}
 }
-
-# Function to load and display team roster
-def display_team_roster(league, team):
-    url = team_roster_urls[league][team]
-    try:
-        roster_df = pd.read_csv(url)
-        st.write(f"Roster for {team}:")
-        st.dataframe(roster_df)
-    except Exception as e:
-        st.error(f"Failed to load roster: {e}")
-
-# Sidebar for league selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
-
-if league_choice != 'Select a League':
-    # Prepare team list based on selected league
-    teams_list = list(team_roster_urls[league_choice].keys())
-    # Sidebar for team selection based on the chosen league
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
-    
-    if team_choice != 'Select a Team':
-        # Display the roster for the selected team
-        display_team_roster(league_choice, team_choice)
-
 
 # Mapping NFL teams to their roster CSV URLs
 mlb_team_roster_urls = {
@@ -187,3 +162,51 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
+# Function to load and display team roster
+def display_team_roster(league, team, organize_by):
+    url = team_roster_urls[league][team]
+    try:
+        roster_df = pd.read_csv(url)
+
+        # Define the sorting logic based on the league and organization option
+        if organize_by != 'Default':
+            sort_ascending = False  # Change to True if you want ascending order
+            
+            # If organize_by matches a column name directly, use it to sort
+            if organize_by in roster_df.columns:
+                roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
+        
+        st.write(f"Roster for {team}:")
+        st.dataframe(roster_df)
+
+    except Exception as e:
+        st.error(f"Failed to load roster: {e}")
+
+# Streamlit app interface
+# Sidebar for league selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+
+if league_choice != 'Select a League':
+    # Prepare team list based on selected league
+    teams_list = list(team_roster_urls[league_choice].keys())
+    
+    # Sidebar for team selection based on the chosen league
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+
+    # Define organization options for each league
+    organize_options = {
+        'MLB': ["Default", "Team Name", "Player Number", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"],
+        'NBA': ["Default", "PLAYER", "TEAM", "NUMBER", "POSITION", "HEIGHT", "WEIGHT", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'NFL': ["Default", "Team Name", "Player Number", "Player Name", "Position", "Age", "Years of Experience", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'NHL': ["Default", "Team", "Player Name", "Position", "Years of Experience", "Career Health", "Season Health", "Percent of Reinjury"]
+    }
+
+    # Additional dropdown for organizing the data based on the league
+    if league_choice in organize_options:
+        organize_by = st.sidebar.selectbox('Organize Data', organize_options[league_choice])
+    else:
+        organize_by = 'Default'
+    
+    if team_choice != 'Select a Team':
+        # Display the roster for the selected team, organized as per the selection
+        display_team_roster(league_choice, team_choice, organize_by)
