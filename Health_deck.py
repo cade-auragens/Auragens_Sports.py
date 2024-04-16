@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import requests
+from io import StringIO
 
 st.title('HealthAura: Pro Sports Tracker')
 
@@ -211,3 +213,42 @@ if league_choice != 'Select a League':
         # Display the roster for the selected team, organized as per the selection
         display_team_roster(league_choice, team_choice, organize_by)
 
+def get_data(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return pd.read_csv(StringIO(response.text))
+    else:
+        st.error("Failed to load data from URL.")
+        return pd.DataFrame()
+
+def display_player_data():
+    df = get_data(url)
+    if not df.empty:
+        # Display key information directly
+        df['Player Name'] = df['First Name'] + " " + df['Last Name']  # Assuming columns for first and last names
+        player_choice = st.selectbox("Select a Player", df['Player Name'].tolist())
+
+        selected_player = df[df['Player Name'] == player_choice].iloc[0]
+        st.write(f"**Team Name:** {selected_player['Team Name']}")
+        st.write(f"**Player Name:** {selected_player['Player Name']}")
+        st.write(f"**Career Health:** {selected_player['Career Health']}")
+        st.write(f"**Seasonal Health:** {selected_player['Seasonal Health']}")
+        st.write(f"**Percent of Reinjury:** {selected_player['Percent of Reinjury']}")
+
+        # Dropdown for more details
+        with st.expander("See more details"):
+            st.write(f"**Player Number:** {selected_player['Player Number']}")
+            st.write(f"**Position:** {selected_player['Position']}")
+            st.write(f"**B/T:** {selected_player['B/T']}")
+            st.write(f"**Height:** {selected_player['Height']}")
+            st.write(f"**Weight:** {selected_player['Weight']}")
+            st.write(f"**DOB:** {selected_player['DOB']}")
+            st.write(f"**Status:** {selected_player['Status']}")
+            st.write(f"**Base Salary:** {selected_player['Base Salary']}")
+            st.write(f"**Spotrac Agent:** {selected_player['Spotrac Agent']}")
+            st.write(f"**Spotrac Agency:** {selected_player['Spotrac Agency']}")
+
+# Main app function
+if __name__ == "__main__":
+    st.title("MLB Player Information - Washington Nationals")
+    display_player_data()
