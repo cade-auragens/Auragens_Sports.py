@@ -213,54 +213,47 @@ if league_choice != 'Select a League':
         # Display the roster for the selected team, organized as per the selection
         display_team_roster(league_choice, team_choice, organize_by)
 
-
 def get_data(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # This will raise an HTTPError if the response was an error
-        df = pd.read_csv(StringIO(response.text))
-        st.write("DataFrame loaded successfully!")  # Confirmation message
-        return df
-    except requests.exceptions.HTTPError as e:
-        st.error(f"HTTP Error: {e}")
-    except requests.exceptions.ConnectionError as e:
-        st.error(f"Error Connecting: {e}")
-    except requests.exceptions.Timeout as e:
-        st.error(f"Timeout Error: {e}")
-    except requests.exceptions.RequestException as e:
-        st.error(f"OOps: Something went wrong with the request: {e}")
-    except pd.errors.ParserError as e:
-        st.error(f"Error parsing the CSV file: {e}")
+        response.raise_for_status()
+        return pd.read_csv(StringIO(response.text))
     except Exception as e:
-        st.error(f"An unexpected error occurred: {e}")
-    return pd.DataFrame()
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
 
 def display_player_data():
     df = get_data(url)
     if not df.empty:
-        df['Player Name'] = df['First Name'] + " " + df['Last Name']  # Combine names
+        # Add a full name column if it doesn't exist
+        if 'Player Name' not in df.columns:
+            df['Player Name'] = df['First Name'] + " " + df['Last Name']  # Adjust this if column names differ
+        
+        # Selection box for players
         player_choice = st.selectbox("Select a Player", df['Player Name'].tolist())
         selected_player = df[df['Player Name'] == player_choice].iloc[0]
 
+        # Display basic information immediately
         st.write("### Basic Information")
-        st.write(f"**Team Name:** {selected_player.get('Team Name', 'N/A')}")
+        st.write(f"**Team Name:** {selected_player['Team Name']}")
         st.write(f"**Player Name:** {selected_player['Player Name']}")
-        st.write(f"**Career Health:** {selected_player.get('Career Health', 'N/A')}")
-        st.write(f"**Seasonal Health:** {selected_player.get('Seasonal Health', 'N/A')}")
-        st.write(f"**Percent of Reinjury:** {selected_player.get('Percent of Reinjury', 'N/A')}")
+        st.write(f"**Career Health:** {selected_player['Career Health']}")
+        st.write(f"**Seasonal Health:** {selected_player['Seasonal Health']}")
+        st.write(f"**Percent of Reinjury:** {selected_player['Percent of Reinjury']}")
 
+        # Expander for detailed information
         with st.expander("See more details"):
             details = {
-                'Player Number': selected_player.get('Player Number', 'N/A'),
-                'Position': selected_player.get('Position', 'N/A'),
-                'B/T': selected_player.get('B/T', 'N/A'),
-                'Height': selected_player.get('Height', 'N/A'),
-                'Weight': selected_player.get('Weight', 'N/A'),
-                'DOB': selected_player.get('DOB', 'N/A'),
-                'Status': selected_player.get('Status', 'N/A'),
-                'Base Salary': selected_player.get('Base Salary', 'N/A'),
-                'Spotrac Agent': selected_player.get('Spotrac Agent', 'N/A'),
-                'Spotrac Agency': selected_player.get('Spotrac Agency', 'N/A'),
+                'Player Number': 'Player Number',
+                'Position': 'Position',
+                'B/T': 'B/T',
+                'Height': 'Height',
+                'Weight': 'Weight',
+                'DOB': 'DOB',
+                'Status': 'Status',
+                'Base Salary': 'Base Salary',
+                'Spotrac Agent': 'Spotrac Agent',
+                'Spotrac Agency': 'Spotrac Agency'
             }
             for key, value in details.items():
-                st.write(f"**{key}:** {value}")
+                st.write(f"**{key}:** {selected_player.get(value, 'N/A')}")
