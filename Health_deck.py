@@ -211,10 +211,7 @@ if league_choice != 'Select a League':
     
     if team_choice != 'Select a Team':
         # Display the roster for the selected team, organized as per the selection
-        display_team_roster(league_choice, team_choice, organize_by)
-
-# Function to load and display team roster with interactive dropdown
-def display_team_roster(league, team, organize_by):
+        def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
         # Load the CSV file
