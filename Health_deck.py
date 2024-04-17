@@ -211,4 +211,4 @@ if league_choice != 'Select a League':
             'NHL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
         }
         organize_by = st.sidebar.selectbox('Organize Data', organize_options.get(league_choice, ['Default']))
-        display_team_roster(league_choice, team_choice, organize_b
+        display_team_roster(league_choice, team_choice, organize_by)
