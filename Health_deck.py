@@ -164,7 +164,7 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load and display team roster with interactive dropdown for more details
+# Function to load and display team roster with interactive dropdowns within columns
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -189,17 +189,19 @@ def display_team_roster(league, team, organize_by):
 
         # Display the team roster
         st.write(f"Roster for {team}:")
-        for _, row in roster_df.iterrows():
-            st.write(row[main_columns].to_frame().transpose())
-            
-            with st.expander(f"{row['Player Name']} - Additional Details"):
-                st.write(row[details_columns].to_frame())
-                
-            with st.expander(f"Career Health Details for {row['Player Name']}"):
-                st.write("Details about past injuries will appear here.")
-
-            with st.expander(f"Seasonal Health Details for {row['Player Name']}"):
-                st.write("Details about current season injuries will appear here.")
+        for index, row in roster_df.iterrows():
+            # Create a row of expanders for each player that contains the main information
+            cols = st.columns(len(main_columns))
+            for i, col_name in enumerate(main_columns):
+                with cols[i].expander(f"{col_name}: {row[col_name]}"):
+                    if col_name == 'Player Name':
+                        st.write("Additional details about the player.")
+                    elif col_name == 'Career Health':
+                        st.write("Details about past injuries will appear here.")
+                    elif col_name == 'Seasonal Health':
+                        st.write("Details about current season injuries will appear here.")
+                    else:
+                        st.write(row[details_columns].to_frame())
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
