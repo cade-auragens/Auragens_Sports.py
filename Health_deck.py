@@ -164,7 +164,7 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load and display team roster with interactive details integrated in the table
+# Function to load and display team roster with interactive dropdown for more details
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -173,52 +173,42 @@ def display_team_roster(league, team, organize_by):
 
         # Optionally, rename columns to ensure consistency
         column_mapping = {
-            'Player': 'Player Name',  # Adjust as necessary
-            'Team': 'Team Name',      # Adjust as necessary
+            'Player': 'Player Name',  # Example: Adjust as necessary
+            'Team': 'Team Name',      # Example: Adjust as necessary
         }
         roster_df.rename(columns=column_mapping, inplace=True)
 
-        # Define columns to display in the main view
-        main_columns = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        # Define columns to display in the expander and those always visible
+        main_columns = ['Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        details_columns = [col for col in roster_df.columns if col not in main_columns]
 
         # Sort the data if a valid sorting option is chosen
-        if organize_by in roster_df.columns and organize_by != 'Default':
+        if organize_by in roster_df.columns:
             sort_ascending = False  # Set to True if ascending order is preferred
             roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
 
-        # Display the team roster
+        # Display the team roster with expanders for each player
         st.write(f"Roster for {team}:")
         for _, row in roster_df.iterrows():
-            # Using columns to create a table-like row with interactive expanders
-            cols = st.columns([1, 3, 3, 3, 1])  # Adjust the width ratios as needed
-            cols[0].write(row['Team Name'])
-            with cols[1].expander(f"{row['Player Name']}"):
-                st.write("Additional details about the player.")
-            with cols[2].expander(f"{row['Career Health']}"):
-                st.write("Details about past injuries will appear here.")
-            with cols[3].expander(f"{row['Seasonal Health']}"):
-                st.write("Details about current season injuries will appear here.")
-            cols[4].write(row['Percent of Reinjury'])
+            with st.expander(f"{row['Player Name']}"):
+                st.write(row[main_columns].to_frame().transpose())  # Display main columns
+                st.write("Additional Details:")
+                st.write(row[details_columns].to_frame())  # Display additional details
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
 
-# Streamlit app interface
+# Example usage in the Streamlit interface
 league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
 if league_choice != 'Select a League':
     teams_list = list(team_roster_urls[league_choice].keys())
     team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
-
-    organize_options = {
-        'MLB': ["Default", "Team Name", "Player Number", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"],
-        'NBA': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-        'NFL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-        'NHL': ["Default", "Player Name", "Career Health", "Season Health", "Percent of Reinjury"]
-    }
-    if league_choice in organize_options:
-        organize_by = st.sidebar.selectbox('Organize Data', organize_options[league_choice])
-    else:
-        organize_by = 'Default'
-    
     if team_choice != 'Select a Team':
-        display_team_roster(league_choice, team_choice, organize_by)
+        organize_options = {
+            'MLB': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+            'NBA': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+            'NFL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+            'NHL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        }
+        organize_by = st.sidebar.selectbox('Organize Data', organize_options.get(league_choice, ['Default']))
+        display_team_roster(league_choice, team_choice, organize_b
