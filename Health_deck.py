@@ -165,7 +165,7 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display team roster with interactive details integrated in the table
+# Function to load and display team roster with interactive dropdown integrated directly into the row
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -181,6 +181,7 @@ def display_team_roster(league, team, organize_by):
 
         # Define columns to display in the main view
         main_columns = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        details_columns = [col for col in roster_df.columns if col not in main_columns]
 
         # Sort the data if a valid sorting option is chosen
         if organize_by in roster_df.columns and organize_by != 'Default':
@@ -189,9 +190,8 @@ def display_team_roster(league, team, organize_by):
 
         # Display the team roster
         st.write(f"Roster for {team}:")
-        for _, row in roster_df.iterrows():
-            # Using columns to create a table-like row with interactive expanders
-            cols = st.columns([1, 3, 3, 3, 1])  # Adjust the width ratios as needed
+        for index, row in roster_df.iterrows():
+            cols = st.columns(5)  # Create columns for each of the main data points
             cols[0].write(row['Team Name'])
             with cols[1].expander(f"{row['Player Name']}"):
                 st.write("Additional details about the player.")
