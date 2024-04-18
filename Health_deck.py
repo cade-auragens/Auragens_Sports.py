@@ -165,7 +165,7 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display team roster with detailed dropdowns for specific columns
+# Function to load and display team roster with interactive details integrated in the table
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -189,18 +189,17 @@ def display_team_roster(league, team, organize_by):
 
         # Display the team roster
         st.write(f"Roster for {team}:")
-        for index, row in roster_df.iterrows():
-            # Create a container for each player
-            with st.container():
-                cols = st.columns(5)  # Create five columns
-                cols[0].write(row['Team Name'])
-                with cols[1].expander(f"Player Name: {row['Player Name']}"):
-                    st.write("Additional details about the player.")
-                with cols[2].expander(f"Career Health: {row['Career Health']}"):
-                    st.write("Details about past injuries will appear here.")
-                with cols[3].expander(f"Seasonal Health: {row['Seasonal Health']}"):
-                    st.write("Details about current season injuries will appear here.")
-                cols[4].write(row['Percent of Reinjury'])
+        for _, row in roster_df.iterrows():
+            # Using columns to create a table-like row with interactive expanders
+            cols = st.columns([1, 3, 3, 3, 1])  # Adjust the width ratios as needed
+            cols[0].write(row['Team Name'])
+            with cols[1].expander(f"{row['Player Name']}"):
+                st.write("Additional details about the player.")
+            with cols[2].expander(f"{row['Career Health']}"):
+                st.write("Details about past injuries will appear here.")
+            with cols[3].expander(f"{row['Seasonal Health']}"):
+                st.write("Details about current season injuries will appear here.")
+            cols[4].write(row['Percent of Reinjury'])
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
