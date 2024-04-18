@@ -165,17 +165,17 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display specific columns from the team roster
+# Function to load and display specific columns from the team roster, with expandable player details
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
         # Load the CSV file
         roster_df = pd.read_csv(url)
 
-        # Optionally, rename columns to ensure consistency, if needed
+        # Optionally, rename columns to ensure consistency
         column_mapping = {
-            'Player': 'Player Name',  # Example: Adjust as necessary
-            'Team': 'Team Name',      # Example: Adjust as necessary
+            'Player': 'Player Name',  # Adjust as necessary
+            'Team': 'Team Name',      # Adjust as necessary
             # Add other mappings as necessary
         }
         roster_df.rename(columns=column_mapping, inplace=True)
@@ -183,9 +183,6 @@ def display_team_roster(league, team, organize_by):
         # Define columns to display in the main view
         display_columns = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
         
-        # Filter the DataFrame to only include these columns
-        roster_df = roster_df[display_columns]
-
         # Sort the data if a valid sorting option is chosen
         if organize_by in roster_df.columns and organize_by != 'Default':
             sort_ascending = False  # Set to True if ascending order is preferred
@@ -193,7 +190,18 @@ def display_team_roster(league, team, organize_by):
 
         # Display the team roster
         st.write(f"Roster for {team}:")
-        st.dataframe(roster_df)
+        for index, row in roster_df.iterrows():
+            # Use columns to create a row for each player
+            cols = st.columns([1, 2, 2, 2, 1])  # You can adjust the width ratios as needed
+            cols[0].write(row['Team Name'])
+
+            # Create an expander in the Player Name column
+            with cols[1].expander(f"{row['Player Name']}"):
+                st.write(row.to_frame().transpose())  # Display all data for the player in the expander
+
+            cols[2].write(row['Career Health'])
+            cols[3].write(row['Seasonal Health'])
+            cols[4].write(row['Percent of Reinjury'])
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
@@ -205,10 +213,10 @@ if league_choice != 'Select a League':
     team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
 
     organize_options = {
-        'MLB': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
+        'MLB': ["Default", "Team Name", "Player Number", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"],
         'NBA': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
         'NFL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-        'NHL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"]
+        'NHL': ["Default", "Player Name", "Career Health", "Season Health", "Percent of Reinjury"]
     }
     if league_choice in organize_options:
         organize_by = st.sidebar.selectbox('Organize Data', organize_options[league_choice])
