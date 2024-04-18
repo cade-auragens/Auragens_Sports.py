@@ -164,61 +164,34 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load and display team roster with interactive dropdown integrated directly into the row
+# Function to load and display team roster
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
         # Load the CSV file
         roster_df = pd.read_csv(url)
-
-        # Optionally, rename columns to ensure consistency
+        
+        # Ensure consistent column names across all CSVs (if needed)
+        # This is just an example of renaming; adapt as necessary based on your actual column names
         column_mapping = {
-            'Player': 'Player Name',  # Adjust as necessary
-            'Team': 'Team Name',      # Adjust as necessary
+            'Player': 'Player Name',
+            'Team': 'Team Name',
+            # Add other mappings as necessary
         }
         roster_df.rename(columns=column_mapping, inplace=True)
 
-        # Define columns to display in the main view
-        main_columns = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        details_columns = [col for col in roster_df.columns if col not in main_columns]
+        # Select only the desired columns
+        columns_to_display = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        roster_df = roster_df[columns_to_display]
 
-        # Sort the data if a valid sorting option is chosen
-        if organize_by in roster_df.columns and organize_by != 'Default':
-            sort_ascending = False  # Set to True if ascending order is preferred
+        # Sort the DataFrame if a specific sort order is chosen
+        if organize_by in columns_to_display:
+            sort_ascending = False  # or True, depending on your need
             roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
-
-        # Display the team roster
+        
+        # Display the DataFrame
         st.write(f"Roster for {team}:")
-        for index, row in roster_df.iterrows():
-            cols = st.columns(5)  # Create columns for each of the main data points
-            cols[0].write(row['Team Name'])
-            with cols[1].expander(f"{row['Player Name']}"):
-                st.write("Additional details about the player.")
-            with cols[2].expander(f"{row['Career Health']}"):
-                st.write("Details about past injuries will appear here.")
-            with cols[3].expander(f"{row['Seasonal Health']}"):
-                st.write("Details about current season injuries will appear here.")
-            cols[4].write(row['Percent of Reinjury'])
+        st.dataframe(roster_df)
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
-
-# Streamlit app interface
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
-if league_choice != 'Select a League':
-    teams_list = list(team_roster_urls[league_choice].keys())
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
-
-    organize_options = {
-        'MLB': ["Default", "Team Name", "Player Number", "Position", "DOB", "Career Health", "Seasonal Health", "Percent of Reinjury", "Status", "Base Salary"],
-        'NBA': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-        'NFL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-        'NHL': ["Default", "Player Name", "Career Health", "Season Health", "Percent of Reinjury"]
-    }
-    if league_choice in organize_options:
-        organize_by = st.sidebar.selectbox('Organize Data', organize_options[league_choice])
-    else:
-        organize_by = 'Default'
-    
-    if team_choice != 'Select a Team':
-        display_team_roster(league_choice, team_choice, organize_by)
