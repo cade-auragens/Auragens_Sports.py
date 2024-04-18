@@ -165,7 +165,7 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display team roster with interactive details
+# Function to load and display team roster with detailed dropdowns for specific columns
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -190,16 +190,17 @@ def display_team_roster(league, team, organize_by):
         # Display the team roster
         st.write(f"Roster for {team}:")
         for index, row in roster_df.iterrows():
-            # Display basic info in one line per player
-            player_info = f"{row['Team Name']} | {row['Player Name']} | Career Health: {row['Career Health']} | Seasonal Health: {row['Seasonal Health']} | Percent of Reinjury: {row['Percent of Reinjury']}"
-            if st.button(f"Show details for {row['Player Name']}", key=f"btn_{index}"):
-                st.write("Detailed Player Info:")
-                st.text(f"Additional details about the player will appear here.")
-                # Example details could be expanded upon here
-                st.text("Career Health Details:")
-                st.write("Details about past injuries will appear here.")
-                st.text("Seasonal Health Details:")
-                st.write("Details about current season injuries will appear here.")
+            # Create a container for each player
+            with st.container():
+                cols = st.columns(5)  # Create five columns
+                cols[0].write(row['Team Name'])
+                with cols[1].expander(f"Player Name: {row['Player Name']}"):
+                    st.write("Additional details about the player.")
+                with cols[2].expander(f"Career Health: {row['Career Health']}"):
+                    st.write("Details about past injuries will appear here.")
+                with cols[3].expander(f"Seasonal Health: {row['Seasonal Health']}"):
+                    st.write("Details about current season injuries will appear here.")
+                cols[4].write(row['Percent of Reinjury'])
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
