@@ -165,7 +165,7 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display team roster with integrated expanders
+# Function to load and display team roster with inline expanders within the columns
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -174,8 +174,8 @@ def display_team_roster(league, team, organize_by):
 
         # Optionally, rename columns to ensure consistency
         column_mapping = {
-            'Player': 'Player Name',  # Example: Adjust as necessary
-            'Team': 'Team Name',      # Example: Adjust as necessary
+            'Player': 'Player Name',  # Adjust as necessary
+            'Team': 'Team Name',      # Adjust as necessary
         }
         roster_df.rename(columns=column_mapping, inplace=True)
 
@@ -193,15 +193,19 @@ def display_team_roster(league, team, organize_by):
         for index, row in roster_df.iterrows():
             # Create a container for each player
             with st.container():
-                # Use columns to create a table-like row with interactive expanders
-                cols = st.columns(5)  # Create five columns
+                cols = st.columns([1, 2, 2, 2, 1])  # Create five columns with appropriate relative widths
                 cols[0].write(row['Team Name'])
+                
+                # Integrate expanders directly into the respective columns for dynamic content display
                 with cols[1].expander(f"{row['Player Name']}"):
-                    st.write("Additional details about the player.")
+                    st.write("Additional details about the player here.")
+                
                 with cols[2].expander(f"{row['Career Health']}"):
-                    st.write("Details about past injuries will appear here.")
+                    st.write("Details about past injuries here.")
+                
                 with cols[3].expander(f"{row['Seasonal Health']}"):
-                    st.write("Details about current season injuries will appear here.")
+                    st.write("Details about current season injuries here.")
+                
                 cols[4].write(row['Percent of Reinjury'])
 
     except Exception as e:
