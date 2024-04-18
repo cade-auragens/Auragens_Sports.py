@@ -164,7 +164,7 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load and display team roster
+# Function to load and display team roster with interactive dropdown
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -172,7 +172,6 @@ def display_team_roster(league, team, organize_by):
         roster_df = pd.read_csv(url)
         
         # Ensure consistent column names across all CSVs (if needed)
-        # This is just an example of renaming; adapt as necessary based on your actual column names
         column_mapping = {
             'Player': 'Player Name',
             'Team': 'Team Name',
@@ -180,18 +179,16 @@ def display_team_roster(league, team, organize_by):
         }
         roster_df.rename(columns=column_mapping, inplace=True)
 
-        # Select only the desired columns
-        columns_to_display = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        roster_df = roster_df[columns_to_display]
-
-        # Sort the DataFrame if a specific sort order is chosen
-        if organize_by in columns_to_display:
-            sort_ascending = False  # or True, depending on your need
-            roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
+        # Select only the main columns to display initially
+        main_columns = ['Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        details_columns = list(set(roster_df.columns) - set(main_columns))  # All other columns
         
-        # Display the DataFrame
+        # Display the DataFrame with expander for each player
         st.write(f"Roster for {team}:")
-        st.dataframe(roster_df)
+        for _, row in roster_df.iterrows():
+            with st.expander(f"{row['Player Name']}"):
+                st.write(row[main_columns])
+                st.write("Additional Details:", row[details_columns].to_frame())
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
