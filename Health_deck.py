@@ -165,68 +165,30 @@ nhl_team_roster_urls = {
 }
 
 
-def load_data(url):
-    # This function simulates loading data from a URL or file path
-    # Replace this with actual CSV loading if you have a file, e.g., pd.read_csv(url)
-    data = {
-        "Team Name": ["Team A", "Team B", "Team C"] * 3,
-        "Player Name": ["John Doe", "Jane Smith", "Alice Johnson"] * 3,
-        "Career Health": ["Good", "Moderate", "Poor"] * 3,
-        "Seasonal Health": ["Excellent", "Good", "Fair"] * 3,
-        "Percent of Reinjury": ["10%", "20%", "15%"] * 3
-    }
-    return pd.DataFrame(data)
-
-def display_team_roster(league, team, organize_by):
-    # Simulate URL formation for CSV file based on the team and league
-    url = f"https://example.com/{league}/{team}.csv"
-    roster_df = load_data(url)  # Load the roster data
-
-    # Optionally, rename columns to ensure consistency
-    column_mapping = {
-        'Player': 'Player Name',  # Example: Adjust as necessary
-        'Team': 'Team Name',      # Example: Adjust as necessary
-    }
-    roster_df.rename(columns=column_mapping, inplace=True)
-
-    # Define columns to display in the main view
-    display_columns = ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-    
-    # Sort the data if a valid sorting option is chosen
-    if organize_by in roster_df.columns and organize_by != 'Default':
-        sort_ascending = False  # Set to True if ascending order is preferred
-        roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
-
-    # Display the team roster
-    st.write(f"Roster for {team}:")
-    for index, row in roster_df.iterrows():
-        # Use columns to create a row for each player
-        cols = st.columns([1, 2, 2, 2, 1])  # Adjust the width ratios as needed
-        cols[0].write(row['Team Name'])
-        with cols[1].expander(f"{row['Player Name']}"):
-            st.write(row.to_frame().transpose())  # Display all data for the player in the expander
-        cols[2].write(row['Career Health'])
-        cols[3].write(row['Seasonal Health'])
-        cols[4].write(row['Percent of Reinjury'])
-
+# App main function
 def app():
-    st.title("Team and Player Information App")
+    st.title('HealthAura: Pro Sports Tracker')
 
-    # Setup sidebar for team and player selection
-    league_choice = st.sidebar.selectbox('Select a League', ['Select a League', 'MLB', 'NBA', 'NFL', 'NHL'])
+    # Sidebar for league and team selection
+    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
     if league_choice != 'Select a League':
-        teams_list = ["Team A", "Team B", "Team C"]  # Example team list, replace with actual data as needed
-        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + teams_list)
-        organize_options = {
-            'MLB': "Player Name",
-            'NBA': "Player Name",
-            'NFL': "Player Name",
-            'NHL': "Player Name"
-        }
-        organize_by = organize_options.get(league_choice, 'Default')
-
+        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_roster_urls[league_choice].keys()))
+        
         if team_choice != 'Select a Team':
-            display_team_roster(league_choice, team_choice, organize_by)
+            # Load data
+            data_url = team_roster_urls[league_choice][team_choice]
+            roster_df = load_data(data_url)
+            
+            # Display data in main area
+            st.write(f"Roster for {team_choice}:")
+            st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
+            
+            # Provide a player selection for detailed information
+            player_choice = st.sidebar.selectbox('Select a Player', ['Select a Player'] + roster_df['Player Name'].tolist())
+            if player_choice != 'Select a Player':
+                player_details = roster_df[roster_df['Player Name'] == player_choice]
+                st.sidebar.write(f"Details for {player_choice}:")
+                st.sidebar.write(player_details.transpose())
 
 if __name__ == "__main__":
     app()
