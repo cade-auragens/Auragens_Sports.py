@@ -165,9 +165,27 @@ nhl_team_roster_urls = {
 }
 
 
-# App main function
+def load_data(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            csv_raw = StringIO(response.text)
+            df = pd.read_csv(csv_raw)
+            return df
+        else:
+            st.error(f"Failed to download data: Status code {response.status_code}")
+            return pd.DataFrame()  # Return empty DataFrame if there's an error
+    except Exception as e:
+        st.error(f"An error occurred while loading data: {str(e)}")
+        return pd.DataFrame()  # Return empty DataFrame if exception occurs
+
 def app():
     st.title('HealthAura: Pro Sports Tracker')
+
+    # Define a dictionary mapping each league to its corresponding team roster URLs
+    team_roster_urls = {
+        # Include your team_roster_urls dictionary here
+    }
 
     # Sidebar for league and team selection
     league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
@@ -179,16 +197,19 @@ def app():
             data_url = team_roster_urls[league_choice][team_choice]
             roster_df = load_data(data_url)
             
-            # Display data in main area
-            st.write(f"Roster for {team_choice}:")
-            st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
-            
-            # Provide a player selection for detailed information
-            player_choice = st.sidebar.selectbox('Select a Player', ['Select a Player'] + roster_df['Player Name'].tolist())
-            if player_choice != 'Select a Player':
-                player_details = roster_df[roster_df['Player Name'] == player_choice]
-                st.sidebar.write(f"Details for {player_choice}:")
-                st.sidebar.write(player_details.transpose())
+            if not roster_df.empty:
+                # Display data in main area
+                st.write(f"Roster for {team_choice}:")
+                st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
+                
+                # Provide a player selection for detailed information
+                player_choice = st.sidebar.selectbox('Select a Player', ['Select a Player'] + roster_df['Player Name'].tolist())
+                if player_choice != 'Select a Player':
+                    player_details = roster_df[roster_df['Player Name'] == player_choice]
+                    st.sidebar.write(f"Details for {player_choice}:")
+                    st.sidebar.write(player_details.transpose())
+            else:
+                st.write("No data available for this team.")
 
 if __name__ == "__main__":
     app()
