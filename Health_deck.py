@@ -165,51 +165,41 @@ nhl_team_roster_urls = {
 }
 
 
+# Function to load data from a URL
 def load_data(url):
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            csv_raw = StringIO(response.text)
-            df = pd.read_csv(csv_raw)
-            return df
-        else:
-            st.error(f"Failed to download data: Status code {response.status_code}")
-            return pd.DataFrame()  # Return empty DataFrame if there's an error
+        data = pd.read_csv(url)
+        return data
     except Exception as e:
-        st.error(f"An error occurred while loading data: {str(e)}")
-        return pd.DataFrame()  # Return empty DataFrame if exception occurs
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
 
-def app():
-    st.title('HealthAura: Pro Sports Tracker')
+# Function to display team roster with sidebar options for detailed player information
+def display_team_roster(league, team):
+    url = team_roster_urls[league][team]
+    roster_df = load_data(url)
+    if not roster_df.empty:
+        # Display basic team roster in the main area
+        st.write(f"Roster for {team}:")
+        st.dataframe(roster_df[['Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
 
-    # Define a dictionary mapping each league to its corresponding team roster URLs
-    team_roster_urls = {
-        # Include your team_roster_urls dictionary here
-    }
-
-    # Sidebar for league and team selection
-    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
-    if league_choice != 'Select a League':
-        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_roster_urls[league_choice].keys()))
+        # Sidebar for selecting detailed player information
+        player_names = roster_df['Player Name'].unique()
+        player_choice = st.sidebar.selectbox('Select a Player for details', ['Select a Player'] + list(player_names))
         
-        if team_choice != 'Select a Team':
-            # Load data
-            data_url = team_roster_urls[league_choice][team_choice]
-            roster_df = load_data(data_url)
-            
-            if not roster_df.empty:
-                # Display data in main area
-                st.write(f"Roster for {team_choice}:")
-                st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
-                
-                # Provide a player selection for detailed information
-                player_choice = st.sidebar.selectbox('Select a Player', ['Select a Player'] + roster_df['Player Name'].tolist())
-                if player_choice != 'Select a Player':
-                    player_details = roster_df[roster_df['Player Name'] == player_choice]
-                    st.sidebar.write(f"Details for {player_choice}:")
-                    st.sidebar.write(player_details.transpose())
-            else:
-                st.write("No data available for this team.")
+        if player_choice != 'Select a Player':
+            player_data = roster_df[roster_df['Player Name'] == player_choice]
+            st.sidebar.header(f"Details for {player_choice}")
+            st.sidebar.write('Player Name:', player_data['Player Name'].iloc[0])
+            st.sidebar.write('Career Health:', player_data['Career Health'].iloc[0])
+            st.sidebar.write('Seasonal Health:', player_data['Seasonal Health'].iloc[0])
+            st.sidebar.write('Percent of Reinjury:', player_data['Percent of Reinjury'].iloc[0])
 
-if __name__ == "__main__":
-    app()
+# Streamlit app interface for league and team selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+if league_choice != 'Select a League':
+    teams_list = list(team_roster_urls[league_choice].keys())
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+    
+    if team_choice != 'Select a Team':
+        display_team_roster(league_choice, team_choice)
