@@ -165,7 +165,7 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display team roster with interactive dropdowns for specific columns
+# Function to load and display team roster with detailed dropdowns for specific columns
 def display_team_roster(league, team, organize_by):
     url = team_roster_urls[league][team]
     try:
@@ -174,8 +174,8 @@ def display_team_roster(league, team, organize_by):
 
         # Optionally, rename columns to ensure consistency
         column_mapping = {
-            'Player': 'Player Name',  # Adjust as necessary
-            'Team': 'Team Name',      # Adjust as necessary
+            'Player': 'Player Name',  # Example: Adjust as necessary
+            'Team': 'Team Name',      # Example: Adjust as necessary
         }
         roster_df.rename(columns=column_mapping, inplace=True)
 
@@ -191,18 +191,21 @@ def display_team_roster(league, team, organize_by):
         # Display the team roster
         st.write(f"Roster for {team}:")
         for index, row in roster_df.iterrows():
-            # Display team name and percent of reinjury directly
-            st.write(f"Team Name: {row['Team Name']}, Percent of Reinjury: {row['Percent of Reinjury']}")
+            with st.expander(f"{row['Player Name']} (Click to expand for more details)"):
+                st.write(f"**Team Name:** {row['Team Name']}")
+                st.write(f"**Player Name:** {row['Player Name']}")
+                st.write(f"**Percent of Reinjury:** {row['Percent of Reinjury']}")
 
-            # Use expanders for interactive data exploration
-            with st.expander(f"Player Name: {row['Player Name']} - Click for more"):
-                st.write("Additional details about the player.")
-                
-            with st.expander(f"Career Health: {row['Career Health']} - Click for details"):
-                st.write("Details about past injuries will appear here.")
-                
-            with st.expander(f"Seasonal Health: {row['Seasonal Health']} - Click for details"):
-                st.write("Details about current season injuries will appear here.")
+                with st.expander(f"Career Health: {row['Career Health']} - Click for details"):
+                    st.write("Details about past injuries will appear here.")
+
+                with st.expander(f"Seasonal Health: {row['Seasonal Health']} - Click for details"):
+                    st.write("Details about current season injuries will appear here.")
+
+                # Display any additional details not included in the main columns
+                if details_columns:
+                    st.write("Additional Details:")
+                    st.write(row[details_columns].to_frame())
 
     except Exception as e:
         st.error(f"Failed to load roster: {e}")
