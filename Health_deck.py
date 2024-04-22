@@ -165,143 +165,104 @@ nhl_team_roster_urls = {
 }
 
 
-# Define NHL team roster URLs for demonstration purposes
-nhl_team_roster_urls = {
-    'Colorado Avalanche': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Colorado%20Avalanche.csv',
-    # Add more teams as necessary
-}
-
-# Function to display NHL team roster
-def display_nhl_roster(team):
-    url = nhl_team_roster_urls[team]
+# General function to load data and handle errors
+def load_data(url):
     try:
-        roster_df = pd.read_csv(url)
-
-        # Displaying selected columns only
-        display_columns = ['Team', 'Player Name', 'Career Health', 'Season Health', 'Percent of Reinjury']
-        detail_columns = ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']
-
-        st.write(f"Roster for {team}:")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    st.write(row[detail_columns])
-                with cols[2].expander("Career Health Details"):
-                    st.write("Detailed career health data will be shown here when available.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Detailed seasonal health data will be shown here when available.")
-                cols[4].write(row['Percent of Reinjury'])
-
-    except Exception as e:
-        st.error(f"Failed to load roster for {team}: {e}")
-
-# Sidebar interaction for NHL
-team_choice = st.sidebar.selectbox('Select an NHL Team', ['Select a Team'] + list(nhl_team_roster_urls.keys()))
-
-if team_choice != 'Select a Team':
-    display_nhl_roster(team_choice)
-
-# Define NFL team roster URLs for demonstration purposes
-nfl_team_roster_urls = {
-    'San Francisco 49ers': 'https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NFL%20San%20Francisco%2049ers.csv',
-    # Add more teams as necessary
-}
-
-# Function to display NFL team roster
-def display_nfl_roster(team):
-    url = nfl_team_roster_urls[team]
-    try:
-        roster_df = pd.read_csv(url)
-
-        # Displaying selected columns only
-        display_columns = ['Team Name', 'Player Name', 'Career Health', 'Season Health', 'Percent of Reinjury']
-        detail_columns = ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
-
-        st.write(f"Roster for {team}:")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    st.write(row[detail_columns])
-                with cols[2].expander("Career Health Details"):
-                    st.write("Detailed career health data will be shown here when available.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Detailed seasonal health data will be shown here when available.")
-                cols[4].write(row['Percent of Reinjury'])
-
-    except Exception as e:
-        st.error(f"Failed to load roster for {team}: {e}")
-
-# Sidebar interaction for NFL
-team_choice = st.sidebar.selectbox('Select an NFL Team', ['Select a Team'] + list(nfl_team_roster_urls.keys()))
-
-if team_choice != 'Select a Team':
-    display_nfl_roster(team_choice)
-
-# Function to display MLB team roster
-def display_mlb_roster(team):
-    url = mlb_team_roster_urls[team]
-    try:
-        roster_df = pd.read_csv(url)
-
-        # Displaying selected columns only
-        display_columns = ['Team Name', 'First Name', 'Last Name', 'Career Health', 'Season Health', 'Percent of Reinjury']
-        detail_columns = ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
-
-        st.write(f"Roster for {team}:")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 2, 1, 1, 1])
-                cols[0].write(row['Team Name'])
-                with cols[1].expander(f"{row['First Name']} {row['Last Name']} - More Details"):
-                    st.write(row[detail_columns])
-                with cols[2].expander("Career Health Details"):
-                    st.write("Detailed career health data will be shown here when available.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Detailed seasonal health data will be shown here when available.")
-                cols[4].write(row['Percent of Reinjury'])
-
-    except Exception as e:
-        st.error(f"Failed to load roster for {team}: {e}")
-
-# Sidebar interaction for MLB
-team_choice = st.sidebar.selectbox('Select an MLB Team', ['Select a Team'] + list(mlb_team_roster_urls.keys()))
-
-if team_choice != 'Select a Team':
-    display_mlb_roster(team_choice)
-
-# Load NBA data (Modify the path according to your actual data location)
-def load_nba_data(team_url):
-    try:
-        data = pd.read_csv(team_url)
-        return data
+        return pd.read_csv(url)
     except Exception as e:
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Display NBA team roster with expandable player details
-def display_nba_roster(team_url):
-    roster_df = load_nba_data(team_url)
+# Display NFL team roster
+def display_nfl_roster(team):
+    roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
-        st.write(f"Roster for NBA Team:")
-        for index, row in roster_df.iterrows():
+        st.write(f"Roster for {team} (NFL):")
+        for _, row in roster_df.iterrows():
             with st.container():
-                st.write(f"**Player:** {row['PLAYER']}, **Team:** {row['TEAM']}")
-                with st.expander(f"Expand for more on {row['PLAYER']}"):
-                    st.write(f"**Number:** {row['NUMBER']}")
-                    st.write(f"**Position:** {row['POSITION']}")
-                    st.write(f"**Height:** {row['HEIGHT']}")
-                    st.write(f"**Weight:** {row['WEIGHT']}")
-                    st.write(f"**Years of Experience:** {row['Yeara of Experince']}")
-                    st.write(f"**Fanspo Agent:** {row['Fanspo Agent']}, **Agency:** {row['Fanspo Agency']}")
-                    st.write(f"**Spotrac Agent:** {row['Spotrac Agent']}, **Agency:** {row['Spotrac Agency']}")
-                with st.expander("Career Health Details"):
-                    st.write("Detailed career health data will be shown here when available.")
-                with st.expander("Seasonal Health Details"):
-                    st.write("Detailed seasonal health data will be shown here when available.")
-                st.write(f"**Percent of Reinjury:** {row['Percent of Reinjury']}")
+                cols = st.columns(5)
+                cols[0].write(row['Team Name'])
+                with cols[1].expander(f"{row['Player Name']} - More Details"):
+                    details = row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']]
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
 
-# Example usage
-nba_team_url = 'path_to_your_nba_team_csv_file.csv'  # Update with your file path or URL
-display_nba_roster(nba_team_url)
+# Display MLB team roster
+def display_mlb_roster(team):
+    roster_df = load_data(mlb_team_roster_urls[team])
+    if not roster_df.empty:
+        st.write(f"Roster for {team} (MLB):")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns(5)
+                cols[0].write(row['Team Name'])
+                with cols[1].expander(f"{row['First Name']} {row['Last Name']} - More Details"):
+                    details = row[['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']]
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
+
+# Display NBA team roster
+def display_nba_roster(team):
+    roster_df = load_data(nba_team_roster_urls[team])
+    if not roster_df.empty:
+        st.write(f"Roster for {team} (NBA):")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns(5)
+                cols[0].write(row['TEAM'])
+                with cols[1].expander(f"{row['PLAYER']} - More Details"):
+                    details = row[['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']]
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
+
+# Display NHL team roster
+def display_nhl_roster(team):
+    roster_df = load_data(nhl_team_roster_urls[team])
+    if not roster_df.empty:
+        st.write(f"Roster for {team} (NHL):")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns(5)
+                cols[0].write(row['Team'])
+                with cols[1].expander(f"{row['Player Name']} - More Details"):
+                    details = row[['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']]
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
+
+# Sidebar interaction to select league and team
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League', 'NFL', 'MLB', 'NBA', 'NHL'])
+
+if league_choice != 'Select a League':
+    team_urls = {
+        'NFL': nfl_team_roster_urls,
+        'MLB': mlb_team_roster_urls,
+        'NBA': nba_team_roster_urls,
+        'NHL': nhl_team_roster_urls
+    }
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+
+    if team_choice != 'Select a Team':
+        if league_choice == 'NFL':
+            display_nfl_roster(team_choice)
+        elif league_choice == 'MLB':
+            display_mlb_roster(team_choice)
+        elif league_choice == 'NBA':
+            display_nba_roster(team_choice)
+        elif league_choice == 'NHL':
+            display_nhl_roster(team_choice)
