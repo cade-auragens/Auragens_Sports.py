@@ -198,14 +198,15 @@ if league_choice != 'Select a League':
                         cols = st.columns(5)
                         cols[0].write(row['Team Name'])
                         with cols[1].expander(f"{row['Player Name']}"):
-                            if league == 'NFL':
-                                st.write(row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']])
-                            elif league == 'NBA':
-                                st.write(row[['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']])
-                            elif league == 'MLB':
-                                st.write(row[['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']])
-                            elif league == 'NHL':
-                                st.write(row[['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']])
+                            display_columns = {
+                                'NFL': ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
+                                'NBA': ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
+                                'MLB': ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'],
+                                'NHL': ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']
+                            }
+                            # Check if columns exist before trying to display them
+                            existing_columns = [col for col in display_columns[league] if col in roster_df.columns]
+                            st.write(row[existing_columns])
                         with cols[2].expander("Career Health Details"):
                             st.write(row['Career Health'])  # Placeholder for detailed health data
                         with cols[3].expander("Seasonal Health Details"):
