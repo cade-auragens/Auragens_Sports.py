@@ -169,6 +169,48 @@ nhl_team_roster_urls = {
 league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
 
 if league_choice != 'Select a League':
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(team_roster_urls[league_choice].keys()))
+
+    if team_choice != 'Select a Team':
+        def display_team_roster(league, team):
+            url = team_roster_urls[league][team]
+            try:
+                roster_df = pd.read_csv(url)
+
+                organize_by = st.sidebar.selectbox(
+                    'Organize Data By',
+                    ['Default', 'Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury'],
+                    index=0
+                )
+
+                if organize_by != 'Default':
+                    ascending = True if organize_by in ['Team Name', 'Player Name'] else False
+                    roster_df = roster_df.sort_values(by=[organize_by], ascending=ascending)
+
+                st.write(f"Roster for {team}:")
+                for _, row in roster_df.iterrows():
+                    with st.container():
+                        cols = st.columns(5)
+                        cols[0].write(row['Team Name'])
+                        with cols[1].expander(f"{row['Player Name']}"):
+                            # Check if columns exist before trying to display them
+                            columns_to_display = ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience']
+                            columns_to_display += ['Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
+                            existing_columns = [col for col in columns_to_display if col in roster_df.columns]
+                            st.write(row[existing_columns])
+                        cols[2].write(row['Career Health'])
+                        cols[3].write(row['Seasonal Health'])
+                        cols[4].write(row['Percent of Reinjury'])
+
+            except Exception as e:
+                st.error(f"Failed to load roster: {e}")
+
+        display_team_roster(league_choice, team_choice)
+
+# Sidebar for league selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+
+if league_choice != 'Select a League':
     # Sidebar for team selection based on the chosen league
     team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(team_roster_urls[league_choice].keys()))
 
