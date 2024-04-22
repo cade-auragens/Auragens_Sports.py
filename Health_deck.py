@@ -180,10 +180,10 @@ def display_nfl_roster(team):
         st.write(f"Roster for {team} (NFL):")
         for _, row in roster_df.iterrows():
             with st.container():
-                cols = st.columns(5)
+                cols = st.columns([1, 2, 1, 1, 1])
                 cols[0].write(row['Team Name'])
                 with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    details = row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']]
+                    details = {col: row[col] for col in ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
                     st.write(details)
                 with cols[2].expander("Career Health Details"):
                     st.write("Career health data to be added.")
@@ -198,10 +198,10 @@ def display_mlb_roster(team):
         st.write(f"Roster for {team} (MLB):")
         for _, row in roster_df.iterrows():
             with st.container():
-                cols = st.columns(5)
+                cols = st.columns([1, 2, 1, 1, 1])
                 cols[0].write(row['Team Name'])
                 with cols[1].expander(f"{row['First Name']} {row['Last Name']} - More Details"):
-                    details = row[['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']]
+                    details = {col: row[col] for col in ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
                     st.write(details)
                 with cols[2].expander("Career Health Details"):
                     st.write("Career health data to be added.")
@@ -216,10 +216,10 @@ def display_nba_roster(team):
         st.write(f"Roster for {team} (NBA):")
         for _, row in roster_df.iterrows():
             with st.container():
-                cols = st.columns(5)
+                cols = st.columns([1, 2, 1, 1, 1])
                 cols[0].write(row['TEAM'])
                 with cols[1].expander(f"{row['PLAYER']} - More Details"):
-                    details = row[['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']]
+                    details = {col: row[col] for col in ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
                     st.write(details)
                 with cols[2].expander("Career Health Details"):
                     st.write("Career health data to be added.")
@@ -234,10 +234,10 @@ def display_nhl_roster(team):
         st.write(f"Roster for {team} (NHL):")
         for _, row in roster_df.iterrows():
             with st.container():
-                cols = st.columns(5)
+                cols = st.columns([1, 2, 1, 1, 1])
                 cols[0].write(row['Team'])
                 with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    details = row[['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']]
+                    details = {col: row[col] for col in ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency'] if col in roster_df.columns}
                     st.write(details)
                 with cols[2].expander("Career Health Details"):
                     st.write("Career health data to be added.")
