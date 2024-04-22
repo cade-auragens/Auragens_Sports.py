@@ -165,51 +165,67 @@ nhl_team_roster_urls = {
 }
 
 
-# Function to load and display team roster with interactive dropdown for more details
-def display_team_roster(league, team, organize_by):
-    url = team_roster_urls[league][team]
+st.title('HealthAura: Pro Sports Tracker')
+
+# Dictionary that maps each league to its corresponding team roster URLs
+team_roster_urls = {
+    # Define your team_roster_urls dictionary here with URLs
+}
+
+# Function to load data from a URL
+def load_data(url):
     try:
-        # Load the CSV file
-        roster_df = pd.read_csv(url)
+        data = pd.read_csv(url)
+        return data
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
 
-        # Optionally, rename columns to ensure consistency
-        column_mapping = {
-            'Player': 'Player Name',  # Example: Adjust as necessary
-            'Team': 'Team Name',      # Example: Adjust as necessary
-        }
-        roster_df.rename(columns=column_mapping, inplace=True)
-
-        # Define columns to display in the expander and those always visible
-        main_columns = ['Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        details_columns = [col for col in roster_df.columns if col not in main_columns]
-
-        # Sort the data if a valid sorting option is chosen
-        if organize_by in roster_df.columns:
-            sort_ascending = False  # Set to True if ascending order is preferred
-            roster_df = roster_df.sort_values(by=organize_by, ascending=sort_ascending)
-
-        # Display the team roster with expanders for each player
+# Function to display team roster
+def display_team_roster(league, team):
+    url = team_roster_urls[league][team]
+    roster_df = load_data(url)
+    if not roster_df.empty:
         st.write(f"Roster for {team}:")
         for _, row in roster_df.iterrows():
-            with st.expander(f"{row['Player Name']}"):
-                st.write(row[main_columns].to_frame().transpose())  # Display main columns
-                st.write("Additional Details:")
-                st.write(row[details_columns].to_frame())  # Display additional details
+            # Create a container for each row
+            with st.container():
+                col1, col2, col3, col4, col5 = st.columns(5)
+                col1.write(row['Team Name'])
+                col2.write(row['Player Name'])
+                col3.write(row['Career Health'])
+                col4.write(row['Seasonal Health'])
+                col5.write(row['Percent of Reinjury'])
 
-    except Exception as e:
-        st.error(f"Failed to load roster: {e}")
+# Sidebar details for selected player
+def player_details_sidebar(roster_df, league):
+    player_choice = st.sidebar.selectbox('Select a Player for details', ['Select a Player'] + roster_df['Player Name'].tolist())
+    if player_choice != 'Select a Player':
+        player_data = roster_df[roster_df['Player Name'] == player_choice]
+        st.sidebar.header(f"Details for {player_choice}")
+        
+        # Display details based on the league
+        if league == 'NFL':
+            details = ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
+        elif league == 'NBA':
+            details = ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
+        elif league == 'MLB':
+            details = ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
+        elif league == 'NHL':
+            details = ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']
 
-# Example usage in the Streamlit interface
+        # Filter and show only relevant details
+        for detail in details:
+            if detail in player_data.columns:
+                st.sidebar.write(f"{detail}: {player_data.iloc[0][detail]}")
+
+# Streamlit app interface for league and team selection
 league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
 if league_choice != 'Select a League':
     teams_list = list(team_roster_urls[league_choice].keys())
     team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+    
     if team_choice != 'Select a Team':
-        organize_options = {
-            'MLB': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-            'NBA': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-            'NFL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-            'NHL': ["Default", "Player Name", "Career Health", "Seasonal Health", "Percent of Reinjury"],
-        }
-        organize_by = st.sidebar.selectbox('Organize Data', organize_options.get(league_choice, ['Default']))
-        display_team_roster(league_choice, team_choice, organize_by)
+        roster_df = load_data(team_roster_urls[league_choice][team_choice])
+        display_team_roster(league_choice, team_choice)
+        player_details_sidebar(roster_df, league_choice)
