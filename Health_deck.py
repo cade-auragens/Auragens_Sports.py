@@ -165,6 +165,20 @@ nhl_team_roster_urls = {
 }
 
 
+# Ensure Streamlit is working
+st.write("If you see this message, Streamlit is running correctly.")
+
+st.title('HealthAura: Pro Sports Tracker')
+
+# Define the leagues dictionary
+try:
+    leagues = {
+        # Your league and teams mapping here
+    }
+    st.write("Leagues dictionary loaded correctly.")
+except Exception as e:
+    st.error(f"Error loading leagues dictionary: {e}")
+
 # Function to load and display team roster
 def display_team_roster(league, team):
     url = f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/{league}%20{team.replace(' ', '%20')}.csv"
@@ -175,29 +189,24 @@ def display_team_roster(league, team):
         st.error(f"Failed to load roster: {e}")
         return pd.DataFrame()
 
-# Sidebar interactions
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(leagues.keys()))
-if league_choice != 'Select a League':
-    teams_list = leagues[league_choice]
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + teams_list)
-    
-    if team_choice != 'Select a Team':
-        roster_df = display_team_roster(league_choice, team_choice)
-        if not roster_df.empty:
-            sort_by = st.sidebar.selectbox('Organize Data By', ['Default', 'Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury'])
-            
-            if sort_by != 'Default':
-                if sort_by in ['Team Name', 'Player Name']:
-                    roster_df.sort_values(by=[sort_by], inplace=True, ascending=True)
-                else:
-                    roster_df.sort_values(by=[sort_by], inplace=True, ascending=False)
-            
-            st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
-
-            # Display details in sidebar when a player is selected
-            player_choice = st.sidebar.selectbox('Select a Player for details', ['Select a Player'] + roster_df['Player Name'].tolist())
-            if player_choice != 'Select a Player':
-                player_data = roster_df[roster_df['Player Name'] == player_choice]
-                st.sidebar.header(f"Details for {player_choice}")
-                for col in player_data.columns:
-                    st.sidebar.write(f"{col}: {player_data.iloc[0][col]}")
+try:
+    # Sidebar interactions
+    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(leagues.keys()))
+    if league_choice != 'Select a League':
+        teams_list = leagues[league_choice]
+        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + teams_list)
+        
+        if team_choice != 'Select a Team':
+            roster_df = display_team_roster(league_choice, team_choice)
+            if not roster_df.empty:
+                sort_by = st.sidebar.selectbox('Organize Data By', ['Default', 'Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury'])
+                
+                if sort_by != 'Default':
+                    if sort_by in ['Team Name', 'Player Name']:
+                        roster_df.sort_values(by=[sort_by], inplace=True, ascending=True)
+                    else:
+                        roster_df.sort_values(by=[sort_by], inplace=True, ascending=False)
+                
+                st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
+except Exception as e:
+    st.error(f"An error occurred: {e}")
