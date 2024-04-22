@@ -191,29 +191,32 @@ if league_choice != 'Select a League':
                     ascending = True if organize_by in ['Team Name', 'Player Name'] else False
                     roster_df = roster_df.sort_values(by=[organize_by], ascending=ascending)
 
-                # Display main columns
-                st.write(f"Roster for {team}:")
-                for _, row in roster_df.iterrows():
-                    with st.container():
-                        cols = st.columns(5)
-                        cols[0].write(row['Team Name'])
-                        with cols[1].expander(f"{row['Player Name']}"):
-                            display_columns = {
-                                'NFL': ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
-                                'NBA': ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'],
-                                'MLB': ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'],
-                                'NHL': ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']
-                            }
-                            # Check if columns exist before trying to display them
-                            existing_columns = [col for col in display_columns[league] if col in roster_df.columns]
-                            st.write(row[existing_columns])
-                        with cols[2].expander("Career Health Details"):
-                            st.write(row['Career Health'])  # Placeholder for detailed health data
-                        with cols[3].expander("Seasonal Health Details"):
-                            st.write(row['Seasonal Health'])  # Placeholder for detailed health data
-                        cols[4].write(row['Percent of Reinjury'])
+           # Function to display NFL team roster
+def display_nfl_roster(team):
+    url = nfl_team_roster_urls[team]
+    try:
+        roster_df = pd.read_csv(url)
 
-            except Exception as e:
-                st.error(f"Failed to load roster: {e}")
+        # Display main columns
+        st.write(f"Roster for {team}:")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns(5)
+                cols[0].write(row['Team Name'])
+                with cols[1].expander(f"{row['Player Name']}"):
+                    details = row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']]
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Detailed career health data will be shown here when available.")
+                with cols[3].expander("Seasonal Health Details"):
+                    st.write("Detailed seasonal health data will be shown here when available.")
+                cols[4].write(row['Percent of Reinjury'])
 
-        display_team_roster(league_choice, team_choice)
+    except Exception as e:
+        st.error(f"Failed to load roster for {team}: {e}")
+
+# Sidebar interaction
+team_choice = st.sidebar.selectbox('Select an NFL Team', ['Select a Team'] + list(nfl_team_roster_urls.keys()))
+
+if team_choice != 'Select a Team':
+    display_nfl_roster(team_choice)
