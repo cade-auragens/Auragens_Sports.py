@@ -165,67 +165,39 @@ nhl_team_roster_urls = {
 }
 
 
-st.title('HealthAura: Pro Sports Tracker')
-
-# Dictionary that maps each league to its corresponding team roster URLs
-team_roster_urls = {
-    # Define your team_roster_urls dictionary here with URLs
-}
-
-# Function to load data from a URL
-def load_data(url):
+# Function to load and display team roster
+def display_team_roster(league, team):
+    url = f"https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/{league}%20{team.replace(' ', '%20')}.csv"
     try:
-        data = pd.read_csv(url)
-        return data
+        roster_df = pd.read_csv(url)
+        return roster_df
     except Exception as e:
-        st.error(f"Failed to load data: {e}")
+        st.error(f"Failed to load roster: {e}")
         return pd.DataFrame()
 
-# Function to display team roster
-def display_team_roster(league, team):
-    url = team_roster_urls[league][team]
-    roster_df = load_data(url)
-    if not roster_df.empty:
-        st.write(f"Roster for {team}:")
-        for _, row in roster_df.iterrows():
-            # Create a container for each row
-            with st.container():
-                col1, col2, col3, col4, col5 = st.columns(5)
-                col1.write(row['Team Name'])
-                col2.write(row['Player Name'])
-                col3.write(row['Career Health'])
-                col4.write(row['Seasonal Health'])
-                col5.write(row['Percent of Reinjury'])
-
-# Sidebar details for selected player
-def player_details_sidebar(roster_df, league):
-    player_choice = st.sidebar.selectbox('Select a Player for details', ['Select a Player'] + roster_df['Player Name'].tolist())
-    if player_choice != 'Select a Player':
-        player_data = roster_df[roster_df['Player Name'] == player_choice]
-        st.sidebar.header(f"Details for {player_choice}")
-        
-        # Display details based on the league
-        if league == 'NFL':
-            details = ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
-        elif league == 'NBA':
-            details = ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']
-        elif league == 'MLB':
-            details = ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'DOB', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']
-        elif league == 'NHL':
-            details = ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']
-
-        # Filter and show only relevant details
-        for detail in details:
-            if detail in player_data.columns:
-                st.sidebar.write(f"{detail}: {player_data.iloc[0][detail]}")
-
-# Streamlit app interface for league and team selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_roster_urls.keys()))
+# Sidebar interactions
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(leagues.keys()))
 if league_choice != 'Select a League':
-    teams_list = list(team_roster_urls[league_choice].keys())
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + sorted(teams_list))
+    teams_list = leagues[league_choice]
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + teams_list)
     
     if team_choice != 'Select a Team':
-        roster_df = load_data(team_roster_urls[league_choice][team_choice])
-        display_team_roster(league_choice, team_choice)
-        player_details_sidebar(roster_df, league_choice)
+        roster_df = display_team_roster(league_choice, team_choice)
+        if not roster_df.empty:
+            sort_by = st.sidebar.selectbox('Organize Data By', ['Default', 'Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury'])
+            
+            if sort_by != 'Default':
+                if sort_by in ['Team Name', 'Player Name']:
+                    roster_df.sort_values(by=[sort_by], inplace=True, ascending=True)
+                else:
+                    roster_df.sort_values(by=[sort_by], inplace=True, ascending=False)
+            
+            st.dataframe(roster_df[['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']])
+
+            # Display details in sidebar when a player is selected
+            player_choice = st.sidebar.selectbox('Select a Player for details', ['Select a Player'] + roster_df['Player Name'].tolist())
+            if player_choice != 'Select a Player':
+                player_data = roster_df[roster_df['Player Name'] == player_choice]
+                st.sidebar.header(f"Details for {player_choice}")
+                for col in player_data.columns:
+                    st.sidebar.write(f"{col}: {player_data.iloc[0][col]}")
