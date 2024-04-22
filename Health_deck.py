@@ -266,3 +266,18 @@ if league_choice != 'Select a League':
             display_nba_roster(team_choice)
         elif league_choice == 'NHL':
             display_nhl_roster(team_choice)
+
+def load_data(url):
+    try:
+        data = pd.read_csv(url)
+        # Check if the 'Percent of Reinjury' column exists and whether it has NaN values
+        if 'Percent of Reinjury' in data.columns:
+            if data['Percent of Reinjury'].isnull().any():
+                st.warning('Warning: NaN values found in "Percent of Reinjury"')
+            return data
+        else:
+            st.error(f"'Percent of Reinjury' column not found in the data.")
+            return pd.DataFrame()
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
