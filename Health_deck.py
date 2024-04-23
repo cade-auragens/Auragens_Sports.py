@@ -165,287 +165,28 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load data
+# Global variable to hold team URLs
+team_urls = {
+    'NFL': {'Team A': 'url_to_csv', 'Team B': 'url_to_csv'},
+    'MLB': {'Team C': 'url_to_csv', 'Team D': 'url_to_csv'},
+    # Add additional leagues and teams as necessary
+}
+
 def load_data(url):
+    """ Load data from a given CSV URL, handling errors. """
     try:
         data = pd.read_csv(url)
+        # Optional: Check for specific columns and handle NaN values
+        if 'Percent of Reinjury' in data.columns:
+            if data['Percent of Reinjury'].isnull().any():
+                st.warning('Warning: NaN values found in "Percent of Reinjury" column.')
         return data
     except Exception as e:
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Function to display data based on the team and sorting options
-def display_sorted_data(data, sort_by, league):
-    if sort_by in ['Team Name', 'Player Name', 'First Name', 'Last Name']:  # Sorting alphabetically
-        data = data.sort_values(by=[sort_by], ascending=True)
-    else:  # Sorting numerically in descending order
-        data = data.sort_values(by=[sort_by], ascending=False)
-
-    st.write(data)
-
-# Main Streamlit interface
-def main():
-    st.sidebar.title("Sports Analytics Dashboard")
-    
-    # Assuming team_urls is a global variable; define it appropriately
-team_urls = {
-    # Your team URLs structured by league
-    'NFL': {'Team A': 'url_to_csv', 'Team B': 'url_to_csv'},
-    'MLB': {'Team C': 'url_to_csv', 'Team D': 'url_to_csv'},
-    # Add NBA and NHL etc.
-}
-
-def load_data(url):
-    try:
-        return pd.read_csv(url)
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
 def display_sorted_data(data, sort_option):
-    if sort_option in ['Team Name', 'Player Name']:
-        data = data.sort_values(by=[sort_option], ascending=True)
-    else:
-        data = data.sort_values(by=[sort_option], ascending=False)
-    st.dataframe(data)
-
-def main():
-    if team_urls and isinstance(team_urls, dict) and team_urls.keys():
-        league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
-
-        if league_choice != 'Select a League':
-            team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
-
-            if team_choice != 'Select a Team':
-                sort_option = st.sidebar.selectbox(
-                    'Sort By',
-                    ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-                )
-                # Load data and apply sorting
-                data_url = team_urls[league_choice][team_choice]
-                data = load_data(data_url)
-                display_sorted_data(data, sort_option)
-    else:
-        st.error("Team URLs are not properly configured. Please check your data source.")
-
-if __name__ == "__main__":
-    main()
-
-# Display NFL team roster
-def display_nfl_roster(team):
-    roster_df = load_data(nfl_team_roster_urls[team])
-    if not roster_df.empty:
-        st.write(f"Roster for {team} (NFL):")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                cols[0].write(row['Team Name'])
-                with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    details = {col: row[col] for col in ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
-                    st.write(details)
-                with cols[2].expander("Career Health Details"):
-                    st.write("Career health data to be added.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Season health data to be added.")
-                cols[4].write(row['Percent of Reinjury'])
-
-# Display MLB team roster
-def display_mlb_roster(team):
-    roster_df = load_data(mlb_team_roster_urls[team])
-    if not roster_df.empty:
-        st.write(f"Roster for {team} (MLB):")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                cols[0].write(row['Team Name'])
-                with cols[1].expander(f"{row['First Name']} {row['Last Name']} - More Details"):
-                    details = {col: row[col] for col in ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
-                    st.write(details)
-                with cols[2].expander("Career Health Details"):
-                    st.write("Career health data to be added.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Season health data to be added.")
-                cols[4].write(row['Percent of Reinjury'])
-
-# Display NBA team roster
-def display_nba_roster(team):
-    roster_df = load_data(nba_team_roster_urls[team])
-    if not roster_df.empty:
-        st.write(f"Roster for {team} (NBA):")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                cols[0].write(row['TEAM'])
-                with cols[1].expander(f"{row['PLAYER']} - More Details"):
-                    details = {col: row[col] for col in ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
-                    st.write(details)
-                with cols[2].expander("Career Health Details"):
-                    st.write("Career health data to be added.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Season health data to be added.")
-                cols[4].write(row['Percent of Reinjury'])
-
-# Display NHL team roster
-def display_nhl_roster(team):
-    roster_df = load_data(nhl_team_roster_urls[team])
-    if not roster_df.empty:
-        st.write(f"Roster for {team} (NHL):")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                cols[0].write(row['Team'])
-                with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    details = {col: row[col] for col in ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency'] if col in roster_df.columns}
-                    st.write(details)
-                with cols[2].expander("Career Health Details"):
-                    st.write("Career health data to be added.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Season health data to be added.")
-                cols[4].write(row['Percent of Reinjury'])
-
-# Sidebar interaction to select league and team
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League', 'NFL', 'MLB', 'NBA', 'NHL'])
-
-if league_choice != 'Select a League':
-    team_urls = {
-        'NFL': nfl_team_roster_urls,
-        'MLB': mlb_team_roster_urls,
-        'NBA': nba_team_roster_urls,
-        'NHL': nhl_team_roster_urls
-    }
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
-
-    if team_choice != 'Select a Team':
-        if league_choice == 'NFL':
-            display_nfl_roster(team_choice)
-        elif league_choice == 'MLB':
-            display_mlb_roster(team_choice)
-        elif league_choice == 'NBA':
-            display_nba_roster(team_choice)
-        elif league_choice == 'NHL':
-            display_nhl_roster(team_choice)
-
-def load_data(url):
-    try:
-        data = pd.read_csv(url)
-        # Check if the 'Percent of Reinjury' column exists and whether it has NaN values
-        if 'Percent of Reinjury' in data.columns:
-            if data['Percent of Reinjury'].isnull().any():
-                st.warning('Warning: NaN values found in "Percent of Reinjury"')
-            return data
-        else:
-            st.error(f"'Percent of Reinjury' column not found in the data.")
-            return pd.DataFrame()
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
-
-def display_sorted_data(data, sort_by, league):
-    if league in ['NFL', 'NBA']:  # These leagues use 'Player Name'
-        if sort_by in ['Team Name', 'Player Name']:
-            data = data.sort_values(by=[sort_by], ascending=True)
-        else:
-            data = data.sort_values(by=[sort_by], ascending=False)
-    elif league == 'MLB':  # MLB uses 'First Name' and 'Last Name'
-        if sort_by in ['Team Name', 'First Name', 'Last Name']:
-            data = data.sort_values(by=[sort_by], ascending=True)
-        else:
-            data = data.sort_values(by=[sort_by], ascending=False)
-    elif league == 'NHL':  # NHL uses 'Player Name'
-        if sort_by in ['Team', 'Player Name']:
-            data = data.sort_values(by=[sort_by], ascending=True)
-        else:
-            data = data.sort_values(by=[sort_by], ascending=False)
-
-    st.write(data)
-
-# Sidebar interaction for league and team selection
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
-team_choice = None
-
-if league_choice != 'Select a League':
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
-
-# Sidebar for sorting options
-if team_choice and team_choice != 'Select a Team':
-    if league_choice in ['NFL', 'NBA', 'NHL']:
-        sort_option = st.sidebar.selectbox(
-            'Sort By',
-            ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        )
-    elif league_choice == 'MLB':
-        sort_option = st.sidebar.selectbox(
-            'Sort By',
-            ['Team Name', 'First Name', 'Last Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        )
-
-    # Load and display the sorted data
-    if sort_option:
-        data_url = team_urls[league_choice][team_choice]
-        data = load_data(data_url)
-        display_sorted_data(data, sort_option, league_choice)
-
-
-# Sample URL or path to your CSV file
-injury_data_url = 'path_to_your_injury_data.csv'
-
-def load_injury_data(url):
-    try:
-        # Assuming the date column in your CSV is named 'Timestamp'
-        return pd.read_csv(url, parse_dates=['Timestamp'])
-    except Exception as e:
-        st.error(f"Failed to load injury data: {e}")
-        return pd.DataFrame()
-
-def filter_injury_data(data, time_frame, league):
-    now = datetime.now()
-    if time_frame == 'Last 24 hours':
-        start_date = now - timedelta(days=1)
-    elif time_frame == 'Last 48 hours':
-        start_date = now - timedelta(days=2)
-    elif time_frame == 'Last week':
-        start_date = now - timedelta(weeks=1)
-    elif time_frame == 'Last month':
-        start_date = now - timedelta(days=30)
-    elif time_frame == 'Season':
-        start_date = now - timedelta(days=365)  # Assuming 'Season' means the last year
-
-    filtered_data = data[(data['Timestamp'] >= start_date) & (data['League'] == league)]
-    return filtered_data
-
-# Streamlit interface
-def main():
-    st.sidebar.title("Injury Reports")
-    injury_data = load_injury_data(injury_data_url)
-
-    with st.sidebar:
-        selected_tab = st.radio("Choose a view", ["Injuries"])
-
-    if selected_tab == "Injuries":
-        time_frame = st.sidebar.selectbox(
-            "Select Time Frame",
-            ['Last 24 hours', 'Last 48 hours', 'Last week', 'Last month', 'Season']
-        )
-        league = st.sidebar.selectbox(
-            "Select League",
-            ['NFL', 'NBA', 'MLB', 'NHL']
-        )
-
-        filtered_data = filter_injury_data(injury_data, time_frame, league)
-        st.write(f"Injury Reports - {league} - {time_frame}")
-        st.dataframe(filtered_data)
-
-if __name__ == "__main__":
-    main()
-def load_data(url):
-    try:
-        return pd.read_csv(url)
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
-def display_sorted_data(data, sort_option):
+    """ Sort data by a given column and display using Streamlit. """
     if sort_option in ['Team Name', 'Player Name', 'First Name', 'Last Name']:
         data = data.sort_values(by=[sort_option], ascending=True)
     else:
@@ -453,9 +194,10 @@ def display_sorted_data(data, sort_option):
     st.dataframe(data)
 
 def main():
+    """ Main function to handle Streamlit app layout and logic. """
     st.sidebar.title("Sports Analytics Dashboard")
-    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
 
+    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
     if league_choice != 'Select a League':
         team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
 
@@ -469,15 +211,12 @@ def main():
             display_sorted_data(data, sort_option)
 
 def injury_reports():
+    """ Function to handle injury reports in the dashboard. """
     st.sidebar.title("Injury Reports")
     injury_data_url = 'path_to_your_injury_data.csv'  # Update this to your actual path
-
-    try:
-        injury_data = pd.read_csv(injury_data_url, parse_dates=['Timestamp'])
-    except Exception as e:
-        st.error(f"Failed to load injury data: {e}")
-        return
-
+    
+    injury_data = load_data(injury_data_url)
+    
     time_frame = st.sidebar.selectbox(
         "Select Time Frame",
         ['Last 24 hours', 'Last 48 hours', 'Last week', 'Last month', 'Season']
@@ -488,16 +227,11 @@ def injury_reports():
     )
 
     now = datetime.now()
-    if time_frame == 'Last 24 hours':
-        start_date = now - timedelta(days=1)
-    elif time_frame == 'Last 48 hours':
-        start_date = now - timedelta(days=2)
-    elif time_frame == 'Last week':
-        start_date = now - timedelta(weeks=1)
-    elif time_frame == 'Last month':
-        start_date = now - timedelta(days=30)
-    elif time_frame == 'Season':
-        start_date = now - timedelta(days=365)  # Assuming 'Season' means the last year
+    start_date = now - {'Last 24 hours': timedelta(days=1),
+                        'Last 48 hours': timedelta(days=2),
+                        'Last week': timedelta(weeks=1),
+                        'Last month': timedelta(days=30),
+                        'Season': timedelta(days=365)}[time_frame]
 
     filtered_data = injury_data[(injury_data['Timestamp'] >= start_date) & (injury_data['League'] == league)]
     st.write(f"Injury Reports - {league} - {time_frame}")
