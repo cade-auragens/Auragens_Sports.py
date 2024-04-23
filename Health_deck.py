@@ -164,7 +164,27 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
+def load_data(url):
+    print("Trying to load:", url)  # Debugging output
+    if os.path.exists(url):
+        try:
+            return pd.read_csv(url)
+        except Exception as e:
+            st.error(f"Failed to load data: {e}")
+            return pd.DataFrame()
+    else:
+        st.error("File does not exist: " + url)
+        return pd.DataFrame()
 
+# Replace this with the actual path to your CSV
+team_data_url = 'path_to_your_team_data.csv'  # Update this path
+
+# Debug current working directory
+print("Current directory:", os.getcwd())
+
+if st.button('Load Team Roster'):
+    display_team_roster(team_data_url)
+    
 # Define the data loading function
 def load_data(url):
     try:
