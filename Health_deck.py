@@ -280,3 +280,59 @@ def load_data(url):
     except Exception as e:
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
+
+def load_data(url):
+    try:
+        data = pd.read_csv(url)
+        # Replace NaN values in key columns if present
+        if 'Percent of Reinjury' in data.columns:
+            data['Percent of Reinjury'] = data['Percent of Reinjury'].fillna('Data not available')
+        return data
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
+
+def display_sorted_data(data, sort_by, league):
+    if league in ['NFL', 'NBA']:  # These leagues use 'Player Name'
+        if sort_by in ['Team Name', 'Player Name']:
+            data = data.sort_values(by=[sort_by], ascending=True)
+        else:
+            data = data.sort_values(by=[sort_by], ascending=False)
+    elif league == 'MLB':  # MLB uses 'First Name' and 'Last Name'
+        if sort_by in ['Team Name', 'First Name', 'Last Name']:
+            data = data.sort_values(by=[sort_by], ascending=True)
+        else:
+            data = data.sort_values(by=[sort_by], ascending=False)
+    elif league == 'NHL':  # NHL uses 'Player Name'
+        if sort_by in ['Team', 'Player Name']:
+            data = data.sort_values(by=[sort_by], ascending=True)
+        else:
+            data = data.sort_values(by=[sort_by], ascending=False)
+
+    st.write(data)
+
+# Sidebar interaction for league and team selection
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
+team_choice = None
+
+if league_choice != 'Select a League':
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+
+# Sidebar for sorting options
+if team_choice and team_choice != 'Select a Team':
+    if league_choice in ['NFL', 'NBA', 'NHL']:
+        sort_option = st.sidebar.selectbox(
+            'Sort By',
+            ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        )
+    elif league_choice == 'MLB':
+        sort_option = st.sidebar.selectbox(
+            'Sort By',
+            ['Team Name', 'First Name', 'Last Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        )
+
+    # Load and display the sorted data
+    if sort_option:
+        data_url = team_urls[league_choice][team_choice]
+        data = load_data(data_url)
+        display_sorted_data(data, sort_option, league_choice)
