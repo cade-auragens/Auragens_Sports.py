@@ -180,7 +180,10 @@ def load_data(url):
 team_data_url = 'path_to_your_team_data.csv'  # Update this path
 
 # Debug current working directory
-print("Current directory:", os.getcwd())
+try:
+    print("Current directory:", os.getcwd())
+except Exception as e:
+    print("Failed to access current directory:", e)
 
 if st.button('Load Team Roster'):
     display_team_roster(team_data_url)
