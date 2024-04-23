@@ -177,6 +177,10 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
+# Example of setting a correct path based on your environment
+team_data_url = '/path/to/your/data/nfl_roster.csv'  # Update this path
+display_team_roster(team_data_url)
+
 # Function to display team roster in a single container with expandable sections
 def display_team_roster(team_data_url):
     roster_df = load_data(team_data_url)
