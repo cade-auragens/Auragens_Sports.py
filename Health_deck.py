@@ -189,9 +189,6 @@ def display_team_roster(url):
     if not roster_df.empty:
         st.write("Team Roster:", roster_df)
 
-# Define the path to your data
-team_data_url = 'path_to_your_data.csv'  # Update this path to a valid one
-
 # You can add a button or direct call to trigger the function
 if st.button('Load Team Roster'):
     display_team_roster(team_data_url)
