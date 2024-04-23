@@ -187,7 +187,29 @@ def display_sorted_data(data, sort_by, league):
 def main():
     st.sidebar.title("Sports Analytics Dashboard")
     
-    # Check if team_urls is defined and has keys
+    # Assuming team_urls is a global variable; define it appropriately
+team_urls = {
+    # Your team URLs structured by league
+    'NFL': {'Team A': 'url_to_csv', 'Team B': 'url_to_csv'},
+    'MLB': {'Team C': 'url_to_csv', 'Team D': 'url_to_csv'},
+    # Add NBA and NHL etc.
+}
+
+def load_data(url):
+    try:
+        return pd.read_csv(url)
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
+
+def display_sorted_data(data, sort_option):
+    if sort_option in ['Team Name', 'Player Name']:
+        data = data.sort_values(by=[sort_option], ascending=True)
+    else:
+        data = data.sort_values(by=[sort_option], ascending=False)
+    st.dataframe(data)
+
+def main():
     if team_urls and isinstance(team_urls, dict) and team_urls.keys():
         league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
 
@@ -199,19 +221,15 @@ def main():
                     'Sort By',
                     ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
                 )
-                # Assume function to load and sort data here
-                # data = load_and_sort_data(team_urls[league_choice][team_choice], sort_option)
-                # st.dataframe(data)
+                # Load data and apply sorting
+                data_url = team_urls[league_choice][team_choice]
+                data = load_data(data_url)
+                display_sorted_data(data, sort_option)
     else:
         st.error("Team URLs are not properly configured. Please check your data source.")
 
 if __name__ == "__main__":
     main()
-
-    # Load data and apply sorting
-    data_url = team_urls[league_choice][team_choice]
-    data = load_data(data_url)
-    display_sorted_data(data, sort_option, league_choice)
 
 # Display NFL team roster
 def display_nfl_roster(team):
