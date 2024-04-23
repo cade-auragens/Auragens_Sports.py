@@ -208,10 +208,10 @@ def main():
 if __name__ == "__main__":
     main()
 
-        # Load data and apply sorting
-        data_url = team_urls[league_choice][team_choice]
-        data = load_data(data_url)
-        display_sorted_data(data, sort_option, league_choice)
+    # Load data and apply sorting
+    data_url = team_urls[league_choice][team_choice]
+    data = load_data(data_url)
+    display_sorted_data(data, sort_option, league_choice)
 
 # Display NFL team roster
 def display_nfl_roster(team):
