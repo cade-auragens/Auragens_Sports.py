@@ -308,16 +308,6 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-def load_data(url):
-    try:
-        data = pd.read_csv(url)
-        # Replace NaN values in key columns if present
-        if 'Percent of Reinjury' in data.columns:
-            data['Percent of Reinjury'] = data['Percent of Reinjury'].fillna('Data not available')
-        return data
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
 
 def display_sorted_data(data, sort_by, league):
     if league in ['NFL', 'NBA']:  # These leagues use 'Player Name'
