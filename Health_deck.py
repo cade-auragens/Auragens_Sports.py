@@ -164,55 +164,119 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Function to load data from CSV and handle errors
+# General function to load data and handle errors
 def load_data(url):
-    if os.path.exists(url):
-        try:
-            data = pd.read_csv(url)
-            if 'Percent of Reinjury' in data.columns:
-                data['Percent of Reinjury'].fillna('Data not available', inplace=True)
-            return data
-        except Exception as e:
-            st.error(f"Failed to load data: {e}")
-    else:
-        st.error("File does not exist: " + url)
-    return pd.DataFrame()
+    try:
+        return pd.read_csv(url)
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
 
-# Function to display team rosters with league-specific details
-def display_team_roster(team_data, league):
-    roster_df = load_data(team_data)
+# Display NFL team roster
+def display_nfl_roster(team):
+    roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
+        st.write(f"Roster for {team} (NFL):")
         for _, row in roster_df.iterrows():
             with st.container():
-                if league == 'NFL':
-                    st.write(f"**Team:** {row['Team Name']} **Player:** {row['Player Name']} **Percent of Reinjury:** {row['Percent of Reinjury']}")
-                    with st.expander("Player Details"):
-                        st.table(row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']])
-                    with st.expander("Health Details"):
-                        st.write("Career and Season health data to be added.")
-                elif league == 'MLB':
-                    st.write(f"**Team:** {row['Team Name']} **Player:** {row['First Name']} {row['Last Name']} **Percent of Reinjury:** {row['Percent of Reinjury']}")
-                    with st.expander("Player Details"):
-                        st.table(row[['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency']])
-                    with st.expander("Health Details"):
-                        st.write("Career and Season health data to be added.")
-                elif league == 'NBA':
-                    st.write(f"**Team:** {row['TEAM']} **Player:** {row['PLAYER']} **Percent of Reinjury:** {row['Percent of Reinjury']}")
-                    with st.expander("Player Details"):
-                        st.table(row[['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency']])
-                    with st.expander("Health Details"):
-                        st.write("Career and Season health data to be added.")
-                elif league == 'NHL':
-                    st.write(f"**Team:** {row['Team']} **Player:** {row['Player Name']} **Percent of Reinjury:** {row['Percent of Reinjury']}")
-                    with st.expander("Player Details"):
-                        st.table(row[['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency']])
-                    with st.expander("Health Details"):
-                        st.write("Career and Season health data to be added.")
+                cols = st.columns([1, 2, 1, 1, 1])
+                cols[0].write(row['Team Name'])
+                with cols[1].expander(f"{row['Player Name']} - More Details"):
+                    details = {col: row[col] for col in ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
 
-# Sidebar for league selection
-league_choice = st.sidebar.selectbox('Select a League', ['NFL', 'MLB', 'NBA', 'NHL'])
-team_data_url = 'path_to_your_team_data.csv'  # Placeholder path
+# Display MLB team roster
+def display_mlb_roster(team):
+    roster_df = load_data(mlb_team_roster_urls[team])
+    if not roster_df.empty:
+        st.write(f"Roster for {team} (MLB):")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns([1, 2, 1, 1, 1])
+                cols[0].write(row['Team Name'])
+                with cols[1].expander(f"{row['First Name']} {row['Last Name']} - More Details"):
+                    details = {col: row[col] for col in ['Player Number', 'Position', 'B/T', 'Ht', 'Wt', 'Status', 'Base Salary', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
 
-# Display based on league
-if st.button('Load Team Roster'):
-    display_team_roster(team_data_url, league_choice)
+# Display NBA team roster
+def display_nba_roster(team):
+    roster_df = load_data(nba_team_roster_urls[team])
+    if not roster_df.empty:
+        st.write(f"Roster for {team} (NBA):")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns([1, 2, 1, 1, 1])
+                cols[0].write(row['TEAM'])
+                with cols[1].expander(f"{row['PLAYER']} - More Details"):
+                    details = {col: row[col] for col in ['NUMBER', 'POSITION', 'HEIGHT', 'WEIGHT', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
+
+# Display NHL team roster
+def display_nhl_roster(team):
+    roster_df = load_data(nhl_team_roster_urls[team])
+    if not roster_df.empty:
+        st.write(f"Roster for {team} (NHL):")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                cols = st.columns([1, 2, 1, 1, 1])
+                cols[0].write(row['Team'])
+                with cols[1].expander(f"{row['Player Name']} - More Details"):
+                    details = {col: row[col] for col in ['Position', 'Years of Experience', 'Puckpedia Agent', 'Puckpedia Agency'] if col in roster_df.columns}
+                    st.write(details)
+                with cols[2].expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with cols[3].expander("Season Health Details"):
+                    st.write("Season health data to be added.")
+                cols[4].write(row['Percent of Reinjury'])
+
+# Sidebar interaction to select league and team
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League', 'NFL', 'MLB', 'NBA', 'NHL'])
+
+if league_choice != 'Select a League':
+    team_urls = {
+        'NFL': nfl_team_roster_urls,
+        'MLB': mlb_team_roster_urls,
+        'NBA': nba_team_roster_urls,
+        'NHL': nhl_team_roster_urls
+    }
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+
+    if team_choice != 'Select a Team':
+        if league_choice == 'NFL':
+            display_nfl_roster(team_choice)
+        elif league_choice == 'MLB':
+            display_mlb_roster(team_choice)
+        elif league_choice == 'NBA':
+            display_nba_roster(team_choice)
+        elif league_choice == 'NHL':
+            display_nhl_roster(team_choice)
+
+def load_data(url):
+    try:
+        data = pd.read_csv(url)
+        # Check if the 'Percent of Reinjury' column exists and whether it has NaN values
+        if 'Percent of Reinjury' in data.columns:
+            if data['Percent of Reinjury'].isnull().any():
+                st.warning('Warning: NaN values found in "Percent of Reinjury"')
+            return data
+        else:
+            st.error(f"'Percent of Reinjury' column not found in the data.")
+            return pd.DataFrame()
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
