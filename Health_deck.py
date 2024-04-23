@@ -164,13 +164,40 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# General function to load data and handle errors
+# Function to load data
 def load_data(url):
     try:
-        return pd.read_csv(url)
+        data = pd.read_csv(url)
+        return data
     except Exception as e:
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
+
+# Function to display data based on the team and sorting options
+def display_sorted_data(data, sort_by, league):
+    if sort_by in ['Team Name', 'Player Name', 'First Name', 'Last Name']:  # Sorting alphabetically
+        data = data.sort_values(by=[sort_by], ascending=True)
+    else:  # Sorting numerically in descending order
+        data = data.sort_values(by=[sort_by], ascending=False)
+
+    st.write(data)
+
+# Main Streamlit interface
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
+
+if league_choice != 'Select a League':
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+
+    if team_choice != 'Select a Team':
+        sort_option = st.sidebar.selectbox(
+            'Sort By',
+            ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+        )
+
+        # Load data and apply sorting
+        data_url = team_urls[league_choice][team_choice]
+        data = load_data(data_url)
+        display_sorted_data(data, sort_option, league_choice)
 
 # Display NFL team roster
 def display_nfl_roster(team):
