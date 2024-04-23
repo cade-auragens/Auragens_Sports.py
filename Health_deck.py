@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 from io import StringIO
+from datetime import datetime, timedelta
 
 st.title('HealthAura: Pro Sports Tracker')
 
@@ -353,3 +354,56 @@ if team_choice and team_choice != 'Select a Team':
         data_url = team_urls[league_choice][team_choice]
         data = load_data(data_url)
         display_sorted_data(data, sort_option, league_choice)
+
+
+# Sample URL or path to your CSV file
+injury_data_url = 'path_to_your_injury_data.csv'
+
+def load_injury_data(url):
+    try:
+        # Assuming the date column in your CSV is named 'Timestamp'
+        return pd.read_csv(url, parse_dates=['Timestamp'])
+    except Exception as e:
+        st.error(f"Failed to load injury data: {e}")
+        return pd.DataFrame()
+
+def filter_injury_data(data, time_frame, league):
+    now = datetime.now()
+    if time_frame == 'Last 24 hours':
+        start_date = now - timedelta(days=1)
+    elif time_frame == 'Last 48 hours':
+        start_date = now - timedelta(days=2)
+    elif time_frame == 'Last week':
+        start_date = now - timedelta(weeks=1)
+    elif time_frame == 'Last month':
+        start_date = now - timedelta(days=30)
+    elif time_frame == 'Season':
+        start_date = now - timedelta(days=365)  # Assuming 'Season' means the last year
+
+    filtered_data = data[(data['Timestamp'] >= start_date) & (data['League'] == league)]
+    return filtered_data
+
+# Streamlit interface
+def main():
+    st.sidebar.title("Injury Reports")
+    injury_data = load_injury_data(injury_data_url)
+
+    with st.sidebar:
+        selected_tab = st.radio("Choose a view", ["Injuries"])
+
+    if selected_tab == "Injuries":
+        time_frame = st.sidebar.selectbox(
+            "Select Time Frame",
+            ['Last 24 hours', 'Last 48 hours', 'Last week', 'Last month', 'Season']
+        )
+        league = st.sidebar.selectbox(
+            "Select League",
+            ['NFL', 'NBA', 'MLB', 'NHL']
+        )
+
+        filtered_data = filter_injury_data(injury_data, time_frame, league)
+        st.write(f"Injury Reports - {league} - {time_frame}")
+        st.dataframe(filtered_data)
+
+if __name__ == "__main__":
+    main()
