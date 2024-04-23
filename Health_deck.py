@@ -168,7 +168,11 @@ def load_data(url):
     print("Trying to load:", url)  # Debugging output
     if os.path.exists(url):
         try:
-            return pd.read_csv(url)
+            data = pd.read_csv(url)
+            # Replace NaN in 'Percent of Reinjury' with a placeholder
+            if 'Percent of Reinjury' in data.columns:
+                data['Percent of Reinjury'] = data['Percent of Reinjury'].fillna('Data not available')
+            return data
         except Exception as e:
             st.error(f"Failed to load data: {e}")
             return pd.DataFrame()
@@ -176,8 +180,19 @@ def load_data(url):
         st.error("File does not exist: " + url)
         return pd.DataFrame()
 
-# Replace this with the actual path to your CSV
-team_data_url = 'path_to_your_team_data.csv'  # Update this path
+def display_team_roster(url):
+    roster_df = load_data(url)
+    if not roster_df.empty:
+        st.write(f"Roster for the Team:")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                st.write(f"**Team:** {row.get('Team Name', 'N/A')} **Player:** {row.get('Player Name', 'N/A')} **Percent of Reinjury:** {row.get('Percent of Reinjury', 'Data not available')}")
+                with st.expander("Player Details"):
+                    st.table(row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience']])
+                with st.expander("Career Health Details"):
+                    st.write("Career health data to be added.")
+                with st.expander("Season Health Details"):
+                    st.write("Season health data to be added.")
 
 # Debug current working directory
 try:
@@ -185,55 +200,12 @@ try:
 except Exception as e:
     print("Failed to access current directory:", e)
 
+# Replace this with the actual path to your CSV
+team_data_url = 'path_to_your_team_data.csv'  # Update this path with the actual file location
+
+# Button to load the team roster
 if st.button('Load Team Roster'):
     display_team_roster(team_data_url)
-    
-# Define the data loading function
-def load_data(url):
-    try:
-        data = pd.read_csv(url)
-        # Replace NaN in 'Percent of Reinjury' with a placeholder
-        if 'Percent of Reinjury' in data.columns:
-            data['Percent of Reinjury'] = data['Percent of Reinjury'].fillna('Data not available')
-        return data
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
-def load_data(url):
-    try:
-        return pd.read_csv(url)
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
-def display_team_roster(url):
-    roster_df = load_data(url)
-    if not roster_df.empty:
-        st.write("Team Roster:", roster_df)
-
-# You can add a button or direct call to trigger the function
-if st.button('Load Team Roster'):
-    display_team_roster(team_data_url)
-
-# Function to display team roster in a single container with expandable sections
-def display_team_roster(team_data_url):
-    roster_df = load_data(team_data_url)
-    if not roster_df.empty:
-        st.write(f"Roster for the Team:")
-        for _, row in roster_df.iterrows():
-            with st.container():
-                st.write(f"**Team:** {row['Team Name']} **Player:** {row['Player Name']} **Percent of Reinjury:** {row['Percent of Reinjury']}")
-                with st.expander("Player Details"):
-                    st.table(row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience']])
-                with st.expander("Career Health Details"):
-                    st.table(row[['Career Health']])  # Assuming data is in a columnar format
-                with st.expander("Season Health Details"):
-                    st.table(row[['Season Health']])  # Assuming data is in a columnar format
-
-# Sample call to display team roster
-team_data_url = 'path_to_your_team_data.csv'  # Replace with your data file path
-display_team_roster(team_data_url)
 
 # Display NFL team roster
 def display_nfl_roster(team):
