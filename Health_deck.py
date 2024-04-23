@@ -438,3 +438,75 @@ def main():
 
 if __name__ == "__main__":
     main()
+def load_data(url):
+    try:
+        return pd.read_csv(url)
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
+
+def display_sorted_data(data, sort_option):
+    if sort_option in ['Team Name', 'Player Name', 'First Name', 'Last Name']:
+        data = data.sort_values(by=[sort_option], ascending=True)
+    else:
+        data = data.sort_values(by=[sort_option], ascending=False)
+    st.dataframe(data)
+
+def main():
+    st.sidebar.title("Sports Analytics Dashboard")
+    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
+
+    if league_choice != 'Select a League':
+        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+
+        if team_choice != 'Select a Team':
+            sort_option = st.sidebar.selectbox(
+                'Sort By',
+                ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+            )
+            data_url = team_urls[league_choice][team_choice]
+            data = load_data(data_url)
+            display_sorted_data(data, sort_option)
+
+def injury_reports():
+    st.sidebar.title("Injury Reports")
+    injury_data_url = 'path_to_your_injury_data.csv'  # Update this to your actual path
+
+    try:
+        injury_data = pd.read_csv(injury_data_url, parse_dates=['Timestamp'])
+    except Exception as e:
+        st.error(f"Failed to load injury data: {e}")
+        return
+
+    time_frame = st.sidebar.selectbox(
+        "Select Time Frame",
+        ['Last 24 hours', 'Last 48 hours', 'Last week', 'Last month', 'Season']
+    )
+    league = st.sidebar.selectbox(
+        "Select League",
+        ['NFL', 'NBA', 'MLB', 'NHL']
+    )
+
+    now = datetime.now()
+    if time_frame == 'Last 24 hours':
+        start_date = now - timedelta(days=1)
+    elif time_frame == 'Last 48 hours':
+        start_date = now - timedelta(days=2)
+    elif time_frame == 'Last week':
+        start_date = now - timedelta(weeks=1)
+    elif time_frame == 'Last month':
+        start_date = now - timedelta(days=30)
+    elif time_frame == 'Season':
+        start_date = now - timedelta(days=365)  # Assuming 'Season' means the last year
+
+    filtered_data = injury_data[(injury_data['Timestamp'] >= start_date) & (injury_data['League'] == league)]
+    st.write(f"Injury Reports - {league} - {time_frame}")
+    st.dataframe(filtered_data)
+
+if __name__ == "__main__":
+    page = st.sidebar.radio("Navigate", ["Dashboard", "Injuries"])
+
+    if page == "Dashboard":
+        main()
+    elif page == "Injuries":
+        injury_reports()
