@@ -165,13 +165,36 @@ nhl_team_roster_urls = {
 }
 
 
-# General function to load data and handle errors
+# Define the data loading function
 def load_data(url):
     try:
-        return pd.read_csv(url)
+        data = pd.read_csv(url)
+        # Replace NaN in 'Percent of Reinjury' with a placeholder
+        if 'Percent of Reinjury' in data.columns:
+            data['Percent of Reinjury'] = data['Percent of Reinjury'].fillna('Data not available')
+        return data
     except Exception as e:
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
+
+# Function to display team roster in a single container with expandable sections
+def display_team_roster(team_data_url):
+    roster_df = load_data(team_data_url)
+    if not roster_df.empty:
+        st.write(f"Roster for the Team:")
+        for _, row in roster_df.iterrows():
+            with st.container():
+                st.write(f"**Team:** {row['Team Name']} **Player:** {row['Player Name']} **Percent of Reinjury:** {row['Percent of Reinjury']}")
+                with st.expander("Player Details"):
+                    st.table(row[['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience']])
+                with st.expander("Career Health Details"):
+                    st.table(row[['Career Health']])  # Assuming data is in a columnar format
+                with st.expander("Season Health Details"):
+                    st.table(row[['Season Health']])  # Assuming data is in a columnar format
+
+# Sample call to display team roster
+team_data_url = 'path_to_your_team_data.csv'  # Replace with your data file path
+display_team_roster(team_data_url)
 
 # Display NFL team roster
 def display_nfl_roster(team):
