@@ -184,16 +184,29 @@ def display_sorted_data(data, sort_by, league):
     st.write(data)
 
 # Main Streamlit interface
-league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
+def main():
+    st.sidebar.title("Sports Analytics Dashboard")
+    
+    # Check if team_urls is defined and has keys
+    if team_urls and isinstance(team_urls, dict) and team_urls.keys():
+        league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
 
-if league_choice != 'Select a League':
-    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+        if league_choice != 'Select a League':
+            team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
 
-    if team_choice != 'Select a Team':
-        sort_option = st.sidebar.selectbox(
-            'Sort By',
-            ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
-        )
+            if team_choice != 'Select a Team':
+                sort_option = st.sidebar.selectbox(
+                    'Sort By',
+                    ['Team Name', 'Player Name', 'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+                )
+                # Assume function to load and sort data here
+                # data = load_and_sort_data(team_urls[league_choice][team_choice], sort_option)
+                # st.dataframe(data)
+    else:
+        st.error("Team URLs are not properly configured. Please check your data source.")
+
+if __name__ == "__main__":
+    main()
 
         # Load data and apply sorting
         data_url = team_urls[league_choice][team_choice]
