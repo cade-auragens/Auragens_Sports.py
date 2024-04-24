@@ -358,11 +358,3 @@ def injury_reports():
     filtered_data = injury_data[(injury_data['Timestamp'] >= start_date) & (injury_data['League'] == league)]
     st.write(f"Injury Reports - {league} - {time_frame}")
     st.dataframe(filtered_data)
-
-if __name__ == "__main__":
-    page = st.sidebar.radio("Navigate", ["Dashboard", "Injuries"])
-
-    if page == "Dashboard":
-        main()
-    elif page == "Injuries":
-        injury_reports()
