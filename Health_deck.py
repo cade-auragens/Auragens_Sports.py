@@ -173,21 +173,6 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Function to display player data
-def display_players():
-    # Placeholder for team URLs and displaying rosters
-    team_urls = {
-        'NFL': {'Team A': 'url_to_team_a_csv', 'Team B': 'url_to_team_b_csv'},
-        # Add additional teams and leagues
-    }
-    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
-    if league_choice != 'Select a League':
-        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
-        if team_choice != 'Select a Team':
-            data_url = team_urls[league_choice][team_choice]
-            data = load_data(data_url)
-            st.dataframe(data)  # Displaying the team roster data
-
 # Function to display injury data
 def display_injuries():
     injury_data_url = 'path_to_your_injury_data.csv'
