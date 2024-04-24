@@ -165,6 +165,56 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
+# Dummy function to load data
+def load_data(url):
+    try:
+        return pd.read_csv(url)
+    except Exception as e:
+        st.error(f"Failed to load data: {e}")
+        return pd.DataFrame()
+
+# Function to display player data
+def display_players():
+    # Placeholder for team URLs and displaying rosters
+    team_urls = {
+        'NFL': {'Team A': 'url_to_team_a_csv', 'Team B': 'url_to_team_b_csv'},
+        # Add additional teams and leagues
+    }
+    league_choice = st.sidebar.selectbox('Select a League', ['Select a League'] + list(team_urls.keys()))
+    if league_choice != 'Select a League':
+        team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+        if team_choice != 'Select a Team':
+            data_url = team_urls[league_choice][team_choice]
+            data = load_data(data_url)
+            st.dataframe(data)  # Displaying the team roster data
+
+# Function to display injury data
+def display_injuries():
+    injury_data_url = 'path_to_your_injury_data.csv'
+    injury_data = load_data(injury_data_url)
+    st.dataframe(injury_data)  # Displaying injury reports
+
+# Function to display betting data
+def display_bets():
+    betting_data_url = 'path_to_your_betting_data.csv'
+    betting_data = load_data(betting_data_url)
+    st.dataframe(betting_data)  # Displaying betting data
+
+# Main function to setup the navigation and page layout
+def main():
+    st.sidebar.title("Sports Analytics Dashboard")
+    choice = st.sidebar.radio("Navigate", ["Players", "Injuries", "Bets"])
+    
+    if choice == "Players":
+        display_players()
+    elif choice == "Injuries":
+        display_injuries()
+    elif choice == "Bets":
+        display_bets()
+
+if __name__ == "__main__":
+    main()
+
 # Global variable to hold team URLs
 team_urls = {
     'NFL': {'Team A': 'url_to_csv', 'Team B': 'url_to_csv'},
