@@ -215,13 +215,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-# Global variable to hold team URLs
-team_urls = {
-    'NFL': {'Team A': 'url_to_csv', 'Team B': 'url_to_csv'},
-    'MLB': {'Team C': 'url_to_csv', 'Team D': 'url_to_csv'},
-    # Add additional leagues and teams as necessary
-}
-
 def load_data(url):
     """ Load data from a given CSV URL, handling errors. """
     try:
