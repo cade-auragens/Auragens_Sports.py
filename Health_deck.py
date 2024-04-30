@@ -173,6 +173,12 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
+# Function to display player data
+def display_injuries():
+    player_data_url = 'path_to_your_player_data.csv'
+    plaeyer_data = load_data(player_data_url)
+    st.dataframe(player_data)  # Displaying player reports
+
 # Function to display injury data
 def display_injuries():
     injury_data_url = 'path_to_your_injury_data.csv'
