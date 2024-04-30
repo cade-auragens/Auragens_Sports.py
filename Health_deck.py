@@ -173,6 +173,21 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
+# Main function to setup the navigation and page layout
+def main():
+    st.sidebar.title("Sports Analytics Dashboard")
+    choice = st.sidebar.radio("Navigate", ["Players", "Injuries", "Bets"])
+    
+    if choice == "Players":
+        display_players()
+    elif choice == "Injuries":
+        display_injuries()
+    elif choice == "Bets":
+        display_bets()
+
+if __name__ == "__main__":
+    main()
+
 # Function to display player data
 def display_injuries():
     player_data_url = 'path_to_your_player_data.csv'
@@ -196,15 +211,6 @@ def main():
     st.sidebar.title("Sports Analytics Dashboard")
     choice = st.sidebar.radio("Navigate", ["Players", "Injuries", "Bets"])
     
-    if choice == "Players":
-        display_players()
-    elif choice == "Injuries":
-        display_injuries()
-    elif choice == "Bets":
-        display_bets()
-
-if __name__ == "__main__":
-    main()
 
 # General function to load data and handle errors
 def load_data(url):
