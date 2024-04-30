@@ -188,6 +188,20 @@ def main():
 if __name__ == "__main__":
     main()
 
+def display_players():
+    st.write("Player Rosters Across All Leagues")
+    # Example call to display rosters for all leagues, you might need to adjust this based on your actual data setup
+    for league, teams in team_urls.items():
+        for team, url in teams.items():
+            if league == 'NFL':
+                display_nfl_roster(team)
+            elif league == 'MLB':
+                display_mlb_roster(team)
+            elif league == 'NBA':
+                display_nba_roster(team)
+            elif league == 'NHL':
+                display_nhl_roster(team)
+
 # Function to display player data
 def display_injuries():
     player_data_url = 'path_to_your_player_data.csv'
