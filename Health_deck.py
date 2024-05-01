@@ -165,14 +165,6 @@ nhl_team_roster_urls = {
     "Winnipeg Jets": "https://raw.githubusercontent.com/cade-auragens/Auragens_Sports.py/main/NHL%20Winnipeg%20Jets.csv",
 }
 
-# Dummy function to load data
-def load_data(url):
-    try:
-        return pd.read_csv(url)
-    except Exception as e:
-        st.error(f"Failed to load data: {e}")
-        return pd.DataFrame()
-
 # Main function to setup the navigation and page layout
 def main():
     st.sidebar.title("Sports Analytics Dashboard")
