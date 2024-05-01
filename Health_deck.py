@@ -209,13 +209,7 @@ def display_injuries():
 def display_bets():
     betting_data_url = 'path_to_your_betting_data.csv'
     betting_data = load_data(betting_data_url)
-    st.dataframe(betting_data)  # Displaying betting data
-
-# Main function to setup the navigation and page layout
-def main():
-    st.sidebar.title("Sports Analytics Dashboard")
-    choice = st.sidebar.radio("Navigate", ["Players", "Injuries", "Bets"])
-    
+    st.dataframe(betting_data)  # Displaying betting data    
 
 # General function to load data and handle errors
 def load_data(url):
