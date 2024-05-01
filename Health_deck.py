@@ -185,9 +185,6 @@ def main():
     elif choice == "Bets":
         display_bets()
 
-if __name__ == "__main__":
-    main()
-
 def display_players():
     st.write("Player Rosters Across All Leagues")
     # Example call to display rosters for all leagues, you might need to adjust this based on your actual data setup
