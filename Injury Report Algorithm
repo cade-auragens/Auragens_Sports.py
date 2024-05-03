@@ -1,1 +1,5 @@
-
+# Function to display injury data
+def display_injuries():
+    injury_data_url = 'path_to_your_injury_data.csv'
+    injury_data = load_data(injury_data_url)
+    st.dataframe(injury_data)  # Displaying injury reports
