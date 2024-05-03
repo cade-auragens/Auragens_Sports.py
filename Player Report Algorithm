@@ -141,7 +141,7 @@ def display_nba_roster(team):
                     # Placeholder for detailed data about reinjury probability
                     st.write("Analysis on likelihood of reinjury.")
 
-# Display NHL team roster with health details and expanders for further information
+# Display NHL team roster with improved structure
 def display_nhl_roster(team):
     roster_df = load_data(nhl_team_roster_urls[team])
     if not roster_df.empty:
@@ -150,26 +150,36 @@ def display_nhl_roster(team):
             # Main container for each player
             with st.container():
                 st.markdown(f"**{row.get('Player Name', 'N/A')}** - {row.get('Team', 'N/A')}")
-                # Create columns for different expanders
-                col1, col2, col3, col4 = st.columns(4)
+                # Create columns for titles, values, and expanders
+                title_col, value_col, expander_col = st.columns([1, 1, 2])
 
-                with col1.expander("Player Details"):
+                # Titles
+                title_col.write("Player Details")
+                title_col.write("Career Health Index")
+                title_col.write("Seasonal Health Index")
+                title_col.write("Percent of Reinjury")
+
+                # Numerical Values
+                value_col.write(" ")  # Placeholder for alignment with player details
+                value_col.write(row.get('Career Health', 'N/A'))
+                value_col.write(row.get('Season Health', 'N/A'))
+                value_col.write(f"{row.get('Percent of Reinjury', 'N/A')}%")
+
+                # Expanders for details
+                with expander_col.expander("Details"):
                     st.write(f"**Position:** {row.get('Position', 'N/A')}")
                     st.write(f"**Years of Experience:** {row.get('Years of Experience', 'N/A')}")
                     st.write(f"**Agent:** {row.get('Puckpedia Agent', 'N/A')}")
-
-                with col2.expander("Career Health Details"):
-                    st.write(f"**Career Health Index:** {row.get('Career Health', 'N/A')}")
+                    
+                with expander_col.expander("Career Health Details"):
                     # Placeholder for detailed data about career health
                     st.write("Detailed career health injuries and analysis.")
 
-                with col3.expander("Seasonal Health Details"):
-                    st.write(f"**Seasonal Health Index:** {row.get('Season Health', 'N/A')}")
+                with expander_col.expander("Seasonal Health Details"):
                     # Placeholder for detailed data about seasonal health
                     st.write("Detailed seasonal health injuries and analysis.")
 
-                with col4.expander("Percent of Reinjury"):
-                    st.write(f"**Percent of Reinjury:** {row.get('Percent of Reinjury', 'N/A')}")
+                with expander_col.expander("Percent of Reinjury Analysis"):
                     # Placeholder for detailed data about reinjury probability
                     st.write("Analysis on likelihood of reinjury.")
 
