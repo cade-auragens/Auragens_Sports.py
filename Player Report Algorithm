@@ -1,1 +1,26 @@
+# Main function to setup the navigation and page layout
+#LOOK AT THIS CODE AND DELETE WHEN COMPLETE
+def main():
+    st.sidebar.title("Sports Analytics Dashboard")
+    choice = st.sidebar.radio("Navigate", ["Players", "Injuries", "Bets"])
+    
+    if choice == "Players":
+        display_players()
+    elif choice == "Injuries":
+        display_injuries()
+    elif choice == "Bets":
+        display_bets()
 
+def display_players():
+    st.write("Player Rosters Across All Leagues")
+    # Example call to display rosters for all leagues, you might need to adjust this based on your actual data setup
+    for league, teams in team_urls.items():
+        for team, url in teams.items():
+            if league == 'NFL':
+                display_nfl_roster(team)
+            elif league == 'MLB':
+                display_mlb_roster(team)
+            elif league == 'NBA':
+                display_nba_roster(team)
+            elif league == 'NHL':
+                display_nhl_roster(team)
