@@ -307,6 +307,7 @@ if league_choice != 'Select a League':
             display_nhl_roster(team_choice)
 
 def load_data(url):
+    #EXAMINE AND REFACTOR CODE
     try:
         data = pd.read_csv(url)
         # Check if the 'Percent of Reinjury' column exists and whether it has NaN values
