@@ -212,7 +212,7 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Function to display NFL team roster with detailed injury expanders
+# Function to display NFL team roster with health details and expanders for further information
 def display_nfl_roster(team):
     roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
@@ -236,16 +236,18 @@ def display_nfl_roster(team):
 
                 with col2.expander("Career Health Details"):
                     st.write(f"**Career Health Index:** {row.get('Career Health', 'N/A')}")
-                    # Placeholder for expanding into detailed career injury data
-                    st.write("Detailed career health data to be added.")  # Placeholder for actual data
+                    # Detailed data about career health
+                    st.write("Detailed career health injuries and analysis.")  # Placeholder for actual data
 
                 with col3.expander("Seasonal Health Details"):
                     st.write(f"**Seasonal Health Index:** {row.get('Seasonal Health', 'N/A')}")
-                    # Placeholder for expanding into detailed seasonal injury data
-                    st.write("Detailed seasonal health data to be added.")  # Placeholder for actual data
+                    # Detailed data about seasonal health
+                    st.write("Detailed seasonal health injuries and analysis.")  # Placeholder for actual data
 
                 with col4.expander("Percent of Reinjury"):
-                    st.write(f"**Percent of Reinjury:** {row.get('Percent of Reinjury', 'Data not available')}")
+                    st.write(f"**Percent of Reinjury:** {row.get('Percent of Reinjury', 'N/A')}")
+                    # Detailed data about reinjury percentage
+                    st.write("Analysis on likelihood of reinjury.")  # Placeholder for actual data
 
 # Display MLB team roster
 def display_mlb_roster(team):
