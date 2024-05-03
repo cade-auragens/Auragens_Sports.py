@@ -284,7 +284,27 @@ def display_nhl_roster(team):
                     st.write("Season health data to be added.")
                 cols[4].write(row['Percent of Reinjury'])
 
+# Sidebar interaction to select league and team
+league_choice = st.sidebar.selectbox('Select a League', ['Select a League', 'NFL', 'MLB', 'NBA', 'NHL'])
 
+if league_choice != 'Select a League':
+    team_urls = {
+        'NFL': nfl_team_roster_urls,
+        'MLB': mlb_team_roster_urls,
+        'NBA': nba_team_roster_urls,
+        'NHL': nhl_team_roster_urls
+    }
+    team_choice = st.sidebar.selectbox('Select a Team', ['Select a Team'] + list(team_urls[league_choice].keys()))
+
+    if team_choice != 'Select a Team':
+        if league_choice == 'NFL':
+            display_nfl_roster(team_choice)
+        elif league_choice == 'MLB':
+            display_mlb_roster(team_choice)
+        elif league_choice == 'NBA':
+            display_nba_roster(team_choice)
+        elif league_choice == 'NHL':
+            display_nhl_roster(team_choice)
 
 def load_data(url):
     try:
