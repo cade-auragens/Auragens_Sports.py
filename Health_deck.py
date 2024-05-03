@@ -212,7 +212,7 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Function to display NFL team roster with multiple expandable sections in a clean layout
+# Function to display NFL team roster with detailed injury expanders
 def display_nfl_roster(team):
     roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
@@ -234,11 +234,15 @@ def display_nfl_roster(team):
                     st.write(f"**Fanspo Agency:** {row.get('Fanspo Agency', 'N/A')}")
                     st.write(f"**Spotrac Agency:** {row.get('Spotrac Agency', 'N/A')}")
 
-                with col2.expander("Career Health"):
-                    st.write("Career health data to be added.")  # Placeholder for actual data
+                with col2.expander("Career Health Details"):
+                    st.write(f"**Career Health Index:** {row.get('Career Health', 'N/A')}")
+                    # Placeholder for expanding into detailed career injury data
+                    st.write("Detailed career health data to be added.")  # Placeholder for actual data
 
-                with col3.expander("Seasonal Health"):
-                    st.write("Seasonal health data to be added.")  # Placeholder for actual data
+                with col3.expander("Seasonal Health Details"):
+                    st.write(f"**Seasonal Health Index:** {row.get('Seasonal Health', 'N/A')}")
+                    # Placeholder for expanding into detailed seasonal injury data
+                    st.write("Detailed seasonal health data to be added.")  # Placeholder for actual data
 
                 with col4.expander("Percent of Reinjury"):
                     st.write(f"**Percent of Reinjury:** {row.get('Percent of Reinjury', 'Data not available')}")
