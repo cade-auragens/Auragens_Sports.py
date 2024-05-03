@@ -1,1 +1,5 @@
-
+# Function to display betting data
+def display_bets():
+    betting_data_url = 'path_to_your_betting_data.csv'
+    betting_data = load_data(betting_data_url)
+    st.dataframe(betting_data)  # Displaying betting data 
