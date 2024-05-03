@@ -212,23 +212,31 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Display NFL team roster
 def display_nfl_roster(team):
     roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
         st.write(f"Roster for {team} (NFL):")
         for _, row in roster_df.iterrows():
             with st.container():
-                cols = st.columns([1, 2, 1, 1, 1])
-                cols[0].write(row['Team Name'])
-                with cols[1].expander(f"{row['Player Name']} - More Details"):
-                    details = {col: row[col] for col in ['Player Number', 'Position', 'Height', 'Weight', 'Age', 'Years of Experience', 'Fanspo Agent', 'Fanspo Agency', 'Spotrac Agent', 'Spotrac Agency'] if col in roster_df.columns}
-                    st.write(details)
-                with cols[2].expander("Career Health Details"):
-                    st.write("Career health data to be added.")
-                with cols[3].expander("Season Health Details"):
-                    st.write("Season health data to be added.")
-                cols[4].write(row['Percent of Reinjury'])
+                # Creating a column layout
+                cols = st.columns([2, 2, 2, 2])
+                with cols[0]:
+                    st.subheader(f"Player: {row.get('Player Name', 'N/A')}")
+                    st.write(f"Team: {row.get('Team Name', 'N/A')}")
+                    st.write(f"Number: {row.get('Player Number', 'N/A')}")
+                with cols[1]:
+                    st.subheader("Details")
+                    st.write(f"Position: {row.get('Position', 'N/A')}")
+                    st.write(f"Height: {row.get('Height', 'N/A')}")
+                    st.write(f"Weight: {row.get('Weight', 'N/A')}")
+                with cols[2]:
+                    st.subheader("Experience")
+                    st.write(f"Age: {row.get('Age', 'N/A')}")
+                    st.write(f"Years of Experience: {row.get('Years of Experience', 'N/A')}")
+                with cols[3]:
+                    st.subheader("Agency Info")
+                    st.write(f"Fanspo Agency: {row.get('Fanspo Agency', 'N/A')}")
+                    st.write(f"Spotrac Agency: {row.get('Spotrac Agency', 'N/A')}")
 
 # Display MLB team roster
 def display_mlb_roster(team):
