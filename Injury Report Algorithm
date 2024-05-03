@@ -3,3 +3,30 @@ def display_injuries():
     injury_data_url = 'path_to_your_injury_data.csv'
     injury_data = load_data(injury_data_url)
     st.dataframe(injury_data)  # Displaying injury reports
+
+def injury_reports():
+    """ Function to handle injury reports in the dashboard. """
+    st.sidebar.title("Injury Reports")
+    injury_data_url = 'path_to_your_injury_data.csv'  # Update this to your actual path
+    
+    injury_data = load_data(injury_data_url)
+    
+    time_frame = st.sidebar.selectbox(
+        "Select Time Frame",
+        ['Last 24 hours', 'Last 48 hours', 'Last week', 'Last month', 'Season']
+    )
+    league = st.sidebar.selectbox(
+        "Select League",
+        ['NFL', 'NBA', 'MLB', 'NHL']
+    )
+
+    now = datetime.now()
+    start_date = now - {'Last 24 hours': timedelta(days=1),
+                        'Last 48 hours': timedelta(days=2),
+                        'Last week': timedelta(weeks=1),
+                        'Last month': timedelta(days=30),
+                        'Season': timedelta(days=365)}[time_frame]
+
+    filtered_data = injury_data[(injury_data['Timestamp'] >= start_date) & (injury_data['League'] == league)]
+    st.write(f"Injury Reports - {league} - {time_frame}")
+    st.dataframe(filtered_data)
