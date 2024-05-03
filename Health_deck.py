@@ -212,20 +212,20 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
+# Function to display NFL team roster with expandable, cleaner layout
 def display_nfl_roster(team):
     roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
         st.write(f"Roster for {team} (NFL):")
         for _, row in roster_df.iterrows():
-            with st.container():
-                # Creating a column layout
+            with st.expander(f"{row.get('Player Name', 'N/A')} - More Details"):
                 cols = st.columns([2, 2, 2, 2])
                 with cols[0]:
-                    st.subheader(f"Player: {row.get('Player Name', 'N/A')}")
+                    st.subheader("Basic Info")
                     st.write(f"Team: {row.get('Team Name', 'N/A')}")
                     st.write(f"Number: {row.get('Player Number', 'N/A')}")
                 with cols[1]:
-                    st.subheader("Details")
+                    st.subheader("Physical Stats")
                     st.write(f"Position: {row.get('Position', 'N/A')}")
                     st.write(f"Height: {row.get('Height', 'N/A')}")
                     st.write(f"Weight: {row.get('Weight', 'N/A')}")
