@@ -212,31 +212,36 @@ def load_data(url):
         st.error(f"Failed to load data: {e}")
         return pd.DataFrame()
 
-# Function to display NFL team roster with expandable, cleaner layout
+# Function to display NFL team roster with multiple expandable sections in a clean layout
 def display_nfl_roster(team):
     roster_df = load_data(nfl_team_roster_urls[team])
     if not roster_df.empty:
         st.write(f"Roster for {team} (NFL):")
         for _, row in roster_df.iterrows():
-            with st.expander(f"{row.get('Player Name', 'N/A')} - More Details"):
-                cols = st.columns([2, 2, 2, 2])
-                with cols[0]:
-                    st.subheader("Basic Info")
-                    st.write(f"Team: {row.get('Team Name', 'N/A')}")
-                    st.write(f"Number: {row.get('Player Number', 'N/A')}")
-                with cols[1]:
-                    st.subheader("Physical Stats")
-                    st.write(f"Position: {row.get('Position', 'N/A')}")
-                    st.write(f"Height: {row.get('Height', 'N/A')}")
-                    st.write(f"Weight: {row.get('Weight', 'N/A')}")
-                with cols[2]:
-                    st.subheader("Experience")
-                    st.write(f"Age: {row.get('Age', 'N/A')}")
-                    st.write(f"Years of Experience: {row.get('Years of Experience', 'N/A')}")
-                with cols[3]:
-                    st.subheader("Agency Info")
-                    st.write(f"Fanspo Agency: {row.get('Fanspo Agency', 'N/A')}")
-                    st.write(f"Spotrac Agency: {row.get('Spotrac Agency', 'N/A')}")
+            # Main container for each player
+            with st.container():
+                st.markdown(f"**{row.get('Player Name', 'N/A')}** - {row.get('Team Name', 'N/A')}")
+                # Create columns for different expanders
+                col1, col2, col3, col4 = st.columns(4)
+
+                with col1.expander("Player Details"):
+                    st.write(f"**Number:** {row.get('Player Number', 'N/A')}")
+                    st.write(f"**Position:** {row.get('Position', 'N/A')}")
+                    st.write(f"**Height:** {row.get('Height', 'N/A')}")
+                    st.write(f"**Weight:** {row.get('Weight', 'N/A')}")
+                    st.write(f"**Age:** {row.get('Age', 'N/A')}")
+                    st.write(f"**Years of Experience:** {row.get('Years of Experience', 'N/A')}")
+                    st.write(f"**Fanspo Agency:** {row.get('Fanspo Agency', 'N/A')}")
+                    st.write(f"**Spotrac Agency:** {row.get('Spotrac Agency', 'N/A')}")
+
+                with col2.expander("Career Health"):
+                    st.write("Career health data to be added.")  # Placeholder for actual data
+
+                with col3.expander("Seasonal Health"):
+                    st.write("Seasonal health data to be added.")  # Placeholder for actual data
+
+                with col4.expander("Percent of Reinjury"):
+                    st.write(f"**Percent of Reinjury:** {row.get('Percent of Reinjury', 'Data not available')}")
 
 # Display MLB team roster
 def display_mlb_roster(team):
