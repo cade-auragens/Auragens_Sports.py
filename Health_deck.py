@@ -374,6 +374,58 @@ if league_choice != 'Select a League':
             display_nba_roster(team_choice)
         elif league_choice == 'NHL':
             display_nhl_roster(team_choice)
+import pandas as pd
+
+def load_and_sort(filepath, sort_columns, ascending_list):
+    try:
+        df = pd.read_csv(filepath)
+        return df.sort_values(by=sort_columns, ascending=ascending_list)
+    except Exception as e:
+        print(f"Failed to load or process data from {filepath}: {str(e)}")
+        return pd.DataFrame()
+
+def main():
+    # Define file paths
+    mlb_file_path = 'path_to_mlb_data.csv'
+    nhl_file_path = 'path_to_nhl_data.csv'
+    nfl_file_path = 'path_to_nfl_data.csv'
+    nba_file_path = 'path_to_nba_data.csv'
+
+    # Sorting for MLB
+    mlb_sort_columns = ['Player Name', 'Position', 'Team', 'Status', 'Spotrac Agent', 'Spotrac Agency', 'Base Salary', 
+                        'Career Health', 'Seasonal Health', 'Percent of Reinjury']
+    mlb_ascending = [True, True, True, True, True, True, True, False, False, False]
+    mlb_data = load_and_sort(mlb_file_path, mlb_sort_columns, mlb_ascending)
+    print("MLB Data Sorted:")
+    print(mlb_data.head())
+
+    # Sorting for NHL
+    nhl_sort_columns = ['Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Team', 'Position', 
+                        'Puckpedia Agency', 'Puckpedia Agent', 'Player Name']
+    nhl_ascending = [False, False, False, True, True, True, True, True]
+    nhl_data = load_and_sort(nhl_file_path, nhl_sort_columns, nhl_ascending)
+    print("\nNHL Data Sorted:")
+    print(nhl_data.head())
+
+    # Sorting for NFL
+    nfl_sort_columns = ['Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Position', 'Spotrac Agent', 
+                        'Spotrac Agency', 'Fanspo Agency', 'Fanso Agent', 'Team', 'Player Name']
+    nfl_ascending = [False, False, False, True, True, True, True, True, True, True]
+    nfl_data = load_and_sort(nfl_file_path, nfl_sort_columns, nfl_ascending)
+    print("\nNFL Data Sorted:")
+    print(nfl_data.head())
+
+    # Sorting for NBA
+    nba_sort_columns = ['Career Health', 'Seasonal Health', 'Percent of Reinjury', 'Spotrac Agent', 'Spotrac Agency', 
+                        'Fanspo Agency', 'Fanso Agent', 'Position', 'Team', 'Player Name']
+    nba_ascending = [False, False, False, True, True, True, True, True, True, True]
+    nba_data = load_and_sort(nba_file_path, nba_sort_columns, nba_ascending)
+    print("\nNBA Data Sorted:")
+    print(nba_data.head())
+
+if __name__ == "__main__":
+    main()
+
 
 def load_data(url):
     #EXAMINE AND REFACTOR CODE
